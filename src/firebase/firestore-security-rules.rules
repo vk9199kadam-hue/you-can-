@@ -1,0 +1,24 @@
+// Firestore Security Rules for Academy Isolation and Role-Based Access Control
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /academies/{academyId} {
+
+      // Prevent data leakage between academies
+      allow read, write: if request.auth != null && request.auth.token.academy_id == academyId;
+
+      // Define user roles
+      match /timetables/{timetableId} {
+        // Teachers can perform CRUD operations on their own timetables
+        allow create, update, delete: if request.auth.token.role == 'teacher' && request.auth.token.academy_id == academyId && request.auth.token.user_id == resource.data.teacherId;
+
+        // Students can read timetables
+        allow read: if request.auth.token.role == 'student' && request.auth.token.academy_id == academyId;
+
+        // Heads can read all timetables across teachers
+        allow read: if request.auth.token.role == 'head' && request.auth.token.academy_id == academyId;
+      }
+    }
+  }
+}
