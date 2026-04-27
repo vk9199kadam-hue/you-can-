@@ -1,0 +1,123 @@
+{
+  "questions": [
+    {
+      "id": "1",
+      "subject": "Physics",
+      "chapter": "Rotational Dynamics",
+      "topic": "Moment of Inertia",
+      "exam_type": ["MHT-CET", "JEE"],
+      "question": "The moment of inertia of a thin uniform rod of mass M and length L about an axis passing through its center and perpendicular to its length is:",
+      "options": {
+        "A": "ML²/12",
+        "B": "ML²/3",
+        "C": "ML²/6",
+        "D": "ML²/2"
+      },
+      "answer": "A",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "2",
+      "subject": "Physics",
+      "chapter": "Rotational Dynamics",
+      "topic": "Centripetal Force",
+      "exam_type": ["MHT-CET"],
+      "question": "A particle of mass m moves in a circle of radius r with speed v. The centripetal acceleration is:",
+      "options": {
+        "A": "v/r",
+        "B": "v²/r",
+        "C": "v²/r²",
+        "D": "vr"
+      },
+      "answer": "B",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "3",
+      "subject": "Chemistry",
+      "chapter": "Solid State",
+      "topic": "Crystal Latices",
+      "exam_type": ["JEE", "MHT-CET"],
+      "question": "The number of atoms per unit cell in a Face-Centered Cubic (FCC) crystal is:",
+      "options": {
+        "A": "1",
+        "B": "2",
+        "C": "4",
+        "D": "8"
+      },
+      "answer": "C",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "4",
+      "subject": "Chemistry",
+      "chapter": "Solid State",
+      "topic": "Void Volume",
+      "exam_type": ["MHT-CET"],
+      "question": "The percentage of empty space in a body-centered cubic (BCC) unit cell is:",
+      "options": {
+        "A": "32%",
+        "B": "48%",
+        "C": "26%",
+        "D": "74%"
+      },
+      "answer": "A",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "5",
+      "subject": "Maths",
+      "chapter": "Integration",
+      "topic": "Definite Integrals",
+      "exam_type": ["JEE", "MHT-CET"],
+      "question": "Find the integral of e^x(f(x) + f'(x)) dx:",
+      "options": {
+        "A": "e^x f(x) + C",
+        "B": "e^x f'(x) + C",
+        "C": "e^x + f(x) + C",
+        "D": "f(x) + C"
+      },
+      "answer": "A",
+      "is_pyq": true,
+      "difficulty": 3
+    },
+    {
+      "id": "6",
+      "subject": "Biology",
+      "chapter": "Genetics",
+      "topic": "Mendelian Inheritance",
+      "exam_type": ["NEET", "MHT-CET"],
+      "question": "The phenotypic ratio of a dihybrid cross in F2 generation is:",
+      "options": {
+        "A": "3:1",
+        "B": "9:3:3:1",
+        "C": "1:2:1",
+        "D": "1:1:1:1"
+      },
+      "answer": "B",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+       "id": "7",
+       "subject": "Physics",
+       "chapter": "Rotational Dynamics",
+       "topic": "Angular Momentum",
+       "exam_type": ["JEE"],
+       "question": "A solid sphere is rotating about its diameter. If the radius is doubled without changing the mass, the new angular velocity will be:",
+       "options": {
+         "A": "ω/2",
+         "B": "ω/4",
+         "C": "2ω",
+         "D": "4ω"
+       },
+       "answer": "B",
+       "is_pyq": true,
+       "difficulty": 4
+    }
+  ]
+}
