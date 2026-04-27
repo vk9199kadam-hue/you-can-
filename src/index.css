@@ -1,81 +1,81 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #8B5CF6;
+  --color-primary: #1E40AF;
+  --color-primary-light: #3B82F6;
+  --color-primary-dark: #1E3A8A;
   --color-secondary: #10B981;
-  --color-accent: #F43F5E;
-  --color-bg: #050505;
-  --color-text-dim: #94A3B8;
+  --color-secondary-light: #6EE7B7;
+  --color-accent: #F59E0B;
+  --color-bg: #F9FAFB;
+  --color-surface: #FFFFFF;
+  --color-text: #1F2937;
+  --color-text-dim: #6B7280;
+  --color-border: #E5E7EB;
+  --color-error: #EF4444;
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-info: #3B82F6;
 }
 
 :root {
-  --primary: #8B5CF6;
+  --primary: #1E40AF;
+  --primary-light: #3B82F6;
+  --primary-dark: #1E3A8A;
   --secondary: #10B981;
-  --accent: #F43F5E;
-  --bg: #050505;
+  --accent: #F59E0B;
+  --bg: #F9FAFB;
+  --surface: #FFFFFF;
 }
 
 body {
   background-color: var(--bg);
-  color: white;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #1F2937;
+  font-family: 'Inter', sans-serif;
   overflow-x: hidden;
 }
 
 .brand {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Outfit', sans-serif;
 }
 
-/* Premium Glassmorphism */
+/* Professional Card */
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 24px;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  transition: border-color 0.2s ease;
 }
 
 .glass-card:hover {
-  border-color: rgba(139, 92, 246, 0.3);
-}
-
-.grid-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background-image: 
-    linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
-  background-size: 50px 50px;
-  mask-image: radial-gradient(circle at center, black, transparent 80%);
+  border-color: #3B82F6;
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--primary), #D8B4FE);
+  background: linear-gradient(135deg, #1E40AF, #3B82F6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .btn-premium {
-  background: linear-gradient(135deg, var(--primary), #6D28D9);
+  background: #1E40AF;
   color: white;
   font-weight: 700;
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(139,92,246,0.3);
+  border-radius: 10px;
+  transition: all 0.2s ease;
   border: none;
   cursor: pointer;
 }
 
 .btn-premium:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(139,92,246,0.5);
+  background: #1E3A8A;
 }
 
 .btn-ghost {
-  @apply px-4 py-2 text-text-dim hover:text-primary transition-colors font-bold uppercase tracking-widest text-[10px];
+  @apply px-4 py-2 text-text-dim hover:text-primary transition-colors font-semibold text-sm;
   background: none;
   border: none;
   cursor: pointer;
@@ -83,10 +83,10 @@ body {
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px); }
+  from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fadeIn 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  animation: fadeIn 0.4s ease forwards;
 }
