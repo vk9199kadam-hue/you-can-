@@ -1,0 +1,643 @@
+export interface SyllabusNode {
+  [chapter: string]: string[];
+}
+
+export interface SubjectTree {
+  [subject: string]: SyllabusNode;
+}
+
+export interface SyllabusTree {
+  [classLevel: string]: SubjectTree;
+}
+
+export const SYLLABUS_DATA: SyllabusTree = {
+  "Class 12": {
+    Physics: {
+      "Rotational Dynamics": [
+        "Moment of Inertia",
+        "Centripetal Force",
+        "Angular Momentum",
+        "Torque",
+        "Rolling Motion",
+      ],
+      "Mechanical Properties of Fluids": [
+        "Viscosity",
+        "Surface Tension",
+        "Bernoulli's Theorem",
+        "Stoke's Law",
+      ],
+      Thermodynamics: [
+        "Laws of Thermodynamics",
+        "Carnot Engine",
+        "Entropy",
+        "Heat Transfer",
+      ],
+      Oscillations: [
+        "Simple Harmonic Motion",
+        "Damped Oscillations",
+        "Forced Oscillations",
+        "Resonance",
+      ],
+      "Wave Motion": [
+        "Transverse Waves",
+        "Longitudinal Waves",
+        "Superposition of Waves",
+        "Doppler Effect",
+      ],
+      Electrostatics: [
+        "Coulomb's Law",
+        "Electric Field",
+        "Electric Potential",
+        "Gauss's Law",
+        "Capacitance",
+      ],
+      "Current Electricity": [
+        "Ohm's Law",
+        "Kirchhoff's Laws",
+        "Wheatstone Bridge",
+        "Meter Bridge",
+      ],
+      "Magnetic Effect of Current": [
+        "Biot-Savart Law",
+        "Ampere's Law",
+        "Solenoid & Toroid",
+        "Moving Coil Galvanometer",
+      ],
+      "Electromagnetic Induction": [
+        "Faraday's Law",
+        "Lenz's Law",
+        "Self Inductance",
+        "Mutual Inductance",
+      ],
+      Optics: [
+        "Refraction",
+        "Total Internal Reflection",
+        "Interference",
+        "Diffraction",
+        "Polarisation",
+      ],
+      "Dual Nature of Radiation": [
+        "Photoelectric Effect",
+        "de Broglie Hypothesis",
+        "Davisson-Germer Experiment",
+      ],
+      "Atoms and Nuclei": [
+        "Bohr Model",
+        "Radioactivity",
+        "Nuclear Fission",
+        "Nuclear Fusion",
+      ],
+      Semiconductors: [
+        "p-n Junction Diode",
+        "Zener Diode",
+        "Transistor",
+        "Logic Gates",
+      ],
+    },
+    Chemistry: {
+      "Solid State": [
+        "Crystal Systems",
+        "Packing Efficiency",
+        "Defects in Solids",
+        "Electrical Properties",
+      ],
+      Solutions: [
+        "Raoult's Law",
+        "Colligative Properties",
+        "Osmotic Pressure",
+        "Van't Hoff Factor",
+      ],
+      Electrochemistry: [
+        "Nernst Equation",
+        "Electrolytic Cells",
+        "Galvanic Cells",
+        "Conductance",
+      ],
+      "Chemical Kinetics": [
+        "Rate Laws",
+        "Activation Energy",
+        "Order of Reaction",
+        "Half Life",
+      ],
+      "Surface Chemistry": [
+        "Adsorption",
+        "Catalysis",
+        "Colloids",
+        "Emulsions",
+      ],
+      "p-Block Elements": [
+        "Group 15 Elements",
+        "Group 16 Elements",
+        "Group 17 Elements",
+        "Group 18 Elements",
+      ],
+      "d and f Block Elements": [
+        "Transition Elements",
+        "Lanthanoids",
+        "Actinoids",
+        "Interstitial Compounds",
+      ],
+      "Coordination Compounds": [
+        "Werner's Theory",
+        "Isomerism",
+        "Crystal Field Theory",
+        "Bonding in Complexes",
+      ],
+      "Organic Chemistry - Some Basic Principles": [
+        "IUPAC Nomenclature",
+        "Reaction Mechanisms",
+        "Inductive Effect",
+        "Hyperconjugation",
+      ],
+      "Aldehydes, Ketones and Carboxylic Acids": [
+        "Nucleophilic Addition",
+        "Cannizzaro Reaction",
+        "Aldol Condensation",
+        "Esterification",
+      ],
+      Amines: [
+        "Classification",
+        "Basicity of Amines",
+        "Diazonium Salts",
+        "Gabriel Synthesis",
+      ],
+      Biomolecules: [
+        "Carbohydrates",
+        "Proteins",
+        "Nucleic Acids",
+        "Vitamins",
+      ],
+      Polymers: [
+        "Addition Polymers",
+        "Condensation Polymers",
+        "Biodegradable Polymers",
+        "Rubber",
+      ],
+    },
+    Mathematics: {
+      "Relations and Functions": [
+        "Types of Relations",
+        "Composite Functions",
+        "Invertible Functions",
+        "Binary Operations",
+      ],
+      "Inverse Trigonometric Functions": [
+        "Principal Value Branch",
+        "Properties",
+        "Graphs",
+      ],
+      Matrices: [
+        "Types of Matrices",
+        "Operations on Matrices",
+        "Transpose & Symmetric",
+        "Elementary Transformations",
+      ],
+      Determinants: [
+        "Properties of Determinants",
+        "Cofactors & Minors",
+        "Cramer's Rule",
+        "Area of Triangle",
+      ],
+      Differentiation: [
+        "Chain Rule",
+        "Implicit Differentiation",
+        "Logarithmic Differentiation",
+        "Parametric Functions",
+      ],
+      "Applications of Derivatives": [
+        "Rate of Change",
+        "Maxima and Minima",
+        "Tangents & Normals",
+        "Rolle's Theorem",
+      ],
+      Integration: [
+        "Indefinite Integrals",
+        "Definite Integrals",
+        "Integration by Parts",
+        "Partial Fractions",
+      ],
+      "Applications of Integration": [
+        "Area Under Curves",
+        "Area Between Two Curves",
+        "Volume of Revolution",
+      ],
+      "Differential Equations": [
+        "Order and Degree",
+        "Variable Separable",
+        "Homogeneous Equations",
+        "Linear Differential Equations",
+      ],
+      "Vector Algebra": [
+        "Scalar & Vector Products",
+        "Direction Cosines",
+        "Section Formula",
+        "Cross Product Applications",
+      ],
+      "Three Dimensional Geometry": [
+        "Direction Cosines & Ratios",
+        "Equation of a Line",
+        "Equation of a Plane",
+        "Angle Between Lines",
+      ],
+      Probability: [
+        "Conditional Probability",
+        "Bayes' Theorem",
+        "Random Variables",
+        "Binomial Distribution",
+      ],
+      "Linear Programming": [
+        "Graphical Method",
+        "Feasible Region",
+        "Optimal Solution",
+      ],
+    },
+    Biology: {
+      "Reproduction in Organisms": [
+        "Asexual Reproduction",
+        "Sexual Reproduction",
+        "Vegetative Propagation",
+      ],
+      "Human Reproduction": [
+        "Male Reproductive System",
+        "Female Reproductive System",
+        "Gametogenesis",
+        "Fertilisation",
+      ],
+      "Reproductive Health": [
+        "Population Control",
+        "Contraception",
+        "STDs",
+        "Infertility",
+      ],
+      "Principles of Inheritance": [
+        "Mendelian Genetics",
+        "Incomplete Dominance",
+        "Co-dominance",
+        "Sex-Linked Inheritance",
+      ],
+      "Molecular Basis of Inheritance": [
+        "DNA Structure",
+        "DNA Replication",
+        "Transcription",
+        "Translation",
+      ],
+      Evolution: [
+        "Origin of Life",
+        "Natural Selection",
+        "Hardy-Weinberg Principle",
+        "Adaptive Radiation",
+      ],
+      "Human Health and Disease": [
+        "Pathogens",
+        "Immunity",
+        "AIDS",
+        "Cancer",
+      ],
+      "Microbes in Human Welfare": [
+        "Fermentation",
+        "Antibiotics",
+        "Biogas",
+        "Sewage Treatment",
+      ],
+      "Biotechnology - Principles": [
+        "Restriction Enzymes",
+        "PCR",
+        "Gel Electrophoresis",
+        "Recombinant DNA",
+      ],
+      "Biotechnology - Applications": [
+        "Transgenic Animals",
+        "Gene Therapy",
+        "GM Crops",
+        "Bioethics",
+      ],
+      "Organisms and Populations": [
+        "Population Attributes",
+        "Population Growth",
+        "Population Interactions",
+      ],
+      Ecosystem: [
+        "Energy Flow",
+        "Food Chains & Webs",
+        "Ecological Pyramids",
+        "Nutrient Cycling",
+      ],
+      Biodiversity: [
+        "Patterns of Biodiversity",
+        "Loss of Biodiversity",
+        "Conservation Strategies",
+      ],
+    },
+  },
+  "Class 11": {
+    Physics: {
+      "Physical World": [
+        "Scope of Physics",
+        "Fundamental Forces",
+        "Conservation Laws",
+      ],
+      "Units and Measurements": [
+        "SI Units",
+        "Dimensional Analysis",
+        "Significant Figures",
+        "Errors in Measurement",
+      ],
+      "Motion in a Straight Line": [
+        "Displacement & Velocity",
+        "Uniform Acceleration",
+        "Equations of Motion",
+        "Relative Motion",
+      ],
+      "Motion in a Plane": [
+        "Projectile Motion",
+        "Circular Motion",
+        "Vector Addition",
+        "Relative Velocity in 2D",
+      ],
+      "Laws of Motion": [
+        "Newton's Laws",
+        "Friction",
+        "Circular Motion Applications",
+        "Free Body Diagrams",
+      ],
+      "Work, Energy and Power": [
+        "Work-Energy Theorem",
+        "Kinetic & Potential Energy",
+        "Conservation of Energy",
+        "Power",
+      ],
+      "System of Particles": [
+        "Centre of Mass",
+        "Rotational Motion Basics",
+        "Moment of Inertia Intro",
+        "Angular Momentum Intro",
+      ],
+      Gravitation: [
+        "Universal Law of Gravitation",
+        "Acceleration due to Gravity",
+        "Orbital Velocity",
+        "Escape Velocity",
+        "Kepler's Laws",
+      ],
+      "Mechanical Properties of Solids": [
+        "Stress & Strain",
+        "Hooke's Law",
+        "Young's Modulus",
+        "Elastic Energy",
+      ],
+      "Thermal Properties of Matter": [
+        "Thermal Expansion",
+        "Calorimetry",
+        "Change of State",
+        "Specific Heat",
+      ],
+      "Kinetic Theory of Gases": [
+        "Ideal Gas Equation",
+        "Mean Free Path",
+        "Degrees of Freedom",
+        "Law of Equipartition",
+      ],
+    },
+    Chemistry: {
+      "Some Basic Concepts of Chemistry": [
+        "Mole Concept",
+        "Stoichiometry",
+        "Empirical & Molecular Formula",
+        "Percentage Composition",
+      ],
+      "Structure of Atom": [
+        "Bohr's Model",
+        "Quantum Numbers",
+        "Electronic Configuration",
+        "Shapes of Orbitals",
+      ],
+      "Classification of Elements": [
+        "Modern Periodic Table",
+        "Periodic Trends",
+        "Ionisation Energy",
+        "Electronegativity",
+      ],
+      "Chemical Bonding": [
+        "Ionic Bond",
+        "Covalent Bond",
+        "VSEPR Theory",
+        "Hybridisation",
+        "Molecular Orbital Theory",
+      ],
+      "States of Matter": [
+        "Gas Laws",
+        "Ideal Gas Equation",
+        "Kinetic Molecular Theory",
+        "Liquefaction of Gases",
+      ],
+      "Chemical Thermodynamics": [
+        "Enthalpy",
+        "Hess's Law",
+        "Gibbs Free Energy",
+        "Spontaneity",
+      ],
+      Equilibrium: [
+        "Law of Mass Action",
+        "Le Chatelier's Principle",
+        "Ionic Equilibrium",
+        "pH & Buffer Solutions",
+      ],
+      "Redox Reactions": [
+        "Oxidation Numbers",
+        "Balancing Redox Reactions",
+        "Electrochemical Series",
+      ],
+      "Organic Chemistry Basics": [
+        "Hybridisation in Organic Compounds",
+        "Isomerism",
+        "Reaction Intermediates",
+        "IUPAC Nomenclature Basics",
+      ],
+      Hydrocarbons: [
+        "Alkanes",
+        "Alkenes",
+        "Alkynes",
+        "Aromatic Hydrocarbons",
+      ],
+      "Environmental Chemistry": [
+        "Air Pollution",
+        "Water Pollution",
+        "Ozone Layer",
+        "Green Chemistry",
+      ],
+    },
+    Mathematics: {
+      Sets: [
+        "Types of Sets",
+        "Set Operations",
+        "Venn Diagrams",
+        "De Morgan's Laws",
+      ],
+      "Relations and Functions Intro": [
+        "Cartesian Product",
+        "Types of Functions",
+        "Domain & Range",
+      ],
+      "Trigonometric Functions": [
+        "Trigonometric Ratios",
+        "Trigonometric Identities",
+        "Graphs of Trig Functions",
+        "General Solutions",
+      ],
+      "Complex Numbers": [
+        "Algebra of Complex Numbers",
+        "Argand Plane",
+        "Modulus & Conjugate",
+        "Polar Form",
+      ],
+      "Linear Inequalities": [
+        "Solving Linear Inequalities",
+        "Graphical Representation",
+        "System of Inequalities",
+      ],
+      "Permutations and Combinations": [
+        "Fundamental Counting Principle",
+        "Permutations",
+        "Combinations",
+        "Applications",
+      ],
+      "Binomial Theorem": [
+        "Binomial Expansion",
+        "General Term",
+        "Middle Term",
+        "Applications",
+      ],
+      "Sequences and Series": [
+        "Arithmetic Progression",
+        "Geometric Progression",
+        "Sum to n Terms",
+        "Special Series",
+      ],
+      "Straight Lines": [
+        "Slope of a Line",
+        "Various Forms of Equations",
+        "Distance Formula",
+        "Angle Between Lines",
+      ],
+      "Conic Sections": [
+        "Circle",
+        "Parabola",
+        "Ellipse",
+        "Hyperbola",
+      ],
+      "Limits and Derivatives": [
+        "Limits",
+        "Derivatives from First Principles",
+        "Algebra of Derivatives",
+        "Trigonometric Derivatives",
+      ],
+      Statistics: [
+        "Mean Deviation",
+        "Variance",
+        "Standard Deviation",
+        "Analysis of Data",
+      ],
+      "Probability Intro": [
+        "Random Experiments",
+        "Events",
+        "Axiomatic Approach",
+        "Addition Rule",
+      ],
+    },
+    Biology: {
+      "The Living World": [
+        "Biodiversity",
+        "Taxonomic Categories",
+        "Binomial Nomenclature",
+      ],
+      "Biological Classification": [
+        "Five Kingdom Classification",
+        "Monera",
+        "Protista",
+        "Fungi",
+      ],
+      "Plant Kingdom": [
+        "Algae",
+        "Bryophytes",
+        "Pteridophytes",
+        "Gymnosperms & Angiosperms",
+      ],
+      "Animal Kingdom": [
+        "Phylum Classification",
+        "Invertebrates",
+        "Vertebrates",
+        "Chordata",
+      ],
+      "Morphology of Flowering Plants": [
+        "Root System",
+        "Stem & Leaf",
+        "Flower Structure",
+        "Fruit & Seed",
+      ],
+      "Anatomy of Flowering Plants": [
+        "Tissues",
+        "Tissue Systems",
+        "Anatomy of Root, Stem & Leaf",
+      ],
+      "Cell - Unit of Life": [
+        "Cell Theory",
+        "Prokaryotic & Eukaryotic Cells",
+        "Cell Organelles",
+        "Cell Membrane",
+      ],
+      Biomolecules: [
+        "Carbohydrates",
+        "Proteins",
+        "Lipids",
+        "Nucleic Acids",
+        "Enzymes",
+      ],
+      "Cell Division": [
+        "Cell Cycle",
+        "Mitosis",
+        "Meiosis",
+        "Significance of Meiosis",
+      ],
+      "Transport in Plants": [
+        "Diffusion & Osmosis",
+        "Transpiration",
+        "Translocation",
+      ],
+      "Photosynthesis": [
+        "Light Reactions",
+        "Calvin Cycle",
+        "C3 & C4 Plants",
+        "Photorespiration",
+      ],
+      "Respiration in Plants": [
+        "Glycolysis",
+        "Krebs Cycle",
+        "Electron Transport Chain",
+        "Fermentation",
+      ],
+      "Digestion and Absorption": [
+        "Alimentary Canal",
+        "Digestive Glands",
+        "Absorption of Nutrients",
+      ],
+      "Breathing and Gas Exchange": [
+        "Respiratory Organs",
+        "Mechanism of Breathing",
+        "Exchange of Gases",
+        "Respiratory Disorders",
+      ],
+      "Body Fluids and Circulation": [
+        "Blood Composition",
+        "Heart Structure",
+        "Cardiac Cycle",
+        "Blood Groups",
+      ],
+      "Neural Control and Coordination": [
+        "Neuron Structure",
+        "Nerve Impulse",
+        "Central Nervous System",
+        "Reflex Action",
+      ],
+    },
+  },
+};

@@ -2,28 +2,84 @@ export const DATA_SOURCES = {
   JEE_MAINS: {
     github: "https://github.com/HostServer001/jee_mains_pyqs_data_base",
     description: "14,000+ JEE PYQs (PCM)",
-    type: "Python/JSON"
+    type: "Python/JSON",
   },
   NEET_BENCHMARK: {
     huggingface: "https://huggingface.co/datasets/Reja1/jee-neet-benchmark",
     description: "NEET 2024 AUTHENTIC Qs (Image-based)",
-    type: "Hugging Face Parquet"
+    type: "Hugging Face Parquet",
   },
   MHT_CET_MOCK: {
     github: "https://github.com/Rushi128/MHT-CET-MOCKTEST",
     description: "Maharashtra State Board Mock Exam Framework",
-    type: "PHP/MySQL"
+    type: "PHP/MySQL",
   },
   ENTRANCE_EXAM_KG: {
     kaggle: "https://www.kaggle.com/datasets/damerajee/jee-question-json-format",
     description: "Master JSON Schema for PCM/PCB",
-    type: "JSON"
-  }
+    type: "JSON",
+  },
 };
 
 export const SYLLABUS_CHAPTERS = {
-  PHYSICS: ["Rotational Dynamics", "Solid State", "Thermodynamics", "Electrostatics"],
-  CHEMISTRY: ["Chemical Kinetics", "p-Block Elements", "Coordination Compounds"],
-  MATHS: ["Differentiation", "Integration", "Vectors", "Probability"],
-  BIOLOGY: ["Genetics", "Respiration", "Human Health", "Biotechnology"]
+  PHYSICS: [
+    "Rotational Dynamics",
+    "Mechanical Properties of Fluids",
+    "Thermodynamics",
+    "Oscillations",
+    "Wave Motion",
+    "Electrostatics",
+    "Current Electricity",
+    "Magnetic Effect of Current",
+    "Electromagnetic Induction",
+    "Optics",
+    "Dual Nature of Radiation",
+    "Atoms and Nuclei",
+    "Semiconductors",
+  ],
+  CHEMISTRY: [
+    "Solid State",
+    "Solutions",
+    "Electrochemistry",
+    "Chemical Kinetics",
+    "Surface Chemistry",
+    "p-Block Elements",
+    "d and f Block Elements",
+    "Coordination Compounds",
+    "Organic Chemistry - Some Basic Principles",
+    "Aldehydes, Ketones and Carboxylic Acids",
+    "Amines",
+    "Biomolecules",
+    "Polymers",
+  ],
+  MATHS: [
+    "Relations and Functions",
+    "Inverse Trigonometric Functions",
+    "Matrices",
+    "Determinants",
+    "Differentiation",
+    "Applications of Derivatives",
+    "Integration",
+    "Applications of Integration",
+    "Differential Equations",
+    "Vector Algebra",
+    "Three Dimensional Geometry",
+    "Probability",
+    "Linear Programming",
+  ],
+  BIOLOGY: [
+    "Reproduction in Organisms",
+    "Human Reproduction",
+    "Reproductive Health",
+    "Principles of Inheritance",
+    "Molecular Basis of Inheritance",
+    "Evolution",
+    "Human Health and Disease",
+    "Microbes in Human Welfare",
+    "Biotechnology - Principles",
+    "Biotechnology - Applications",
+    "Organisms and Populations",
+    "Ecosystem",
+    "Biodiversity",
+  ],
 };

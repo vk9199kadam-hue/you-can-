@@ -1,8 +1,3 @@
-/**
- * Student Analytics Engine
- * Tracks performance and syllabus completion.
- */
-
 export interface StudentStats {
   accuracy: number;
   completedChapters: number;
@@ -10,17 +5,16 @@ export interface StudentStats {
   weakTopics: string[];
 }
 
-export const getStudentPerformance = (userId: string): StudentStats => {
-  // Logic for PostHog aggregation would go here
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const getStudentPerformance = (_userId: string): StudentStats => {
   return {
     accuracy: 85.5,
     completedChapters: 12,
     totalQuestionsSolved: 1450,
-    weakTopics: ["Rotational Dynamics", "Organic Chemistry"]
+    weakTopics: ["Rotational Dynamics", "Organic Chemistry"],
   };
 };
 
-export const trackActivity = (event: string, properties: any) => {
+export const trackActivity = (event: string, properties: Record<string, unknown>) => {
   console.log(`Tracking Event: ${event}`, properties);
-  // PostHog.capture(event, properties);
 };
