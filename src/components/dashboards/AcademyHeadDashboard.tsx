@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import { getUsersByAcademy, getHomeworkByAcademy } from "../../firebase/firestore";
+import { getUsersByAcademy, getHomeworkByAcademy, getMasterContent, getAcademyContentAccess, setAcademyContentAccess } from "../../firebase/firestore";
 import type { UserProfile, HomeworkAssignment } from "../../types";
+import type { AcademyContentAccess, MasterContent } from "../../types";
+import { AppShell, Pill } from "../../ui/layout/AppShell";
+import { Card } from "../../ui/components/Card";
+import { Button } from "../../ui/components/Button";
 
-type Tab = "dashboard" | "teachers" | "students" | "reports";
+type Tab = "dashboard" | "teachers" | "students" | "content" | "reports";
 
 export default function AcademyHeadDashboard() {
   const { user, logout } = useAuth();
@@ -11,59 +15,70 @@ export default function AcademyHeadDashboard() {
   const [teachers, setTeachers] = useState<UserProfile[]>([]);
   const [students, setStudents] = useState<UserProfile[]>([]);
   const [homework, setHomework] = useState<HomeworkAssignment[]>([]);
+  const [masterContent, setMasterContent] = useState<MasterContent[]>([]);
+  const [access, setAccess] = useState<AcademyContentAccess[]>([]);
+  const [contentMsg, setContentMsg] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user?.academyId) return;
     let cancelled = false;
     (async () => {
-      const [t, s, hw] = await Promise.all([
+      const [t, s, hw, mc, acc] = await Promise.all([
         getUsersByAcademy(user.academyId, "teacher"),
         getUsersByAcademy(user.academyId, "student"),
         getHomeworkByAcademy(user.academyId),
+        getMasterContent(),
+        getAcademyContentAccess(user.academyId),
       ]);
-      if (!cancelled) { setTeachers(t); setStudents(s); setHomework(hw); setLoading(false); }
+      if (!cancelled) { setTeachers(t); setStudents(s); setHomework(hw); setMasterContent(mc); setAccess(acc); setLoading(false); }
     })();
     return () => { cancelled = true; };
   }, [user?.academyId]);
+
+  const refreshContent = async () => {
+    if (!user?.academyId) return;
+    const [mc, acc] = await Promise.all([getMasterContent(), getAcademyContentAccess(user.academyId)]);
+    setMasterContent(mc);
+    setAccess(acc);
+  };
+
+  const isEnabled = (contentId: string) => access.some((a) => a.contentId === contentId && a.enabled);
+
+  const toggleAccess = async (contentId: string, enabled: boolean) => {
+    if (!user?.academyId) return;
+    setContentMsg("");
+    try {
+      await setAcademyContentAccess({ academyId: user.academyId, contentId, enabled });
+      await refreshContent();
+      setContentMsg("Access updated.");
+    } catch (err) {
+      setContentMsg("Error: " + (err instanceof Error ? err.message : "Failed"));
+    }
+  };
 
   const tabs: { id: Tab; label: string; icon: string }[] = [
     { id: "dashboard", label: "Dashboard", icon: "dashboard" },
     { id: "teachers", label: "Teachers", icon: "person" },
     { id: "students", label: "Students", icon: "school" },
+    { id: "content", label: "Content Access", icon: "library_books" },
     { id: "reports", label: "Reports", icon: "bar_chart" },
   ];
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB]">
-      <header className="bg-white border-b border-[#E5E7EB] px-6 h-14 flex items-center justify-between sticky top-0 z-50">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[#1E40AF] flex items-center justify-center font-extrabold text-sm text-white">Y</div>
-          <span className="font-bold text-[15px] text-[#1F2937]" style={{ fontFamily: "Outfit, sans-serif" }}>YOU CAN</span>
-          <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#EFF6FF] text-[#1E40AF] font-semibold ml-2">{user?.academyName}</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <span className="text-sm text-[#6B7280]">{user?.name}</span>
-          <button onClick={logout} className="text-sm text-[#EF4444] font-semibold hover:underline">Logout</button>
-        </div>
-      </header>
-
-      <div className="flex">
-        <nav className="w-60 bg-white border-r border-[#E5E7EB] min-h-[calc(100vh-56px)] p-3 sticky top-14">
-          <div className="px-3 py-2 mb-2">
-            <div className="text-xs font-bold text-[#9CA3AF] uppercase tracking-wider">Academy Head</div>
-          </div>
-          {tabs.map((t) => (
-            <button key={t.id} onClick={() => setTab(t.id)} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium mb-1 transition ${tab === t.id ? "bg-[#EFF6FF] text-[#1E40AF]" : "text-[#6B7280] hover:bg-[#F9FAFB]"}`}>
-              <span className="material-icons-outlined text-xl">{t.icon}</span>{t.label}
-            </button>
-          ))}
-        </nav>
-
-        <main className="flex-1 p-8 max-w-[1100px]">
-          {loading ? (
-            <div className="text-center text-[#6B7280] py-20">Loading...</div>
-          ) : tab === "dashboard" ? (
+    <AppShell
+      topPill={<Pill tone="success">{user?.academyName || "Academy"}</Pill>}
+      title="Academy Head"
+      subtitle="Monitor teachers, students, and content"
+      navItems={tabs}
+      activeNavId={tab}
+      onNavChange={(id) => setTab(id as Tab)}
+      userLabel={user?.name}
+      onLogout={logout}
+    >
+      {loading ? (
+        <div className="text-center text-text-dim py-20">Loading...</div>
+      ) : tab === "dashboard" ? (
             <div>
               <p className="text-xs font-bold text-[#1E40AF] uppercase tracking-wider mb-1">Academy Head</p>
               <h1 className="text-[28px] font-extrabold text-[#1F2937] mb-1" style={{ fontFamily: "Outfit, sans-serif" }}>Academy Overview</h1>
@@ -175,6 +190,64 @@ export default function AcademyHeadDashboard() {
                 </div>
               )}
             </div>
+          ) : tab === "content" ? (
+            <div>
+              <h1 className="text-[28px] font-extrabold text-text mb-1 brand">Content Access</h1>
+              <p className="text-sm text-text-dim mb-7">Enable platform master content for your academy</p>
+
+              {contentMsg ? (
+                <div className={`mb-4 p-3 rounded-lg text-sm font-medium ${contentMsg.startsWith("Error") ? "bg-[#FEF2F2] text-error" : "bg-[#ECFDF5] text-[#059669]"}`}>
+                  {contentMsg}
+                </div>
+              ) : null}
+
+              <Card className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <div className="font-bold text-base brand">Master Content Library</div>
+                    <div className="text-[13px] text-text-dim">{masterContent.length} items</div>
+                  </div>
+                  <Button variant="outline" onClick={refreshContent}>Refresh</Button>
+                </div>
+
+                {masterContent.length === 0 ? (
+                  <p className="text-sm text-text-dim">No master content available yet.</p>
+                ) : (
+                  <div className="space-y-3">
+                    {masterContent.slice(0, 60).map((c) => {
+                      const enabled = isEnabled(c.id);
+                      return (
+                        <div key={c.id} className="p-3 rounded-lg border border-border bg-bg flex items-center justify-between gap-4">
+                          <div className="min-w-0">
+                            <div className="font-semibold text-sm truncate">{c.title}</div>
+                            <div className="text-xs text-text-dim truncate">
+                              {c.classLevel} · {c.subject}
+                              {c.chapter ? ` · ${c.chapter}` : ""}
+                              {c.topic ? ` · ${c.topic}` : ""}
+                            </div>
+                            <a className="text-xs text-primary-light font-medium hover:underline" href={c.fileUrl} target="_blank" rel="noreferrer">
+                              Open link
+                            </a>
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => toggleAccess(c.id, !enabled)}
+                            className={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold border transition ${
+                              enabled
+                                ? "bg-[#ECFDF5] text-[#059669] border-[#A7F3D0]"
+                                : "bg-surface text-text-dim border-border hover:bg-bg"
+                            }`}
+                          >
+                            {enabled ? "Enabled" : "Enable"}
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </Card>
+            </div>
           ) : (
             <div>
               <p className="text-xs font-bold text-[#1E40AF] uppercase tracking-wider mb-1">Academy Head</p>
@@ -197,8 +270,6 @@ export default function AcademyHeadDashboard() {
               </div>
             </div>
           )}
-        </main>
-      </div>
-    </div>
+    </AppShell>
   );
 }

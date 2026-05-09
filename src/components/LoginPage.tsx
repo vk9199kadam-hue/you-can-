@@ -1,15 +1,20 @@
 import { useState, useEffect } from "react";
-import { loginUser, registerUser } from "../firebase/auth";
+import { loginWithUserCode, registerUser } from "../firebase/auth";
 import { getAcademies } from "../firebase/firestore";
 import type { Academy, UserRole } from "../types";
 import { useAuth } from "../contexts/AuthContext";
+import { Button } from "../ui/components/Button";
+import { Card } from "../ui/components/Card";
+import { Input, Label, Select } from "../ui/components/Form";
+import { BrandMark } from "../ui/layout/AppShell";
+import { cn } from "../ui/cn";
 
 export default function LoginPage() {
   const { setUser } = useAuth();
   const [academies, setAcademies] = useState<Academy[]>([]);
   const [selectedAcademy, setSelectedAcademy] = useState("");
   const [role, setRole] = useState<UserRole>("student");
-  const [email, setEmail] = useState("");
+  const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [isSignup, setIsSignup] = useState(false);
@@ -33,7 +38,7 @@ export default function LoginPage() {
       if (isSignup) {
         if (!name) { setError("Please enter your name"); setLoading(false); return; }
         const academy = academies.find((a) => a.id === selectedAcademy);
-        const profile = await registerUser(email, password, {
+        const profile = await registerUser(`${Date.now()}@signup.youcan`, password, {
           name,
           role: isSuperAdmin ? "super_admin" : role,
           academyId: isSuperAdmin ? "platform" : selectedAcademy,
@@ -41,15 +46,25 @@ export default function LoginPage() {
         });
         setUser(profile);
       } else {
-        const profile = await loginUser(email, password);
+        if (isSuperAdmin) {
+          setError("Super Admin login is not yet migrated to UserID flow. Use existing admin account email/password for now.");
+          setLoading(false);
+          return;
+        }
+        const profile = await loginWithUserCode({
+          academyId: selectedAcademy,
+          role,
+          userCode: userId,
+          password,
+        });
         setUser(profile);
       }
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "An error occurred";
       if (message.includes("auth/invalid-credential") || message.includes("auth/wrong-password")) {
-        setError("Invalid email or password");
+        setError("Invalid User ID or password");
       } else if (message.includes("auth/user-not-found")) {
-        setError("No account found with this email");
+        setError("No account found with this User ID");
       } else if (message.includes("auth/email-already-in-use")) {
         setError("An account with this email already exists");
       } else if (message.includes("auth/weak-password")) {
@@ -68,52 +83,55 @@ export default function LoginPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] flex items-center justify-center px-4">
+    <div className="min-h-screen bg-bg flex items-center justify-center px-4 relative overflow-hidden">
+      <div className="yc-grid-bg" />
+      <div className="absolute -top-40 -left-48 w-[520px] h-[520px] rounded-full blur-3xl opacity-30 bg-primary-light" />
+      <div className="absolute -bottom-56 -right-40 w-[620px] h-[620px] rounded-full blur-3xl opacity-25 bg-[#8B5CF6]" />
       <div className="w-full max-w-[420px]">
         <div className="text-center mb-8">
-          <div className="w-12 h-12 rounded-xl bg-[#1E40AF] inline-flex items-center justify-center font-extrabold text-xl text-white mb-4">
-            Y
+          <div className="inline-flex items-center justify-center mb-4">
+            <BrandMark />
           </div>
-          <h2 className="text-2xl font-extrabold text-[#1F2937] mb-1" style={{ fontFamily: "Outfit, sans-serif" }}>
+          <h2 className="text-2xl font-extrabold text-text mb-1 brand">
             {isSignup ? "Create Account" : "Welcome to YOU CAN"}
           </h2>
-          <p className="text-sm text-[#6B7280]">
+          <p className="text-sm text-text-dim">
             {isSignup ? "Register for your academy" : "Sign in to your academy dashboard"}
           </p>
         </div>
 
-        <div className="bg-white border border-[#E5E7EB] rounded-xl shadow-sm p-8">
+        <Card className="p-8 relative">
           <form onSubmit={handleSubmit}>
             {!isSuperAdmin && (
               <div className="mb-5">
-                <label className="block text-[13px] font-semibold text-[#1F2937] mb-1.5">Academy</label>
-                <select
+                <Label>Academy</Label>
+                <Select
                   value={selectedAcademy}
                   onChange={(e) => setSelectedAcademy(e.target.value)}
-                  className="w-full px-3.5 py-2.5 border border-[#E5E7EB] rounded-lg text-sm text-[#1F2937] bg-white outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/10 transition"
                 >
                   {academies.length === 0 && <option value="">No academies found</option>}
                   {academies.map((a) => (
                     <option key={a.id} value={a.id}>{a.name}, {a.city}</option>
                   ))}
-                </select>
+                </Select>
               </div>
             )}
 
             {!isSuperAdmin && (
               <div className="mb-5">
-                <label className="block text-[13px] font-semibold text-[#1F2937] mb-1.5">I am a</label>
+                <Label>I am a</Label>
                 <div className="grid grid-cols-3 gap-2">
                   {roles.map((r) => (
                     <button
                       key={r.value}
                       type="button"
                       onClick={() => setRole(r.value)}
-                      className={`py-3 rounded-lg text-center transition border-2 ${
+                      className={cn(
+                        "py-3 rounded-lg text-center transition border-2",
                         role === r.value
-                          ? "border-[#1E40AF] bg-[#EFF6FF] text-[#1E40AF]"
-                          : "border-[#E5E7EB] bg-white text-[#6B7280] hover:bg-[#F9FAFB]"
-                      }`}
+                          ? "border-primary bg-[#EFF6FF] text-primary"
+                          : "border-border bg-surface text-text-dim hover:bg-bg",
+                      )}
                     >
                       <span className="material-icons-outlined text-xl block mb-1">{r.icon}</span>
                       <span className="text-xs font-semibold">{r.label}</span>
@@ -125,70 +143,67 @@ export default function LoginPage() {
 
             {isSignup && (
               <div className="mb-5">
-                <label className="block text-[13px] font-semibold text-[#1F2937] mb-1.5">Full Name</label>
-                <input
+                <Label>Full Name</Label>
+                <Input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Enter your name"
-                  className="w-full px-3.5 py-2.5 border border-[#E5E7EB] rounded-lg text-sm text-[#1F2937] bg-white outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/10 transition placeholder:text-[#9CA3AF]"
                 />
               </div>
             )}
 
             <div className="mb-5">
-              <label className="block text-[13px] font-semibold text-[#1F2937] mb-1.5">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                className="w-full px-3.5 py-2.5 border border-[#E5E7EB] rounded-lg text-sm text-[#1F2937] bg-white outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/10 transition placeholder:text-[#9CA3AF]"
+              <Label>User ID</Label>
+              <Input
+                value={userId}
+                onChange={(e) => setUserId(e.target.value)}
+                placeholder="e.g. STU-ACAD01-0001"
               />
             </div>
 
             <div className="mb-6">
-              <label className="block text-[13px] font-semibold text-[#1F2937] mb-1.5">Password</label>
-              <input
+              <Label>Password</Label>
+              <Input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full px-3.5 py-2.5 border border-[#E5E7EB] rounded-lg text-sm text-[#1F2937] bg-white outline-none focus:border-[#3B82F6] focus:ring-2 focus:ring-[#3B82F6]/10 transition placeholder:text-[#9CA3AF]"
               />
             </div>
 
             {error && (
-              <div className="mb-4 p-3 bg-[#FEF2F2] border border-[#FCA5A5] rounded-lg text-sm text-[#EF4444] font-medium">
+              <div className="mb-4 p-3 bg-[#FEF2F2] border border-[#FCA5A5] rounded-lg text-sm text-error font-medium">
                 {error}
               </div>
             )}
 
-            <button
+            <Button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-[#1E40AF] text-white font-semibold rounded-lg hover:bg-[#1E3A8A] transition disabled:opacity-50 text-[15px]"
+              size="lg"
+              className="w-full"
             >
               {loading ? "Please wait..." : isSignup ? "Create Account" : "Sign In"}
-            </button>
+            </Button>
 
             <div className="text-center mt-4">
               <button
                 type="button"
                 onClick={() => { setIsSignup(!isSignup); setError(""); }}
-                className="text-sm text-[#3B82F6] font-medium hover:underline"
+                className="text-sm text-primary-light font-medium hover:underline"
               >
                 {isSignup ? "Already have an account? Sign In" : "Don't have an account? Sign Up"}
               </button>
             </div>
           </form>
-        </div>
+        </Card>
 
-        <p className="text-center mt-4 text-[13px] text-[#6B7280]">
+        <p className="text-center mt-4 text-[13px] text-text-dim">
           Platform admin?{" "}
           <button
             onClick={() => { setIsSuperAdmin(!isSuperAdmin); setError(""); }}
-            className="text-[#1E40AF] font-semibold hover:underline"
+            className="text-primary font-semibold hover:underline"
           >
             {isSuperAdmin ? "Back to Academy Login" : "Super Admin Login"}
           </button>

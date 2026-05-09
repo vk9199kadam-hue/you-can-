@@ -14,11 +14,37 @@ import {
 import { auth, db } from "./config";
 import type { UserProfile, UserRole } from "../types";
 
+function normalizeCode(raw: string) {
+  return raw.trim().toUpperCase().replace(/\s+/g, "");
+}
+
+function makeLoginEmail(academyId: string, userCode: string) {
+  const safeAcademy = academyId.toLowerCase().replace(/[^a-z0-9-]/g, "");
+  return `${normalizeCode(userCode)}@${safeAcademy}.youcan`;
+}
+
 export async function loginUser(email: string, password: string): Promise<UserProfile> {
   const credential = await signInWithEmailAndPassword(auth, email, password);
   const profile = await getUserProfile(credential.user.uid);
   if (!profile) {
     throw new Error("User profile not found. Please contact your academy administrator.");
+  }
+  return profile;
+}
+
+export async function loginWithUserCode(args: {
+  academyId: string;
+  role: UserRole;
+  userCode: string;
+  password: string;
+}): Promise<UserProfile> {
+  const email = makeLoginEmail(args.academyId, args.userCode);
+  const profile = await loginUser(email, args.password);
+  if (profile.academyId !== args.academyId) {
+    throw new Error("User not found in this academy.");
+  }
+  if (profile.role !== args.role) {
+    throw new Error("Incorrect role selected.");
   }
   return profile;
 }

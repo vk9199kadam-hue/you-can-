@@ -26,6 +26,8 @@ import type {
   ScheduleEntry,
   DoubtSession,
   QuestionDoc,
+  MasterContent,
+  AcademyContentAccess,
 } from "../types";
 
 // ---- Academies ----
@@ -97,11 +99,33 @@ export async function getQuestions(filters?: {
   if (filters?.subject) constraints.push(where("subject", "==", filters.subject));
   if (filters?.chapter) constraints.push(where("chapter", "==", filters.chapter));
   if (filters?.difficulty) constraints.push(where("difficulty", "==", filters.difficulty));
+  // Multi-tenant: show shared questions + academy questions.
+  // NOTE: Firestore doesn't support OR queries well without extra indexing.
+  // We keep it simple: caller can pass academyId to fetch academy-private questions,
+  // and we always fetch shared questions in a second query.
   const q = constraints.length > 0
     ? query(collection(db, "questions"), ...constraints)
     : query(collection(db, "questions"));
   const snap = await getDocs(q);
-  return snap.docs.map((d) => ({ ...d.data(), id: d.id })) as QuestionDoc[];
+  let results = snap.docs.map((d) => ({ ...d.data(), id: d.id })) as QuestionDoc[];
+
+  // If academyId is specified, also fetch shared questions and merge.
+  // This avoids leaking other academies' private questions.
+  if (filters?.academyId) {
+    const sharedSnap = await getDocs(
+      query(collection(db, "questions"), where("isShared", "==", true))
+    );
+    const shared = sharedSnap.docs.map((d) => ({ ...d.data(), id: d.id })) as QuestionDoc[];
+    const map = new Map<string, QuestionDoc>();
+    for (const r of results) map.set(r.id, r);
+    for (const r of shared) map.set(r.id, r);
+    results = Array.from(map.values()).filter((qDoc) => {
+      if (qDoc.isShared) return true;
+      return qDoc.academyId === filters.academyId;
+    });
+  }
+
+  return results;
 }
 
 export async function addQuestion(data: Omit<QuestionDoc, "id">): Promise<string> {
@@ -237,6 +261,38 @@ export async function getScheduleEntries(timetableId: string): Promise<ScheduleE
 
 export async function setScheduleEntry(id: string, data: Omit<ScheduleEntry, "id">): Promise<void> {
   await setDoc(doc(db, "schedule_entries", id), data);
+}
+
+// ---- Master Content + Access ----
+
+export async function getMasterContent(): Promise<MasterContent[]> {
+  const snap = await getDocs(query(collection(db, "master_content"), orderBy("createdAt", "desc")));
+  return snap.docs.map((d) => ({
+    ...d.data(),
+    id: d.id,
+    createdAt: d.data().createdAt?.toDate?.() ?? new Date(),
+  })) as MasterContent[];
+}
+
+export async function addMasterContent(data: Omit<MasterContent, "id" | "createdAt">): Promise<string> {
+  const ref = await addDoc(collection(db, "master_content"), { ...data, createdAt: serverTimestamp() });
+  return ref.id;
+}
+
+export async function getAcademyContentAccess(academyId: string): Promise<AcademyContentAccess[]> {
+  const snap = await getDocs(
+    query(collection(db, "academy_content_access"), where("academyId", "==", academyId))
+  );
+  return snap.docs.map((d) => ({
+    ...d.data(),
+    id: d.id,
+    createdAt: d.data().createdAt?.toDate?.() ?? new Date(),
+  })) as AcademyContentAccess[];
+}
+
+export async function setAcademyContentAccess(data: Omit<AcademyContentAccess, "id" | "createdAt">): Promise<string> {
+  const ref = await addDoc(collection(db, "academy_content_access"), { ...data, createdAt: serverTimestamp() });
+  return ref.id;
 }
 
 // ---- Doubts ----

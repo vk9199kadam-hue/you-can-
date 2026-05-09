@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "projects": {
+    "you-can": {
+      "root": ".",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nx/vite:build",
+          "outputs": ["dist"],
+          "options": {
+            "outputPath": "dist",
+            "configFile": "vite.config.ts"
+          }
+        },
+        "serve": {
+          "executor": "@nx/vite:dev-server",
+          "options": {
+            "configFile": "vite.config.ts",
+            "buildTarget": "you-can:build"
+          }
+        },
+        "lint": {
+          "executor": "@nx/eslint:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.{ts,tsx,js,jsx}",
+              "vite.config.ts"
+            ]
+          }
+        },
+        "typecheck": {
+          "executor": "@nx/js:tsc",
+          "options": {
+            "tsConfig": "tsconfig.app.json"
+          }
+        }
+      },
+      "tags": []
+    }
+  }
+}

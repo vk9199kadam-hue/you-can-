@@ -9,6 +9,7 @@
   --color-secondary: #10B981;
   --color-secondary-light: #6EE7B7;
   --color-accent: #F59E0B;
+  --color-premium: #8B5CF6;
   --color-bg: #F9FAFB;
   --color-surface: #FFFFFF;
   --color-text: #1F2937;
@@ -89,4 +90,14 @@ body {
 
 .animate-fade-in {
   animation: fadeIn 0.4s ease forwards;
+}
+
+.yc-grid-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(59, 130, 246, 0.10) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 0.35;
+  mask-image: radial-gradient(circle at 30% 10%, black 0%, transparent 55%);
 }

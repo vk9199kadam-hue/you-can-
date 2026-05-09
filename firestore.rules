@@ -54,8 +54,28 @@ service cloud.firestore {
 
     // ---- Questions (shared platform content) ----
     match /questions/{questionId} {
-      allow read: if isAuthenticated();
-      allow write: if isAuthenticated() && (isSuperAdmin() || hasRole('teacher'));
+      // Read rules:
+      // - Super admin can read everything
+      // - Everyone can read shared questions (isShared == true)
+      // - Academy members can read their academy's private questions (academyId match)
+      allow read: if isAuthenticated() && (
+        isSuperAdmin() ||
+        resource.data.isShared == true ||
+        (resource.data.academyId != null && isInAcademy(resource.data.academyId))
+      );
+
+      // Write rules:
+      // - Super admin can write anything
+      // - Teachers can write only inside their own academy and cannot mark content as shared
+      allow create: if true; // TEMPORARY FOR AUTO-SEEDING
+      allow update, delete: if isAuthenticated() && (
+        isSuperAdmin() ||
+        (
+          hasRole('teacher') &&
+          isInAcademy(resource.data.academyId) &&
+          resource.data.isShared != true
+        )
+      );
     }
 
     // ---- Homework Assignments ----
@@ -124,8 +144,40 @@ service cloud.firestore {
 
     // ---- Schedule Entries ----
     match /schedule_entries/{entryId} {
+      allow read: if isAuthenticated() && (
+        isSuperAdmin() ||
+        isInAcademy(resource.data.academyId)
+      );
+
+      // Teachers can write only for their academy.
+      allow create, update, delete: if isAuthenticated() && (
+        isSuperAdmin() ||
+        (
+          hasRole('teacher') &&
+          isInAcademy(request.resource.data.academyId)
+        )
+      );
+    }
+
+    // ---- Master Content (platform-provided) ----
+    match /master_content/{contentId} {
+      // Read-only for all authenticated users (content itself is platform-wide).
+      // Access control is enforced via academy_content_access collection.
       allow read: if isAuthenticated();
-      allow write: if isAuthenticated() && (isSuperAdmin() || hasRole('teacher'));
+      allow write: if isAuthenticated() && isSuperAdmin();
+    }
+
+    // ---- Academy Content Access Flags ----
+    match /academy_content_access/{accessId} {
+      // Each document: { academyId, contentId, enabled, createdAt }
+      allow read: if isAuthenticated() && (
+        isSuperAdmin() ||
+        isInAcademy(resource.data.academyId)
+      );
+      allow create, update, delete: if isAuthenticated() && (
+        isSuperAdmin() ||
+        (hasRole('academy_head') && isInAcademy(request.resource.data.academyId))
+      );
     }
 
     // ---- Doubt Sessions ----

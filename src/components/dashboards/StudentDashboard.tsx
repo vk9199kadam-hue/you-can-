@@ -1,15 +1,20 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import { getHomeworkByAcademy, getTestsByStudent, getDoubts, createDoubt } from "../../firebase/firestore";
+import { getHomeworkByAcademy, getTestsByStudent, getDoubts, createDoubt, getTimetables, getScheduleEntries } from "../../firebase/firestore";
 import { fetchQuestions } from "../../services/dataService";
 import { generateTestLogic } from "../../test-engine/generator";
 import type { HomeworkAssignment, TestSession, DoubtSession } from "../../types";
+import type { ScheduleEntry, Timetable } from "../../types";
 import type { Question } from "../../services/dataService";
 import TestRunner from "../TestRunner";
 import TestResults from "../TestResults";
 import SyllabusSelector from "../SyllabusSelector";
+import { AppShell, Pill } from "../../ui/layout/AppShell";
+import { Card } from "../../ui/components/Card";
+import { Button } from "../../ui/components/Button";
+import { Select, Textarea } from "../../ui/components/Form";
 
-type Tab = "dashboard" | "homework" | "test" | "results" | "doubts" | "progress";
+type Tab = "dashboard" | "homework" | "test" | "results" | "timetable" | "doubts" | "progress";
 
 export default function StudentDashboard() {
   const { user, logout } = useAuth();
@@ -19,6 +24,7 @@ export default function StudentDashboard() {
   const [doubts, setDoubts] = useState<DoubtSession[]>([]);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
+  const [ttEntries, setTtEntries] = useState<ScheduleEntry[]>([]);
 
   // Test state
   const [currentTest, setCurrentTest] = useState<{ questions: Question[]; marking: { correct: number; wrong: number }; timeLimit: number } | null>(null);
@@ -44,6 +50,24 @@ export default function StudentDashboard() {
     setLoading(false);
   };
 
+  const refreshTimetable = async () => {
+    if (!user?.academyId) return;
+    const now = new Date();
+    const month = now.getMonth() + 1;
+    const year = now.getFullYear();
+    const all = await getTimetables(user.academyId);
+    const match =
+      all.find((t: Timetable) => t.month === month && t.year === year && t.classId === (user.classLevel || "Class 12")) ??
+      all.find((t: Timetable) => t.month === month && t.year === year) ??
+      null;
+    if (!match) {
+      setTtEntries([]);
+      return;
+    }
+    const es = await getScheduleEntries(match.id);
+    setTtEntries(es);
+  };
+
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -58,6 +82,11 @@ export default function StudentDashboard() {
       if (!cancelled) { setHomework(hw); setQuestions(qs); setDoubts(dts); setLoading(false); }
     })();
     return () => { cancelled = true; };
+  }, [user?.uid, user?.academyId]);
+
+  useEffect(() => {
+    refreshTimetable();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.uid, user?.academyId]);
 
   const handleStartTest = (selection: { class: string; subject: string; chapter: string; topic: string }) => {
@@ -107,42 +136,28 @@ export default function StudentDashboard() {
     { id: "dashboard", label: "Dashboard", icon: "dashboard" },
     { id: "homework", label: "Homework", icon: "assignment" },
     { id: "test", label: "Practice", icon: "quiz" },
+    { id: "timetable", label: "Timetable", icon: "calendar_month" },
     { id: "doubts", label: "Doubts", icon: "help_outline" },
     { id: "progress", label: "Progress", icon: "trending_up" },
   ];
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB]">
-      <header className="bg-white border-b border-[#E5E7EB] px-6 h-14 flex items-center justify-between sticky top-0 z-50">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[#1E40AF] flex items-center justify-center font-extrabold text-sm text-white">Y</div>
-          <span className="font-bold text-[15px] text-[#1F2937]" style={{ fontFamily: "Outfit, sans-serif" }}>YOU CAN</span>
-          <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#EFF6FF] text-[#1E40AF] font-semibold ml-2">{user?.academyName}</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <span className="text-sm text-[#6B7280]">{user?.name}</span>
-          <button onClick={logout} className="text-sm text-[#EF4444] font-semibold hover:underline">Logout</button>
-        </div>
-      </header>
-
-      <div className="flex">
-        <nav className="w-60 bg-white border-r border-[#E5E7EB] min-h-[calc(100vh-56px)] p-3 sticky top-14">
-          <div className="px-3 py-2 mb-2"><div className="text-xs font-bold text-[#9CA3AF] uppercase tracking-wider">Student</div></div>
-          {tabs.map((t) => (
-            <button key={t.id} onClick={() => setTab(t.id)} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium mb-1 transition ${tab === t.id ? "bg-[#EFF6FF] text-[#1E40AF]" : "text-[#6B7280] hover:bg-[#F9FAFB]"}`}>
-              <span className="material-icons-outlined text-xl">{t.icon}</span>{t.label}
-            </button>
-          ))}
-        </nav>
-
-        <main className="flex-1 p-8 max-w-[1100px]">
-          {loading ? (
-            <div className="text-center text-[#6B7280] py-20">Loading...</div>
-          ) : tab === "dashboard" ? (
-            <div>
-              <p className="text-xs font-bold text-[#1E40AF] uppercase tracking-wider mb-1">Student Dashboard</p>
-              <h1 className="text-[28px] font-extrabold text-[#1F2937] mb-1" style={{ fontFamily: "Outfit, sans-serif" }}>Hello, {user?.name}!</h1>
-              <p className="text-sm text-[#6B7280] mb-7">{user?.classLevel || "Class 12"} {user?.stream || "PCM"} · {user?.academyName}</p>
+    <AppShell
+      topPill={<Pill tone="success">{user?.academyName || "Academy"}</Pill>}
+      title="Student"
+      subtitle={user ? `${user.classLevel || "Class 12"} ${user.stream || "PCM"}` : undefined}
+      navItems={tabs}
+      activeNavId={tab}
+      onNavChange={(id) => setTab(id as Tab)}
+      userLabel={user?.name}
+      onLogout={logout}
+    >
+      {loading ? (
+        <div className="text-center text-text-dim py-20">Loading...</div>
+      ) : tab === "dashboard" ? (
+        <div>
+          <h1 className="text-[28px] font-extrabold text-text mb-1 brand">Hello, {user?.name}!</h1>
+          <p className="text-sm text-text-dim mb-7">{user?.classLevel || "Class 12"} {user?.stream || "PCM"} · {user?.academyName}</p>
 
               <div className="grid grid-cols-4 gap-4 mb-6">
                 {[
@@ -151,17 +166,17 @@ export default function StudentDashboard() {
                   { label: "Pending HW", value: homework.filter(h => h.status === "published").length, color: "#EF4444" },
                   { label: "Open Doubts", value: doubts.filter(d => d.status === "open").length, color: "#F59E0B" },
                 ].map((s) => (
-                  <div key={s.label} className="bg-white border border-[#E5E7EB] rounded-xl p-5 shadow-sm" style={{ borderLeft: `4px solid ${s.color}` }}>
-                    <div className="text-[28px] font-extrabold" style={{ color: s.color, fontFamily: "Outfit, sans-serif" }}>{s.value}</div>
-                    <div className="text-[13px] text-[#6B7280] font-medium">{s.label}</div>
-                  </div>
+                  <Card key={s.label} className="p-5" style={{ borderLeft: `4px solid ${s.color}` }}>
+                    <div className="text-[28px] font-extrabold brand" style={{ color: s.color }}>{s.value}</div>
+                    <div className="text-[13px] text-text-dim font-medium">{s.label}</div>
+                  </Card>
                 ))}
               </div>
 
               <div className="grid grid-cols-2 gap-5">
-                <div className="bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm">
-                  <h3 className="font-bold text-base mb-4" style={{ fontFamily: "Outfit, sans-serif" }}>Homework</h3>
-                  {homework.length === 0 ? <p className="text-sm text-[#6B7280]">No homework assigned yet.</p> : (
+                <Card className="p-6">
+                  <h3 className="font-bold text-base mb-4 brand">Homework</h3>
+                  {homework.length === 0 ? <p className="text-sm text-text-dim">No homework assigned yet.</p> : (
                     <div className="space-y-3">
                       {homework.slice(0, 5).map((hw) => (
                         <div key={hw.id} className="flex items-center justify-between p-3 rounded-lg" style={{ borderLeft: "4px solid #EF4444", background: "#F9FAFB" }}>
@@ -171,10 +186,10 @@ export default function StudentDashboard() {
                       ))}
                     </div>
                   )}
-                </div>
-                <div className="bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm">
-                  <h3 className="font-bold text-base mb-4" style={{ fontFamily: "Outfit, sans-serif" }}>Recent Tests</h3>
-                  {testHistory.length === 0 ? <p className="text-sm text-[#6B7280]">No tests taken yet. Start practicing!</p> : (
+                </Card>
+                <Card className="p-6">
+                  <h3 className="font-bold text-base mb-4 brand">Recent Tests</h3>
+                  {testHistory.length === 0 ? <p className="text-sm text-text-dim">No tests taken yet. Start practicing!</p> : (
                     <div className="space-y-3">
                       {testHistory.slice(0, 5).map((t) => (
                         <div key={t.id} className="flex items-center gap-3 p-3 bg-[#F9FAFB] rounded-lg">
@@ -186,59 +201,101 @@ export default function StudentDashboard() {
                       ))}
                     </div>
                   )}
-                </div>
+                </Card>
               </div>
 
               <div className="flex gap-3 mt-6">
-                <button onClick={() => setTab("test")} className="px-5 py-2.5 bg-[#1E40AF] text-white font-semibold rounded-lg hover:bg-[#1E3A8A] transition text-sm flex items-center gap-2"><span className="material-icons-outlined text-lg">play_arrow</span>Start Practice</button>
-                <button onClick={() => setTab("homework")} className="px-5 py-2.5 bg-white text-[#1F2937] border border-[#E5E7EB] font-semibold rounded-lg hover:bg-[#F9FAFB] transition text-sm">View Homework</button>
-                <button onClick={() => setTab("doubts")} className="px-5 py-2.5 bg-white text-[#1F2937] border border-[#E5E7EB] font-semibold rounded-lg hover:bg-[#F9FAFB] transition text-sm">Ask a Doubt</button>
+                <Button onClick={() => setTab("test")} leftIcon={<span className="material-icons-outlined">play_arrow</span>}>
+                  Start Practice
+                </Button>
+                <Button onClick={() => setTab("homework")} variant="outline">View Homework</Button>
+                <Button onClick={() => setTab("doubts")} variant="outline">Ask a Doubt</Button>
               </div>
             </div>
           ) : tab === "homework" ? (
             <div>
-              <p className="text-xs font-bold text-[#1E40AF] uppercase tracking-wider mb-1">Student</p>
-              <h1 className="text-[28px] font-extrabold text-[#1F2937] mb-1" style={{ fontFamily: "Outfit, sans-serif" }}>My Homework</h1>
-              <p className="text-sm text-[#6B7280] mb-7">{homework.length} assignments</p>
+              <h1 className="text-[28px] font-extrabold text-text mb-1 brand">My Homework</h1>
+              <p className="text-sm text-text-dim mb-7">{homework.length} assignments</p>
               {homework.length === 0 ? (
-                <div className="bg-white border border-[#E5E7EB] rounded-xl p-12 text-center"><p className="text-[#6B7280]">No homework assigned yet.</p></div>
+                <Card className="p-12 text-center"><p className="text-text-dim">No homework assigned yet.</p></Card>
               ) : (
                 <div className="space-y-4">
                   {homework.map((hw) => (
-                    <div key={hw.id} className="bg-white border border-[#E5E7EB] rounded-xl p-5 shadow-sm flex items-center justify-between">
+                    <Card key={hw.id} className="p-5 flex items-center justify-between">
                       <div>
                         <div className="font-bold text-base">{hw.chapter || hw.subject}</div>
                         <div className="text-xs text-[#6B7280]">{hw.subject} · {hw.questionCount} Qs · by {hw.teacherName}</div>
                         <div className="text-xs text-[#6B7280] mt-1">Deadline: {hw.deadline.toLocaleDateString()}</div>
                       </div>
-                      <button className="px-4 py-2 bg-[#1E40AF] text-white text-sm font-semibold rounded-lg hover:bg-[#1E3A8A] transition">Start</button>
-                    </div>
+                      <Button size="sm">Start</Button>
+                    </Card>
                   ))}
                 </div>
               )}
             </div>
           ) : tab === "test" ? (
             <div>
-              <p className="text-xs font-bold text-[#1E40AF] uppercase tracking-wider mb-1">Student</p>
-              <h1 className="text-[28px] font-extrabold text-[#1F2937] mb-1" style={{ fontFamily: "Outfit, sans-serif" }}>Practice Test</h1>
-              <p className="text-sm text-[#6B7280] mb-7">Select your subject and chapter</p>
+              <h1 className="text-[28px] font-extrabold text-text mb-1 brand">Practice Test</h1>
+              <p className="text-sm text-text-dim mb-7">Select your subject and chapter</p>
               <SyllabusSelector onStartTest={handleStartTest} />
+            </div>
+          ) : tab === "timetable" ? (
+            <div>
+              <h1 className="text-[28px] font-extrabold text-text mb-1 brand">This Month’s Timetable</h1>
+              <p className="text-sm text-text-dim mb-7">Follow essential topics first, then recommended practice.</p>
+
+              <Card className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="text-[13px] text-text-dim">
+                    {user?.classLevel || "Class 12"} · {user?.stream || "PCM"} · {new Date().toLocaleString(undefined, { month: "long", year: "numeric" })}
+                  </div>
+                  <Button variant="outline" onClick={refreshTimetable}>Refresh</Button>
+                </div>
+
+                {ttEntries.length === 0 ? (
+                  <p className="text-sm text-text-dim">No timetable published for this month yet.</p>
+                ) : (
+                  <div className="space-y-2">
+                    {ttEntries
+                      .slice()
+                      .sort((a, b) => a.date.localeCompare(b.date))
+                      .map((en) => (
+                        <div key={en.id} className="p-3 rounded-lg border border-border bg-bg flex items-center justify-between gap-3">
+                          <div className="min-w-0">
+                            <div className="font-semibold text-sm truncate">{en.topicName}</div>
+                            <div className="text-xs text-text-dim">{en.date}</div>
+                          </div>
+                          <span
+                            className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${
+                              en.priorityLevel === "essential"
+                                ? "bg-[#FEF2F2] text-error border-[#FCA5A5]"
+                                : en.priorityLevel === "recommended"
+                                  ? "bg-[#FFFBEB] text-[#D97706] border-[#FDE68A]"
+                                  : "bg-[#ECFDF5] text-[#059669] border-[#A7F3D0]"
+                            }`}
+                          >
+                            {en.priorityLevel}
+                          </span>
+                        </div>
+                      ))}
+                  </div>
+                )}
+              </Card>
             </div>
           ) : tab === "doubts" ? (
             <div>
-              <p className="text-xs font-bold text-[#1E40AF] uppercase tracking-wider mb-1">Student</p>
-              <h1 className="text-[28px] font-extrabold text-[#1F2937] mb-1" style={{ fontFamily: "Outfit, sans-serif" }}>Ask a Doubt</h1>
-              <p className="text-sm text-[#6B7280] mb-7">Submit your question and get help</p>
+              <h1 className="text-[28px] font-extrabold text-text mb-1 brand">Ask a Doubt</h1>
+              <p className="text-sm text-text-dim mb-7">Submit your question and get help</p>
 
-              <div className="bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm mb-6">
+              <Card className="p-6 mb-6">
                 <div className="flex gap-3 mb-4">
-                  <select value={doubtSubject} onChange={(e) => setDoubtSubject(e.target.value)} className="px-3.5 py-2.5 border border-[#E5E7EB] rounded-lg text-sm outline-none focus:border-[#3B82F6] transition w-36">
+                  <Select value={doubtSubject} onChange={(e) => setDoubtSubject(e.target.value)} className="w-36">
                     <option>Physics</option><option>Chemistry</option><option>Mathematics</option><option>Biology</option>
-                  </select>
-                  <textarea value={doubtText} onChange={(e) => setDoubtText(e.target.value)} placeholder="Type your doubt here..." className="flex-1 px-3.5 py-2.5 border border-[#E5E7EB] rounded-lg text-sm outline-none focus:border-[#3B82F6] transition resize-none placeholder:text-[#9CA3AF]" rows={2} />
-                  <button onClick={handleSubmitDoubt} className="px-5 py-2.5 bg-[#1E40AF] text-white font-semibold rounded-lg hover:bg-[#1E3A8A] transition text-sm self-end">Send</button>
+                  </Select>
+                  <Textarea value={doubtText} onChange={(e) => setDoubtText(e.target.value)} placeholder="Type your doubt here..." className="flex-1 resize-none" rows={2} />
+                  <Button onClick={handleSubmitDoubt} className="self-end">Send</Button>
                 </div>
-              </div>
+              </Card>
 
               {doubts.length > 0 && (
                 <div className="space-y-4">
@@ -259,9 +316,8 @@ export default function StudentDashboard() {
             </div>
           ) : (
             <div>
-              <p className="text-xs font-bold text-[#1E40AF] uppercase tracking-wider mb-1">Student</p>
-              <h1 className="text-[28px] font-extrabold text-[#1F2937] mb-1" style={{ fontFamily: "Outfit, sans-serif" }}>Your Progress</h1>
-              <p className="text-sm text-[#6B7280] mb-7">Track your preparation journey</p>
+              <h1 className="text-[28px] font-extrabold text-text mb-1 brand">Your Progress</h1>
+              <p className="text-sm text-text-dim mb-7">Track your preparation journey</p>
 
               <div className="grid grid-cols-4 gap-4 mb-6">
                 {[
@@ -277,9 +333,9 @@ export default function StudentDashboard() {
                 ))}
               </div>
 
-              <div className="bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm">
-                <h3 className="font-bold text-base mb-4" style={{ fontFamily: "Outfit, sans-serif" }}>Test History</h3>
-                {testHistory.length === 0 ? <p className="text-sm text-[#6B7280]">No tests taken yet. Start a practice test to see your progress!</p> : (
+              <Card className="p-6">
+                <h3 className="font-bold text-base mb-4 brand">Test History</h3>
+                {testHistory.length === 0 ? <p className="text-sm text-text-dim">No tests taken yet. Start a practice test to see your progress!</p> : (
                   <div className="space-y-3">
                     {testHistory.map((t) => (
                       <div key={t.id} className="flex items-center gap-4 p-3 bg-[#F9FAFB] rounded-lg">
@@ -292,11 +348,9 @@ export default function StudentDashboard() {
                     ))}
                   </div>
                 )}
-              </div>
+              </Card>
             </div>
           )}
-        </main>
-      </div>
-    </div>
+    </AppShell>
   );
 }

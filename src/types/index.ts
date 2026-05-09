@@ -60,7 +60,8 @@ export interface QuestionDoc {
   examType: string[];
   isPYQ: boolean;
   year?: number;
-  academyId?: string;
+  academyId?: string | null;
+  isShared?: boolean;
 }
 
 export interface HomeworkAssignment {
@@ -128,6 +129,7 @@ export interface Timetable {
 export interface ScheduleEntry {
   id: string;
   timetableId: string;
+  academyId: string;
   date: string;
   chapterId: string;
   topicName: string;
@@ -136,6 +138,30 @@ export interface ScheduleEntry {
   linkedTestId?: string;
   status: "pending" | "completed" | "delayed";
   completionRate: number;
+}
+
+export interface MasterContent {
+  id: string;
+  type: "pdf" | "video" | "notes" | "pyq_set" | "formula_sheet";
+  title: string;
+  description?: string;
+  subject: string;
+  classLevel: "Class 11" | "Class 12";
+  stream?: "PCM" | "PCB" | "PCMB";
+  chapter?: string;
+  topic?: string;
+  examType?: string[];
+  fileUrl: string;
+  language?: "en" | "mr";
+  createdAt: Date;
+}
+
+export interface AcademyContentAccess {
+  id: string;
+  academyId: string;
+  contentId: string;
+  enabled: boolean;
+  createdAt: Date;
 }
 
 export interface DoubtSession {
