@@ -1,5 +1,361 @@
 {
-  "nodes": {},
+  "nodes": {
+    "frontend": {
+      "name": "frontend",
+      "type": "app",
+      "data": {
+        "root": "external_sources/ai/JeeLore/frontend",
+        "projectType": "application",
+        "metadata": {},
+        "targets": {
+          "build": {
+            "options": {
+              "cwd": "external_sources/ai/JeeLore/frontend",
+              "command": "vite build"
+            },
+            "cache": true,
+            "dependsOn": [
+              "^build"
+            ],
+            "inputs": [
+              "production",
+              "^production",
+              {
+                "externalDependencies": [
+                  "vite"
+                ]
+              }
+            ],
+            "outputs": [
+              "{workspaceRoot}/external_sources/ai/JeeLore/backend/dist"
+            ],
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Run Vite build",
+              "help": {
+                "command": "npx vite build --help",
+                "example": {
+                  "options": {
+                    "sourcemap": true,
+                    "manifest": "manifest.json"
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "serve": {
+            "continuous": true,
+            "options": {
+              "cwd": "external_sources/ai/JeeLore/frontend",
+              "command": "vite"
+            },
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Starts Vite dev server",
+              "help": {
+                "command": "npx vite --help",
+                "example": {
+                  "options": {
+                    "port": 3000
+                  }
+                }
+              },
+              "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "dev": {
+            "continuous": true,
+            "options": {
+              "cwd": "external_sources/ai/JeeLore/frontend",
+              "command": "vite"
+            },
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Starts Vite dev server",
+              "help": {
+                "command": "npx vite --help",
+                "example": {
+                  "options": {
+                    "port": 3000
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "preview": {
+            "continuous": true,
+            "dependsOn": [
+              "build"
+            ],
+            "options": {
+              "cwd": "external_sources/ai/JeeLore/frontend",
+              "command": "vite preview"
+            },
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Locally preview Vite production build",
+              "help": {
+                "command": "npx vite preview --help",
+                "example": {
+                  "options": {
+                    "port": 3000
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "serve-static": {
+            "continuous": true,
+            "executor": "@nx/web:file-server",
+            "options": {
+              "buildTarget": "build",
+              "spa": true
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "build-deps": {
+            "dependsOn": [
+              "^build"
+            ],
+            "configurations": {},
+            "options": {},
+            "parallelism": true,
+            "executor": "nx:noop"
+          },
+          "watch-deps": {
+            "continuous": true,
+            "dependsOn": [
+              "build-deps"
+            ],
+            "executor": "nx:run-commands",
+            "options": {
+              "command": "npx nx watch --projects frontend --includeDependentProjects -- npx nx build-deps frontend"
+            },
+            "configurations": {},
+            "parallelism": true
+          }
+        },
+        "name": "frontend",
+        "implicitDependencies": [],
+        "tags": []
+      }
+    },
+    "you-can": {
+      "name": "you-can",
+      "type": "app",
+      "data": {
+        "root": ".",
+        "projectType": "application",
+        "metadata": {},
+        "targets": {
+          "build": {
+            "options": {
+              "cwd": ".",
+              "command": "vite build"
+            },
+            "cache": true,
+            "dependsOn": [
+              "^build"
+            ],
+            "inputs": [
+              "production",
+              "^production",
+              {
+                "externalDependencies": [
+                  "vite"
+                ]
+              }
+            ],
+            "outputs": [
+              "{projectRoot}/dist"
+            ],
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Run Vite build",
+              "help": {
+                "command": "npx vite build --help",
+                "example": {
+                  "options": {
+                    "sourcemap": true,
+                    "manifest": "manifest.json"
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "serve": {
+            "continuous": true,
+            "options": {
+              "cwd": ".",
+              "command": "vite"
+            },
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Starts Vite dev server",
+              "help": {
+                "command": "npx vite --help",
+                "example": {
+                  "options": {
+                    "port": 3000
+                  }
+                }
+              },
+              "deprecated": "Use devTargetName instead. This option will be removed in Nx 22."
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "dev": {
+            "continuous": true,
+            "options": {
+              "cwd": ".",
+              "command": "vite"
+            },
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Starts Vite dev server",
+              "help": {
+                "command": "npx vite --help",
+                "example": {
+                  "options": {
+                    "port": 3000
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "preview": {
+            "continuous": true,
+            "dependsOn": [
+              "build"
+            ],
+            "options": {
+              "cwd": ".",
+              "command": "vite preview"
+            },
+            "metadata": {
+              "technologies": [
+                "vite"
+              ],
+              "description": "Locally preview Vite production build",
+              "help": {
+                "command": "npx vite preview --help",
+                "example": {
+                  "options": {
+                    "port": 3000
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "serve-static": {
+            "continuous": true,
+            "executor": "@nx/web:file-server",
+            "options": {
+              "buildTarget": "build",
+              "spa": true
+            },
+            "configurations": {},
+            "parallelism": true
+          },
+          "typecheck": {
+            "cache": true,
+            "inputs": [
+              "production",
+              "^production",
+              {
+                "externalDependencies": [
+                  "typescript"
+                ]
+              }
+            ],
+            "options": {
+              "cwd": ".",
+              "command": "tsc --noEmit -p tsconfig.app.json"
+            },
+            "metadata": {
+              "description": "Runs type-checking for the project.",
+              "technologies": [
+                "typescript"
+              ],
+              "help": {
+                "command": "npx tsc -p tsconfig.app.json --help",
+                "example": {
+                  "options": {
+                    "noEmit": true
+                  }
+                }
+              }
+            },
+            "executor": "nx:run-commands",
+            "configurations": {},
+            "parallelism": true
+          },
+          "build-deps": {
+            "dependsOn": [
+              "^build"
+            ],
+            "configurations": {},
+            "options": {},
+            "parallelism": true,
+            "executor": "nx:noop"
+          },
+          "watch-deps": {
+            "continuous": true,
+            "dependsOn": [
+              "build-deps"
+            ],
+            "executor": "nx:run-commands",
+            "options": {
+              "command": "npx nx watch --projects you-can --includeDependentProjects -- npx nx build-deps you-can"
+            },
+            "configurations": {},
+            "parallelism": true
+          }
+        },
+        "name": "you-can",
+        "implicitDependencies": [],
+        "tags": []
+      }
+    }
+  },
   "externalNodes": {
     "npm:@babel/code-frame": {
       "type": "npm",
@@ -4998,6 +5354,145 @@
     }
   },
   "dependencies": {
+    "frontend": [
+      {
+        "source": "frontend",
+        "target": "npm:react",
+        "type": "static"
+      },
+      {
+        "source": "frontend",
+        "target": "npm:@types/react",
+        "type": "static"
+      },
+      {
+        "source": "frontend",
+        "target": "npm:@types/react-dom",
+        "type": "static"
+      },
+      {
+        "source": "frontend",
+        "target": "npm:@vitejs/plugin-react",
+        "type": "static"
+      },
+      {
+        "source": "frontend",
+        "target": "npm:autoprefixer",
+        "type": "static"
+      },
+      {
+        "source": "frontend",
+        "target": "npm:eslint",
+        "type": "static"
+      },
+      {
+        "source": "frontend",
+        "target": "npm:eslint-plugin-react-hooks",
+        "type": "static"
+      },
+      {
+        "source": "frontend",
+        "target": "npm:eslint-plugin-react-refresh",
+        "type": "static"
+      },
+      {
+        "source": "frontend",
+        "target": "npm:postcss",
+        "type": "static"
+      },
+      {
+        "source": "frontend",
+        "target": "npm:tailwindcss",
+        "type": "static"
+      },
+      {
+        "source": "frontend",
+        "target": "npm:vite",
+        "type": "static"
+      },
+      {
+        "source": "frontend",
+        "target": "npm:react-dom",
+        "type": "static"
+      },
+      {
+        "source": "frontend",
+        "target": "npm:react-router-dom",
+        "type": "static"
+      }
+    ],
+    "you-can": [
+      {
+        "source": "you-can",
+        "target": "npm:@eslint/js",
+        "type": "static"
+      },
+      {
+        "source": "you-can",
+        "target": "npm:globals",
+        "type": "static"
+      },
+      {
+        "source": "you-can",
+        "target": "npm:eslint-plugin-react-hooks",
+        "type": "static"
+      },
+      {
+        "source": "you-can",
+        "target": "npm:eslint-plugin-react-refresh",
+        "type": "static"
+      },
+      {
+        "source": "you-can",
+        "target": "npm:typescript-eslint",
+        "type": "static"
+      },
+      {
+        "source": "you-can",
+        "target": "npm:eslint",
+        "type": "static"
+      },
+      {
+        "source": "you-can",
+        "target": "npm:dotenv",
+        "type": "static"
+      },
+      {
+        "source": "you-can",
+        "target": "npm:react",
+        "type": "static"
+      },
+      {
+        "source": "you-can",
+        "target": "npm:react-dom",
+        "type": "static"
+      },
+      {
+        "source": "you-can",
+        "target": "npm:firebase",
+        "type": "static"
+      },
+      {
+        "source": "you-can",
+        "target": "npm:react-router-dom",
+        "type": "static"
+      },
+      {
+        "source": "you-can",
+        "target": "npm:vite",
+        "type": "static"
+      },
+      {
+        "source": "you-can",
+        "target": "npm:@vitejs/plugin-react",
+        "type": "static"
+      },
+      {
+        "source": "you-can",
+        "target": "npm:@tailwindcss/vite",
+        "type": "static"
+      }
+    ],
     "npm:@babel/code-frame": [
       {
         "source": "npm:@babel/code-frame",
@@ -11950,5 +12445,5 @@
   },
   "version": "6.0",
   "errors": [],
-  "computedAt": 1778346239977
+  "computedAt": 1778355455920
 }

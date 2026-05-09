@@ -1,9 +1,12 @@
 import { onCall, HttpsError } from "firebase-functions/v2/https";
+import { defineString } from "firebase-functions/params";
 import { initializeApp } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore, FieldValue } from "firebase-admin/firestore";
 
 initializeApp();
+
+const openAiKey = defineString("OPENAI_API_KEY", { default: "" });
 
 type Role = "super_admin" | "academy_head" | "teacher" | "student";
 
@@ -17,6 +20,13 @@ async function requireSuperAdmin(uid: string) {
   const snap = await db.collection("users").doc(uid).get();
   const role = snap.data()?.role as Role | undefined;
   if (role !== "super_admin") throw new HttpsError("permission-denied", "Super admin only.");
+}
+
+async function requireStudent(uid: string) {
+  const db = getFirestore();
+  const snap = await db.collection("users").doc(uid).get();
+  const role = snap.data()?.role as Role | undefined;
+  if (role !== "student") throw new HttpsError("permission-denied", "Students only.");
 }
 
 function normalizeCode(raw: string) {
@@ -161,5 +171,65 @@ export const bulkCreateUsers = onCall(async (request) => {
   }
 
   return { count: created.length, created };
+});
+
+export const resolveDoubt = onCall(async (request) => {
+  const uid = requireAuth(request);
+  await requireStudent(uid);
+
+  const { subject, query } = request.data as { subject?: string; query?: string };
+  if (!query || !String(query).trim()) {
+    throw new HttpsError("invalid-argument", "query is required");
+  }
+
+  const apiKey = openAiKey.value();
+  if (!apiKey) {
+    return {
+      explanation:
+        "AI is not configured yet. Set the OPENAI_API_KEY Firebase parameter for this function (see Firebase docs: environment parameters). Until then, use your class notes and textbook, or ask your teacher in the Doubts tab.",
+      relatedPyqs: [] as string[],
+      boardReference: "Maharashtra State Board / NCERT",
+      stub: true,
+    };
+  }
+
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      model: "gpt-4o-mini",
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are a concise tutor for Indian students preparing for MHT-CET, JEE Main, and NEET. Answer in clear steps. About 200–350 words. Reference board/syllabus context briefly when useful.",
+        },
+        {
+          role: "user",
+          content: `Subject: ${subject || "General"}\n\nStudent question:\n${query}`,
+        },
+      ],
+      max_tokens: 700,
+      temperature: 0.35,
+    }),
+  });
+
+  if (!res.ok) {
+    const errText = await res.text();
+    console.error("OpenAI HTTP error", res.status, errText);
+    throw new HttpsError("internal", "AI service returned an error");
+  }
+
+  const json = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
+  const explanation = json.choices?.[0]?.message?.content?.trim() || "No explanation returned.";
+  return {
+    explanation,
+    relatedPyqs: [] as string[],
+    boardReference: "Verify key facts with NCERT / eBalbharati for your class.",
+    stub: false,
+  };
 });
 

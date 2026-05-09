@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "nx serve you-can",
+    "dev": "nx serve you-can --port=4200",
     "build": "nx build you-can",
     "lint": "nx lint you-can",
     "preview": "vite preview",

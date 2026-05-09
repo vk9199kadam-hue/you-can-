@@ -1,6 +1,17 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import { getHomeworkByAcademy, getTestsByStudent, getDoubts, createDoubt, getTimetables, getScheduleEntries } from "../../firebase/firestore";
+import {
+  getHomeworkByAcademy,
+  getTestsByStudent,
+  getDoubts,
+  createDoubt,
+  updateDoubt,
+  getTimetables,
+  getScheduleEntries,
+  saveTestSession,
+} from "../../firebase/firestore";
+import { fn } from "../../firebase/functionsClient";
+import { solveDoubt } from "../../ai/engine";
 import { fetchQuestions } from "../../services/dataService";
 import { generateTestLogic } from "../../test-engine/generator";
 import type { HomeworkAssignment, TestSession, DoubtSession } from "../../types";
@@ -10,6 +21,7 @@ import TestRunner from "../TestRunner";
 import TestResults from "../TestResults";
 import SyllabusSelector from "../SyllabusSelector";
 import { AppShell, Pill } from "../../ui/layout/AppShell";
+import { NotificationBell } from "../NotificationBell";
 import { Card } from "../../ui/components/Card";
 import { Button } from "../../ui/components/Button";
 import { Select, Textarea } from "../../ui/components/Form";
@@ -29,6 +41,12 @@ export default function StudentDashboard() {
   // Test state
   const [currentTest, setCurrentTest] = useState<{ questions: Question[]; marking: { correct: number; wrong: number }; timeLimit: number } | null>(null);
   const [testResults, setTestResults] = useState<{ questions: Question[]; answers: Record<string, string> } | null>(null);
+  const [lastPracticeMeta, setLastPracticeMeta] = useState<{
+    subject: string;
+    chapter: string;
+    topic: string;
+    examMode: string;
+  } | null>(null);
 
   // Doubt form
   const [doubtText, setDoubtText] = useState("");
@@ -38,7 +56,7 @@ export default function StudentDashboard() {
     setLoading(true);
     const [hw, qs, dts] = await Promise.all([
       user?.academyId ? getHomeworkByAcademy(user.academyId) : Promise.resolve([]),
-      fetchQuestions(),
+      fetchQuestions(user?.academyId),
       user?.academyId ? getDoubts(user.academyId, { studentId: user.uid }) : Promise.resolve([]),
     ]);
     if (user?.uid) {
@@ -73,7 +91,7 @@ export default function StudentDashboard() {
     (async () => {
       const [hw, qs, dts] = await Promise.all([
         user?.academyId ? getHomeworkByAcademy(user.academyId) : Promise.resolve([]),
-        fetchQuestions(),
+        fetchQuestions(user?.academyId),
         user?.academyId ? getDoubts(user.academyId, { studentId: user.uid }) : Promise.resolve([]),
       ]);
       if (user?.uid) {
@@ -90,6 +108,12 @@ export default function StudentDashboard() {
   }, [user?.uid, user?.academyId]);
 
   const handleStartTest = (selection: { class: string; subject: string; chapter: string; topic: string }) => {
+    setLastPracticeMeta({
+      subject: selection.subject,
+      chapter: selection.chapter,
+      topic: selection.topic,
+      examMode: "MHT-CET",
+    });
     const testData = generateTestLogic(questions, {
       chapterId: selection.chapter,
       topic: selection.topic,
@@ -101,17 +125,54 @@ export default function StudentDashboard() {
     setTab("test");
   };
 
-  const handleFinishTest = (testQuestions: Question[], answers: Record<string, string>) => {
+  const handleFinishTest = async (
+    testQuestions: Question[],
+    answers: Record<string, string>,
+    meta: { secondsElapsed: number },
+  ) => {
+    if (user?.uid && user.academyId && currentTest && lastPracticeMeta) {
+      const marking = currentTest.marking;
+      let score = 0;
+      for (const q of testQuestions) {
+        const a = answers[q.id];
+        if (a === q.answer) score += marking.correct;
+        else if (a && marking.wrong !== 0) score += marking.wrong;
+      }
+      try {
+        await saveTestSession({
+          studentId: user.uid,
+          academyId: user.academyId,
+          subject: lastPracticeMeta.subject,
+          chapter: lastPracticeMeta.chapter,
+          topic: lastPracticeMeta.topic,
+          examMode: lastPracticeMeta.examMode,
+          questions: testQuestions.map((q) => q.id),
+          answers,
+          score,
+          totalQuestions: testQuestions.length,
+          timeTaken: meta.secondsElapsed,
+          completedAt: new Date(),
+        });
+      } catch (e) {
+        console.error("Failed to save test session", e);
+      }
+      try {
+        const th = await getTestsByStudent(user.uid);
+        setTestHistory(th);
+      } catch {
+        /* ignore */
+      }
+    }
     setTestResults({ questions: testQuestions, answers });
     setTab("results");
   };
 
   const handleSubmitDoubt = async () => {
-    if (!doubtText.trim()) return;
-    await createDoubt({
-      studentId: user!.uid,
-      studentName: user!.name,
-      academyId: user!.academyId,
+    if (!doubtText.trim() || !user?.uid || !user.academyId) return;
+    const doubtId = await createDoubt({
+      studentId: user.uid,
+      studentName: user.name,
+      academyId: user.academyId,
       subject: doubtSubject,
       chapter: "",
       topic: "",
@@ -120,16 +181,60 @@ export default function StudentDashboard() {
       priority: "normal",
       createdAt: new Date(),
     });
+    const qText = doubtText;
+    const subj = doubtSubject;
     setDoubtText("");
     refreshData();
+
+    let explanation = "";
+    try {
+      const res = await fn.resolveDoubt({ subject: subj, query: qText });
+      const data = res.data as { explanation?: string };
+      explanation = data.explanation ?? "";
+    } catch {
+      const local = await solveDoubt({ subject: subj, query: qText });
+      explanation = local.explanation;
+    }
+    if (explanation) {
+      try {
+        await updateDoubt(doubtId, { aiResponse: explanation, status: "ai_resolved" });
+      } catch {
+        /* ignore */
+      }
+      refreshData();
+    }
   };
 
   if (tab === "test" && currentTest) {
-    return <TestRunner testData={currentTest} onFinish={handleFinishTest} />;
+    return (
+      <TestRunner
+        testData={currentTest}
+        onFinish={handleFinishTest}
+        onExit={() => {
+          setCurrentTest(null);
+          setTab("dashboard");
+        }}
+        onOpenDoubts={() => {
+          setCurrentTest(null);
+          setTab("doubts");
+        }}
+      />
+    );
   }
 
   if (tab === "results" && testResults) {
-    return <TestResults questions={testResults.questions} answers={testResults.answers} onBackHome={() => setTab("dashboard")} onRetake={() => setTab("test")} />;
+    return (
+      <TestResults
+        questions={testResults.questions}
+        answers={testResults.answers}
+        onBackHome={() => {
+          setTestResults(null);
+          setCurrentTest(null);
+          setTab("dashboard");
+        }}
+        onRetake={() => setTab("test")}
+      />
+    );
   }
 
   const tabs: { id: Tab; label: string; icon: string }[] = [
@@ -151,6 +256,7 @@ export default function StudentDashboard() {
       onNavChange={(id) => setTab(id as Tab)}
       userLabel={user?.name}
       onLogout={logout}
+      headerActions={user?.uid ? <NotificationBell userId={user.uid} /> : null}
     >
       {loading ? (
         <div className="text-center text-text-dim py-20">Loading...</div>
@@ -227,7 +333,9 @@ export default function StudentDashboard() {
                         <div className="text-xs text-[#6B7280]">{hw.subject} · {hw.questionCount} Qs · by {hw.teacherName}</div>
                         <div className="text-xs text-[#6B7280] mt-1">Deadline: {hw.deadline.toLocaleDateString()}</div>
                       </div>
-                      <Button size="sm">Start</Button>
+                      <Button size="sm" type="button" onClick={() => setTab("test")}>
+                        Start
+                      </Button>
                     </Card>
                   ))}
                 </div>

@@ -1,4 +1,5 @@
 import { useAuth } from "./contexts/AuthContext";
+import { IS_AUTH_BYPASS } from "./config/devAuth";
 import LoginPage from "./components/LoginPage";
 import SuperAdminDashboard from "./components/dashboards/SuperAdminDashboard";
 import AcademyHeadDashboard from "./components/dashboards/AcademyHeadDashboard";
@@ -7,23 +8,10 @@ import StudentDashboard from "./components/dashboards/StudentDashboard";
 import AcademySelection from "./components/AcademySelection";
 import { BrandMark } from "./ui/layout/AppShell";
 
-// --- TEMPORARY AUTH BYPASS ---
-const MOCK_USER: any = {
-  uid: "mock-admin-id",
-  role: "super_admin", // Options: 'super_admin', 'academy_head', 'teacher', 'student'
-  name: "Developer (Bypassed)",
-  email: "dev@youcan.ai",
-  academyId: "master-academy",
-  status: "active"
-};
-const IS_BYPASS_ENABLED = true;
-// -----------------------------
-
 function App() {
-  const { user: authUser, loading } = useAuth();
-  const user = IS_BYPASS_ENABLED ? MOCK_USER : authUser;
+  const { user, loading } = useAuth();
 
-  if (loading && !IS_BYPASS_ENABLED) {
+  if (loading && !IS_AUTH_BYPASS) {
     return (
       <div className="min-h-screen bg-bg flex items-center justify-center">
         <div className="text-center">

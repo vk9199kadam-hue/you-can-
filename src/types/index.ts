@@ -105,6 +105,7 @@ export interface TestSession {
   academyId: string;
   subject: string;
   chapter: string;
+  topic?: string;
   examMode: string;
   questions: string[];
   answers: Record<string, string>;

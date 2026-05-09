@@ -27,6 +27,7 @@ export function AppShell({
   onNavChange,
   userLabel,
   onLogout,
+  headerActions,
   children,
 }: {
   topPill?: React.ReactNode;
@@ -37,6 +38,8 @@ export function AppShell({
   onNavChange: (id: string) => void;
   userLabel?: React.ReactNode;
   onLogout: () => void;
+  /** e.g. notification bell */
+  headerActions?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
@@ -48,6 +51,7 @@ export function AppShell({
           {topPill ? <div className="ml-2">{topPill}</div> : null}
         </div>
         <div className="flex items-center gap-4">
+          {headerActions}
           {userLabel ? <span className="text-sm text-text-dim">{userLabel}</span> : null}
           <Button variant="ghost" size="sm" onClick={onLogout} className="text-error hover:text-error hover:bg-[#FEF2F2]">
             Logout

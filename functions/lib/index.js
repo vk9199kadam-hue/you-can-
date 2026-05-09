@@ -1,11 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bulkCreateUsers = exports.createAcademyAndHead = void 0;
+exports.resolveDoubt = exports.bulkCreateUsers = exports.createAcademyAndHead = void 0;
 const https_1 = require("firebase-functions/v2/https");
+const params_1 = require("firebase-functions/params");
 const app_1 = require("firebase-admin/app");
 const auth_1 = require("firebase-admin/auth");
 const firestore_1 = require("firebase-admin/firestore");
 (0, app_1.initializeApp)();
+const openAiKey = (0, params_1.defineString)("OPENAI_API_KEY", { default: "" });
 function requireAuth(request) {
     if (!request.auth?.uid)
         throw new https_1.HttpsError("unauthenticated", "Login required.");
@@ -17,6 +19,13 @@ async function requireSuperAdmin(uid) {
     const role = snap.data()?.role;
     if (role !== "super_admin")
         throw new https_1.HttpsError("permission-denied", "Super admin only.");
+}
+async function requireStudent(uid) {
+    const db = (0, firestore_1.getFirestore)();
+    const snap = await db.collection("users").doc(uid).get();
+    const role = snap.data()?.role;
+    if (role !== "student")
+        throw new https_1.HttpsError("permission-denied", "Students only.");
 }
 function normalizeCode(raw) {
     return raw.trim().toUpperCase().replace(/\s+/g, "");
@@ -114,4 +123,56 @@ exports.bulkCreateUsers = (0, https_1.onCall)(async (request) => {
         created.push({ uid: user.uid, userCode, tempPassword, email, name: r.name });
     }
     return { count: created.length, created };
+});
+exports.resolveDoubt = (0, https_1.onCall)(async (request) => {
+    const uid = requireAuth(request);
+    await requireStudent(uid);
+    const { subject, query } = request.data;
+    if (!query || !String(query).trim()) {
+        throw new https_1.HttpsError("invalid-argument", "query is required");
+    }
+    const apiKey = openAiKey.value();
+    if (!apiKey) {
+        return {
+            explanation: "AI is not configured yet. Set the OPENAI_API_KEY Firebase parameter for this function (see Firebase docs: environment parameters). Until then, use your class notes and textbook, or ask your teacher in the Doubts tab.",
+            relatedPyqs: [],
+            boardReference: "Maharashtra State Board / NCERT",
+            stub: true,
+        };
+    }
+    const res = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            model: "gpt-4o-mini",
+            messages: [
+                {
+                    role: "system",
+                    content: "You are a concise tutor for Indian students preparing for MHT-CET, JEE Main, and NEET. Answer in clear steps. About 200–350 words. Reference board/syllabus context briefly when useful.",
+                },
+                {
+                    role: "user",
+                    content: `Subject: ${subject || "General"}\n\nStudent question:\n${query}`,
+                },
+            ],
+            max_tokens: 700,
+            temperature: 0.35,
+        }),
+    });
+    if (!res.ok) {
+        const errText = await res.text();
+        console.error("OpenAI HTTP error", res.status, errText);
+        throw new https_1.HttpsError("internal", "AI service returned an error");
+    }
+    const json = (await res.json());
+    const explanation = json.choices?.[0]?.message?.content?.trim() || "No explanation returned.";
+    return {
+        explanation,
+        relatedPyqs: [],
+        boardReference: "Verify key facts with NCERT / eBalbharati for your class.",
+        stub: false,
+    };
 });

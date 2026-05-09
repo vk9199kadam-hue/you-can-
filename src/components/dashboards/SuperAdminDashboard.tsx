@@ -3,12 +3,13 @@ import { useAuth } from "../../contexts/AuthContext";
 import { getAcademies, getAllUsers, addMasterContent, getMasterContent } from "../../firebase/firestore";
 import type { Academy, MasterContent, UserProfile } from "../../types";
 import { AppShell, Pill } from "../../ui/layout/AppShell";
+import { NotificationBell } from "../NotificationBell";
 import { Card } from "../../ui/components/Card";
 import { Button } from "../../ui/components/Button";
 import { Input, Label, Select } from "../../ui/components/Form";
 import { fn } from "../../firebase/functionsClient";
 
-type Tab = "dashboard" | "academies" | "onboard" | "content";
+type Tab = "dashboard" | "academies" | "onboard" | "bulk" | "content";
 
 export default function SuperAdminDashboard() {
   const { user, logout } = useAuth();
@@ -23,11 +24,22 @@ export default function SuperAdminDashboard() {
   const [head, setHead] = useState<{ name: string; phone: string }>({ name: "", phone: "" });
   const [onboardMsg, setOnboardMsg] = useState("");
 
+  const [bulkAcademyId, setBulkAcademyId] = useState("");
+  const [bulkRole, setBulkRole] = useState<"teacher" | "student">("student");
+  const [bulkCsv, setBulkCsv] = useState("");
+  const [bulkMsg, setBulkMsg] = useState("");
+
   useEffect(() => {
     let cancelled = false;
     (async () => {
       const [acads, allUsers, mc] = await Promise.all([getAcademies(), getAllUsers(), getMasterContent()]);
-      if (!cancelled) { setAcademies(acads); setUsers(allUsers); setMasterContent(mc); setLoading(false); }
+      if (!cancelled) {
+        setAcademies(acads);
+        setUsers(allUsers);
+        setMasterContent(mc);
+        setLoading(false);
+        setBulkAcademyId((prev) => (prev || (acads[0]?.id ?? "")));
+      }
     })();
     return () => { cancelled = true; };
   }, []);
@@ -117,10 +129,62 @@ export default function SuperAdminDashboard() {
     }
   };
 
+  const parseUserRows = (text: string) => {
+    const lines = text.trim().split(/\r?\n/).filter(Boolean);
+    if (lines.length === 0) return [];
+    let start = 0;
+    if (lines[0].toLowerCase().includes("name")) start = 1;
+    const rows: Array<{ name: string; phone?: string; classLevel?: string; stream?: string; batch?: string; subject?: string }> = [];
+    for (let i = start; i < lines.length; i++) {
+      const parts = lines[i].split(",").map((s) => s.trim());
+      if (!parts[0]) continue;
+      rows.push({
+        name: parts[0],
+        phone: parts[1] || undefined,
+        classLevel: parts[2] || undefined,
+        stream: parts[3] || undefined,
+        batch: parts[4] || undefined,
+        subject: parts[5] || undefined,
+      });
+    }
+    return rows;
+  };
+
+  const handleBulkImport = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setBulkMsg("");
+    const academy = academies.find((a) => a.id === bulkAcademyId);
+    if (!academy) {
+      setBulkMsg("Error: Select an academy.");
+      return;
+    }
+    const rows = parseUserRows(bulkCsv);
+    if (rows.length === 0) {
+      setBulkMsg("Error: Paste at least one CSV row (name,phone,class,stream,batch,subject).");
+      return;
+    }
+    try {
+      const res = await fn.bulkCreateUsers({
+        academyId: academy.id,
+        academyName: academy.name,
+        role: bulkRole,
+        rows,
+      });
+      const out = res.data as { count: number; created: Array<{ userCode: string; tempPassword: string; name: string }> };
+      const preview = out.created.slice(0, 5).map((c) => `${c.name}: ${c.userCode} / ${c.tempPassword}`).join("\n");
+      setBulkMsg(`Created ${out.count} accounts.\n${preview}${out.created.length > 5 ? "\n…" : ""}`);
+      setBulkCsv("");
+      refreshData();
+    } catch (err) {
+      setBulkMsg("Error: " + (err instanceof Error ? err.message : "Failed"));
+    }
+  };
+
   const tabs: { id: Tab; label: string; icon: string }[] = [
     { id: "dashboard", label: "Dashboard", icon: "dashboard" },
     { id: "academies", label: "Academies", icon: "domain" },
     { id: "onboard", label: "Onboarding", icon: "add_circle" },
+    { id: "bulk", label: "Bulk users", icon: "group_add" },
     { id: "content", label: "Content", icon: "library_books" },
   ];
 
@@ -134,6 +198,7 @@ export default function SuperAdminDashboard() {
       onNavChange={(id) => setTab(id as Tab)}
       userLabel={user?.name}
       onLogout={logout}
+      headerActions={user?.uid ? <NotificationBell userId={user.uid} /> : null}
     >
       {loading ? (
         <div className="text-center text-text-dim py-20">Loading...</div>
@@ -298,6 +363,48 @@ export default function SuperAdminDashboard() {
                 </form>
               </Card>
             </div>
+          ) : tab === "bulk" ? (
+            <div>
+              <h1 className="text-[28px] font-extrabold text-text mb-1 brand">Bulk user import</h1>
+              <p className="text-sm text-text-dim mb-7">
+                Create teacher or student accounts via CSV (calls Cloud Function). Columns: name, phone, classLevel, stream, batch, subject — optional after name.
+              </p>
+              <Card className="p-8 max-w-2xl">
+                <form onSubmit={handleBulkImport} className="space-y-4">
+                  <div>
+                    <Label>Academy</Label>
+                    <Select value={bulkAcademyId} onChange={(e) => setBulkAcademyId(e.target.value)} required>
+                      <option value="">Select academy</option>
+                      {academies.map((a) => (
+                        <option key={a.id} value={a.id}>{a.name}, {a.city}</option>
+                      ))}
+                    </Select>
+                  </div>
+                  <div>
+                    <Label>Role</Label>
+                    <Select value={bulkRole} onChange={(e) => setBulkRole(e.target.value as "teacher" | "student")}>
+                      <option value="student">Student</option>
+                      <option value="teacher">Teacher</option>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label>CSV rows</Label>
+                    <textarea
+                      className="w-full min-h-[160px] px-3.5 py-2.5 border border-border rounded-lg text-sm text-text bg-surface outline-none focus:border-primary-light font-mono"
+                      value={bulkCsv}
+                      onChange={(e) => setBulkCsv(e.target.value)}
+                      placeholder={"Riya Sharma,9876543210,Class 12,PCM,Morning Batch,\nAmit Patil,9876543211,,,,Physics"}
+                    />
+                  </div>
+                  {bulkMsg ? (
+                    <div className={`p-3 rounded-lg text-sm font-medium whitespace-pre-wrap ${bulkMsg.startsWith("Error") ? "bg-[#FEF2F2] text-error" : "bg-[#ECFDF5] text-[#059669]"}`}>
+                      {bulkMsg}
+                    </div>
+                  ) : null}
+                  <Button type="submit">Create accounts</Button>
+                </form>
+              </Card>
+            </div>
           ) : (
             <div>
               <h1 className="text-[28px] font-extrabold text-text mb-1 brand">Content Manager</h1>
@@ -428,16 +535,18 @@ export default function SuperAdminDashboard() {
                       const data = await res.json();
                       const { bulkAddQuestions } = await import("../../firebase/firestore");
                       const count = await bulkAddQuestions(data.questions.map((q: Record<string, unknown>) => ({
-                        subject: q.subject,
-                        chapter: q.chapter,
-                        topic: q.topic,
-                        question: q.question,
-                        options: q.options,
-                        answer: q.answer,
-                        explanation: q.explanation,
-                        difficulty: q.difficulty,
-                        examType: q.exam_type,
-                        isPYQ: q.is_pyq || false,
+                        subject: String(q.subject ?? ""),
+                        chapter: String(q.chapter ?? ""),
+                        topic: String(q.topic ?? ""),
+                        question: String(q.question ?? ""),
+                        options: q.options as Record<string, string>,
+                        answer: String(q.answer ?? ""),
+                        explanation: String(q.explanation ?? ""),
+                        difficulty: Number(q.difficulty ?? 3),
+                        examType: Array.isArray(q.exam_type) ? (q.exam_type as string[]) : ["MHT-CET"],
+                        isPYQ: Boolean(q.is_pyq),
+                        isShared: true,
+                        academyId: null,
                       })));
                       alert(`Imported ${count} questions!`);
                     } catch (err) {

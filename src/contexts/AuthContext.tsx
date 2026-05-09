@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 import { onAuthChange, getUserProfile, logoutUser } from "../firebase/auth";
+import { IS_AUTH_BYPASS, MOCK_USER_PROFILE } from "../config/devAuth";
 import type { UserProfile } from "../types";
 
 interface AuthContextType {
@@ -17,10 +18,17 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<UserProfile | null>(() =>
+    IS_AUTH_BYPASS
+      ? { ...MOCK_USER_PROFILE, createdAt: new Date(MOCK_USER_PROFILE.createdAt) }
+      : null,
+  );
+  const [loading, setLoading] = useState(() => !IS_AUTH_BYPASS);
 
   useEffect(() => {
+    if (IS_AUTH_BYPASS) {
+      return;
+    }
     const unsubscribe = onAuthChange(async (firebaseUser) => {
       if (firebaseUser) {
         const profile = await getUserProfile(firebaseUser.uid);
@@ -34,6 +42,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const logout = async () => {
+    if (IS_AUTH_BYPASS) {
+      setUser(null);
+      return;
+    }
     await logoutUser();
     setUser(null);
   };

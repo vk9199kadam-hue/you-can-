@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { Question } from "../services/dataService";
 
 interface TestData {
@@ -7,15 +7,28 @@ interface TestData {
   timeLimit: number;
 }
 
-interface TestRunnerProps {
-  testData: TestData;
-  onFinish: (questions: Question[], answers: Record<string, string>) => void;
+export interface TestFinishMeta {
+  /** Seconds spent on the test (best effort while timer runs). */
+  secondsElapsed: number;
 }
 
-export default function TestRunner({ testData, onFinish }: TestRunnerProps) {
+interface TestRunnerProps {
+  testData: TestData;
+  onFinish: (questions: Question[], answers: Record<string, string>, meta: TestFinishMeta) => void;
+  /** Leave practice and return to the dashboard shell (discards session). */
+  onExit?: () => void;
+  /** Open doubts / AI help from the student app. */
+  onOpenDoubts?: () => void;
+}
+
+export default function TestRunner({ testData, onFinish, onExit, onOpenDoubts }: TestRunnerProps) {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [timeLeft, setTimeLeft] = useState(testData.timeLimit);
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  const answersRef = useRef(answers);
+  answersRef.current = answers;
+  const onFinishRef = useRef(onFinish);
+  onFinishRef.current = onFinish;
   const [bookmarks, setBookmarks] = useState<string[]>([]);
   const [flags, setFlags] = useState<string[]>([]);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -23,19 +36,20 @@ export default function TestRunner({ testData, onFinish }: TestRunnerProps) {
   const q = testData.questions[currentIdx];
 
   useEffect(() => {
-    const timer = setInterval(
-      () =>
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            clearInterval(timer);
-            onFinish(testData.questions, answers);
-            return 0;
-          }
-          return prev - 1;
-        }),
-      1000
-    );
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          const elapsed = Math.max(0, testData.timeLimit - prev);
+          onFinishRef.current(testData.questions, { ...answersRef.current }, { secondsElapsed: elapsed });
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
     return () => clearInterval(timer);
+    // One interval per test session; testData/onFinish read via refs where needed.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const formatTime = (s: number) =>
@@ -58,7 +72,8 @@ export default function TestRunner({ testData, onFinish }: TestRunnerProps) {
   };
 
   const confirmFinish = () => {
-    onFinish(testData.questions, answers);
+    const elapsed = Math.max(0, testData.timeLimit - timeLeft);
+    onFinish(testData.questions, { ...answersRef.current }, { secondsElapsed: elapsed });
   };
 
   const answeredCount = Object.keys(answers).length;
@@ -102,8 +117,23 @@ export default function TestRunner({ testData, onFinish }: TestRunnerProps) {
         </div>
       )}
 
-      <div className="max-w-6xl mx-auto flex justify-between items-center mb-10 relative z-10">
-        <div className="flex items-center gap-6">
+      <div className="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-4 mb-10 relative z-10">
+        <div className="flex items-center gap-3">
+          {onExit ? (
+            <button
+              type="button"
+              onClick={() => {
+                if (window.confirm("Leave practice? Your answers in this session will be discarded.")) {
+                  onExit();
+                }
+              }}
+              className="glass-card px-4 py-2 text-sm font-bold text-text-dim hover:text-white hover:bg-white/10 transition-all"
+            >
+              ← Exit
+            </button>
+          ) : null}
+        </div>
+        <div className="flex items-center gap-6 flex-1 justify-end flex-wrap">
           <div className="glass-card px-6 py-2 border-primary/30 flex items-center gap-3">
             <span className="text-primary font-bold animate-pulse">
               ● LIVE
@@ -238,7 +268,18 @@ export default function TestRunner({ testData, onFinish }: TestRunnerProps) {
                 topic.
               </p>
             </div>
-            <button className="text-primary font-bold hover:underline">
+            <button
+              type="button"
+              onClick={() => {
+                if (onOpenDoubts) {
+                  if (window.confirm("Open Doubts? You can return to this test from Practice if the timer is still running.")) {
+                    onOpenDoubts();
+                  }
+                }
+              }}
+              className={`font-bold hover:underline ${onOpenDoubts ? "text-primary cursor-pointer" : "text-text-dim cursor-not-allowed opacity-60"}`}
+              disabled={!onOpenDoubts}
+            >
               Route to AI Doubt &rarr;
             </button>
           </div>

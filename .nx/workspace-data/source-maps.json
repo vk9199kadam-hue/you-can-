@@ -1,1 +1,654 @@
-{}
+{
+  "external_sources/ai/JeeLore/frontend": {
+    "root": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "projectType": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.options": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.cache": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.dependsOn": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.inputs": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.outputs": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.metadata": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.executor": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.options.cwd": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.options.command": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.metadata.technologies": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.metadata.technologies.0": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.metadata.description": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.metadata.help": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.metadata.help.command": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.metadata.help.example": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.continuous": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.options": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.metadata": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.executor": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.options.cwd": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.options.command": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.metadata.technologies": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.metadata.technologies.0": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.metadata.description": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.metadata.help": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.metadata.help.command": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.metadata.help.example": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.metadata.deprecated": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.continuous": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.options": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.executor": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.options.cwd": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.options.command": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.technologies": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.technologies.0": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.description": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.help": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.help.command": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.help.example": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.continuous": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.dependsOn": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.options": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.metadata": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.executor": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.options.cwd": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.options.command": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.metadata.technologies": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.metadata.technologies.0": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.metadata.description": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.metadata.help": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.metadata.help.command": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.metadata.help.example": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve-static": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve-static.continuous": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve-static.executor": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve-static.options": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve-static.options.buildTarget": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve-static.options.spa": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build-deps": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.build-deps.dependsOn": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps.continuous": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps.dependsOn": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps.executor": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps.options": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps.options.command": [
+      "external_sources/ai/JeeLore/frontend/vite.config.js",
+      "@nx/vite/plugin"
+    ]
+  },
+  ".": {
+    "root": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "projectType": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.options": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.cache": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.dependsOn": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.inputs": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.outputs": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.metadata": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.executor": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.options.cwd": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.options.command": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.metadata.technologies": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.metadata.technologies.0": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.metadata.description": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.metadata.help": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.metadata.help.command": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build.metadata.help.example": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.continuous": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.options": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.metadata": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.executor": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.options.cwd": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.options.command": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.metadata.technologies": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.metadata.technologies.0": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.metadata.description": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.metadata.help": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.metadata.help.command": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.metadata.help.example": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve.metadata.deprecated": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.continuous": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.options": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.executor": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.options.cwd": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.options.command": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.technologies": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.technologies.0": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.description": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.help": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.help.command": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.dev.metadata.help.example": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.continuous": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.dependsOn": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.options": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.metadata": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.executor": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.options.cwd": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.options.command": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.metadata.technologies": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.metadata.technologies.0": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.metadata.description": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.metadata.help": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.metadata.help.command": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.preview.metadata.help.example": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve-static": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve-static.continuous": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve-static.executor": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve-static.options": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve-static.options.buildTarget": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.serve-static.options.spa": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.typecheck": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.typecheck.cache": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.typecheck.inputs": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.typecheck.options": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.typecheck.metadata": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.typecheck.executor": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.typecheck.options.cwd": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.typecheck.options.command": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.typecheck.metadata.description": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.typecheck.metadata.technologies": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.typecheck.metadata.technologies.0": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.typecheck.metadata.help": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.typecheck.metadata.help.command": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.typecheck.metadata.help.example": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build-deps": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.build-deps.dependsOn": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps.continuous": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps.dependsOn": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps.executor": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps.options": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ],
+    "targets.watch-deps.options.command": [
+      "vite.config.ts",
+      "@nx/vite/plugin"
+    ]
+  }
+}

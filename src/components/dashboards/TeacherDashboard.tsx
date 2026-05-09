@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import { getHomeworkByTeacher, getUsersByAcademy, createHomework, getDoubts, createTimetable, getTimetables, getScheduleEntries, setScheduleEntry } from "../../firebase/firestore";
+import { getHomeworkByTeacher, getUsersByAcademy, createHomework, getDoubts, createTimetable, getTimetables, getScheduleEntries, setScheduleEntry, notifyUsers } from "../../firebase/firestore";
 import type { HomeworkAssignment, UserProfile, DoubtSession, Timetable, ScheduleEntry } from "../../types";
 import { AppShell, Pill } from "../../ui/layout/AppShell";
+import { NotificationBell } from "../NotificationBell";
 import { Card } from "../../ui/components/Card";
 import { Button } from "../../ui/components/Button";
 import { Input, Label, Select } from "../../ui/components/Form";
@@ -97,6 +98,17 @@ export default function TeacherDashboard() {
         allowLateSubmission: false,
         status: "published",
       });
+      const studs = await getUsersByAcademy(user!.academyId, "student");
+      const dl = new Date(hwForm.deadline).toLocaleString();
+      await notifyUsers(
+        studs.map((s) => ({
+          userId: s.uid,
+          academyId: user!.academyId,
+          title: "New homework assigned",
+          message: `${hwForm.subject}: ${hwForm.chapter}${hwForm.topic ? ` · ${hwForm.topic}` : ""} — ${hwForm.questionCount} questions. Due: ${dl}`,
+          type: "homework",
+        })),
+      );
       setHwMsg("Homework published successfully!");
       setHwForm({ ...hwForm, chapter: "", topic: "" });
       refreshData();
@@ -518,6 +530,7 @@ export default function TeacherDashboard() {
       onNavChange={(id) => setTab(id as Tab)}
       userLabel={user ? `${user.name} · ${user.academyName}` : undefined}
       onLogout={logout}
+      headerActions={user?.uid ? <NotificationBell userId={user.uid} /> : null}
     >
       {loading ? <div className="text-center text-text-dim py-20">Loading...</div> : renderBody()}
     </AppShell>

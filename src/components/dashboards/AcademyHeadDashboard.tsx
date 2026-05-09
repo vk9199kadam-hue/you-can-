@@ -1,13 +1,153 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import { getUsersByAcademy, getHomeworkByAcademy, getMasterContent, getAcademyContentAccess, setAcademyContentAccess } from "../../firebase/firestore";
+import { getUsersByAcademy, getHomeworkByAcademy, getMasterContent, getAcademyContentAccess, setAcademyContentAccess, getTestSessionsByAcademy } from "../../firebase/firestore";
 import type { UserProfile, HomeworkAssignment } from "../../types";
 import type { AcademyContentAccess, MasterContent } from "../../types";
 import { AppShell, Pill } from "../../ui/layout/AppShell";
+import { NotificationBell } from "../NotificationBell";
+import { downloadCsv } from "../../lib/csvDownload";
 import { Card } from "../../ui/components/Card";
 import { Button } from "../../ui/components/Button";
 
 type Tab = "dashboard" | "teachers" | "students" | "content" | "reports";
+
+function ReportsTab({
+  academyId,
+  students,
+  homework,
+}: {
+  academyId: string;
+  students: UserProfile[];
+  homework: HomeworkAssignment[];
+}) {
+  const exportProgress = async () => {
+    if (!academyId) return;
+    const sessions = await getTestSessionsByAcademy(academyId);
+    const byStudent = new Map<string, typeof sessions>();
+    for (const t of sessions) {
+      const arr = byStudent.get(t.studentId) ?? [];
+      arr.push(t);
+      byStudent.set(t.studentId, arr);
+    }
+    const rows = students.map((s) => {
+      const ts = byStudent.get(s.uid) ?? [];
+      const avg =
+        ts.length > 0
+          ? ts.reduce((a, b) => a + b.score / Math.max(b.totalQuestions, 1), 0) / ts.length
+          : 0;
+      return {
+        name: s.name,
+        email: s.email,
+        class: s.classLevel ?? "",
+        stream: s.stream ?? "",
+        batch: s.batch ?? "",
+        testsCompleted: ts.length,
+        avgScorePercent: Math.round(avg * 100),
+        homeworkAssignedCount: homework.length,
+      };
+    });
+    downloadCsv(`progress-${academyId.slice(0, 8)}.csv`, rows);
+  };
+
+  const exportBatches = () => {
+    const byBatch = new Map<string, UserProfile[]>();
+    for (const s of students) {
+      const b = s.batch || "Unassigned";
+      const arr = byBatch.get(b) ?? [];
+      arr.push(s);
+      byBatch.set(b, arr);
+    }
+    const rows = Array.from(byBatch.entries()).map(([batch, studs]) => ({
+      batch,
+      studentCount: studs.length,
+      students: studs.map((x) => x.name).join("; "),
+    }));
+    downloadCsv(`batches-${academyId.slice(0, 8)}.csv`, rows);
+  };
+
+  const exportRoster = () => {
+    const rows = students.map((s) => ({
+      name: s.name,
+      email: s.email,
+      class: s.classLevel ?? "",
+      stream: s.stream ?? "",
+      batch: s.batch ?? "",
+      phone: s.phone ?? "",
+    }));
+    downloadCsv(`student-roster-${academyId.slice(0, 8)}.csv`, rows);
+  };
+
+  const exportCompliance = () => {
+    const rows = homework.map((h) => ({
+      chapter: h.chapter,
+      subject: h.subject,
+      teacher: h.teacherName,
+      questions: h.questionCount,
+      status: h.status,
+      deadline: h.deadline.toISOString(),
+    }));
+    downloadCsv(`homework-assignments-${academyId.slice(0, 8)}.csv`, rows);
+  };
+
+  const cards = [
+    {
+      title: "Monthly Progress",
+      desc: "Student-wise tests and averages",
+      icon: "bar_chart",
+      color: "#1E40AF",
+      onClick: exportProgress,
+    },
+    {
+      title: "Batch Comparison",
+      desc: "Rollup by batch / group",
+      icon: "compare_arrows",
+      color: "#10B981",
+      onClick: exportBatches,
+    },
+    {
+      title: "Student roster",
+      desc: "All students for parent / admin records",
+      icon: "family_restroom",
+      color: "#F59E0B",
+      onClick: exportRoster,
+    },
+    {
+      title: "Assignment log",
+      desc: "Homework pipeline export",
+      icon: "verified",
+      color: "#8B5CF6",
+      onClick: exportCompliance,
+    },
+  ];
+
+  return (
+    <div>
+      <p className="text-xs font-bold text-[#1E40AF] uppercase tracking-wider mb-1">Academy Head</p>
+      <h1 className="text-[28px] font-extrabold text-[#1F2937] mb-1" style={{ fontFamily: "Outfit, sans-serif" }}>
+        Reports & Export
+      </h1>
+      <p className="text-sm text-[#6B7280] mb-7">Download CSV files for spreadsheets or printing.</p>
+      <div className="grid grid-cols-2 gap-4">
+        {cards.map((r) => (
+          <div key={r.title} className="bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm">
+            <span className="material-icons-outlined text-4xl mb-3 block" style={{ color: r.color }}>
+              {r.icon}
+            </span>
+            <h3 className="font-bold text-base mb-1">{r.title}</h3>
+            <p className="text-[13px] text-[#6B7280] mb-4">{r.desc}</p>
+            <button
+              type="button"
+              className="px-4 py-2 bg-[#1E40AF] text-white text-sm font-semibold rounded-lg hover:bg-[#1E3A8A] transition"
+              onClick={() => void r.onClick()}
+            >
+              Download CSV
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function AcademyHeadDashboard() {
   const { user, logout } = useAuth();
@@ -75,6 +215,7 @@ export default function AcademyHeadDashboard() {
       onNavChange={(id) => setTab(id as Tab)}
       userLabel={user?.name}
       onLogout={logout}
+      headerActions={user?.uid ? <NotificationBell userId={user.uid} /> : null}
     >
       {loading ? (
         <div className="text-center text-text-dim py-20">Loading...</div>
@@ -249,26 +390,11 @@ export default function AcademyHeadDashboard() {
               </Card>
             </div>
           ) : (
-            <div>
-              <p className="text-xs font-bold text-[#1E40AF] uppercase tracking-wider mb-1">Academy Head</p>
-              <h1 className="text-[28px] font-extrabold text-[#1F2937] mb-1" style={{ fontFamily: "Outfit, sans-serif" }}>Reports & Export</h1>
-              <p className="text-sm text-[#6B7280] mb-7">Generate downloadable reports</p>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { title: "Monthly Progress", desc: "Student-wise accuracy and homework completion", icon: "bar_chart", color: "#1E40AF" },
-                  { title: "Batch Comparison", desc: "Side-by-side performance across batches", icon: "compare_arrows", color: "#10B981" },
-                  { title: "Parent Report Card", desc: "Individual student report with remarks", icon: "family_restroom", color: "#F59E0B" },
-                  { title: "Board Compliance", desc: "Syllabus coverage and timetable adherence", icon: "verified", color: "#8B5CF6" },
-                ].map((r) => (
-                  <div key={r.title} className="bg-white border border-[#E5E7EB] rounded-xl p-6 shadow-sm">
-                    <span className="material-icons-outlined text-4xl mb-3 block" style={{ color: r.color }}>{r.icon}</span>
-                    <h3 className="font-bold text-base mb-1">{r.title}</h3>
-                    <p className="text-[13px] text-[#6B7280] mb-4">{r.desc}</p>
-                    <button className="px-4 py-2 bg-[#1E40AF] text-white text-sm font-semibold rounded-lg hover:bg-[#1E3A8A] transition">Generate PDF</button>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <ReportsTab
+              academyId={user?.academyId ?? ""}
+              students={students}
+              homework={homework}
+            />
           )}
     </AppShell>
   );

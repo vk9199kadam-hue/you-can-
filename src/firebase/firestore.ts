@@ -12,6 +12,8 @@ import {
   orderBy,
   limit,
   serverTimestamp,
+  writeBatch,
+  Timestamp,
   type DocumentData,
   type QueryConstraint,
 } from "firebase/firestore";
@@ -28,6 +30,7 @@ import type {
   QuestionDoc,
   MasterContent,
   AcademyContentAccess,
+  Notification,
 } from "../types";
 
 // ---- Academies ----
@@ -206,9 +209,13 @@ export async function submitHomework(data: Omit<HomeworkSubmission, "id">): Prom
 // ---- Test Sessions ----
 
 export async function saveTestSession(data: Omit<TestSession, "id">): Promise<string> {
+  const completedAt =
+    data.completedAt instanceof Date
+      ? Timestamp.fromDate(data.completedAt)
+      : serverTimestamp();
   const ref = await addDoc(collection(db, "test_sessions"), {
     ...data,
-    completedAt: serverTimestamp(),
+    completedAt,
   });
   return ref.id;
 }
@@ -219,6 +226,21 @@ export async function getTestsByStudent(studentId: string): Promise<TestSession[
     where("studentId", "==", studentId),
     orderBy("completedAt", "desc"),
     limit(50)
+  );
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => ({
+    ...d.data(),
+    id: d.id,
+    completedAt: d.data().completedAt?.toDate?.() ?? new Date(),
+  })) as TestSession[];
+}
+
+export async function getTestSessionsByAcademy(academyId: string, max = 500): Promise<TestSession[]> {
+  const q = query(
+    collection(db, "test_sessions"),
+    where("academyId", "==", academyId),
+    orderBy("completedAt", "desc"),
+    limit(max)
   );
   const snap = await getDocs(q);
   return snap.docs.map((d) => ({
@@ -324,6 +346,57 @@ export async function createDoubt(data: Omit<DoubtSession, "id">): Promise<strin
 
 export async function updateDoubt(id: string, data: Partial<DoubtSession>): Promise<void> {
   await updateDoc(doc(db, "doubt_sessions", id), data as DocumentData);
+}
+
+// ---- Notifications ----
+
+export async function getNotificationsForUser(userId: string, max = 40): Promise<Notification[]> {
+  const q = query(
+    collection(db, "notifications"),
+    where("userId", "==", userId),
+    orderBy("createdAt", "desc"),
+    limit(max)
+  );
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => ({
+    ...d.data(),
+    id: d.id,
+    createdAt: d.data().createdAt?.toDate?.() ?? new Date(),
+  })) as Notification[];
+}
+
+export async function markNotificationRead(notificationId: string): Promise<void> {
+  await updateDoc(doc(db, "notifications", notificationId), { read: true } as DocumentData);
+}
+
+/** Notify many students (e.g. new homework). Uses batched writes (max 500 per commit). */
+export async function notifyUsers(
+  items: Array<{
+    userId: string;
+    academyId: string;
+    title: string;
+    message: string;
+    type: Notification["type"];
+  }>
+): Promise<void> {
+  const chunk = 400;
+  for (let i = 0; i < items.length; i += chunk) {
+    const batch = writeBatch(db);
+    const slice = items.slice(i, i + chunk);
+    for (const n of slice) {
+      const ref = doc(collection(db, "notifications"));
+      batch.set(ref, {
+        userId: n.userId,
+        academyId: n.academyId,
+        title: n.title,
+        message: n.message,
+        type: n.type,
+        read: false,
+        createdAt: serverTimestamp(),
+      });
+    }
+    await batch.commit();
+  }
 }
 
 // ---- Utility: Delete document ----

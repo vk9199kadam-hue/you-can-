@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { loginWithUserCode, registerUser } from "../firebase/auth";
+import { loginWithUserCode, loginUser, registerUser } from "../firebase/auth";
 import { getAcademies } from "../firebase/firestore";
 import type { Academy, UserRole } from "../types";
 import { useAuth } from "../contexts/AuthContext";
@@ -47,7 +47,19 @@ export default function LoginPage() {
         setUser(profile);
       } else {
         if (isSuperAdmin) {
-          setError("Super Admin login is not yet migrated to UserID flow. Use existing admin account email/password for now.");
+          const email = userId.trim();
+          if (!email.includes("@")) {
+            setError("Enter your platform admin email address (full email).");
+            setLoading(false);
+            return;
+          }
+          const profile = await loginUser(email, password);
+          if (profile.role !== "super_admin") {
+            setError("This account is not a platform administrator.");
+            setLoading(false);
+            return;
+          }
+          setUser(profile);
           setLoading(false);
           return;
         }
@@ -154,11 +166,11 @@ export default function LoginPage() {
             )}
 
             <div className="mb-5">
-              <Label>User ID</Label>
+              <Label>{isSuperAdmin && !isSignup ? "Admin email" : "User ID"}</Label>
               <Input
                 value={userId}
                 onChange={(e) => setUserId(e.target.value)}
-                placeholder="e.g. STU-ACAD01-0001"
+                placeholder={isSuperAdmin && !isSignup ? "admin@yourdomain.com" : "e.g. STU-ACAD01-0001"}
               />
             </div>
 
