@@ -5,7 +5,10 @@
       "subject": "Physics",
       "chapter": "Rotational Dynamics",
       "topic": "Moment of Inertia",
-      "exam_type": ["MHT-CET", "JEE"],
+      "exam_type": [
+        "MHT-CET",
+        "JEE"
+      ],
       "question": "The moment of inertia of a thin uniform rod of mass M and length L about an axis passing through its center and perpendicular to its length is:",
       "options": {
         "A": "ML²/12",
@@ -14,6 +17,7 @@
         "D": "ML²/2"
       },
       "answer": "A",
+      "explanation": "For a thin uniform rod about its center, I = ML²/12. About one end it would be ML²/3.",
       "is_pyq": true,
       "difficulty": 2
     },
@@ -22,7 +26,9 @@
       "subject": "Physics",
       "chapter": "Rotational Dynamics",
       "topic": "Centripetal Force",
-      "exam_type": ["MHT-CET"],
+      "exam_type": [
+        "MHT-CET"
+      ],
       "question": "A particle of mass m moves in a circle of radius r with speed v. The centripetal acceleration is:",
       "options": {
         "A": "v/r",
@@ -31,6 +37,7 @@
         "D": "vr"
       },
       "answer": "B",
+      "explanation": "Centripetal acceleration a = v²/r, directed towards the center of the circular path.",
       "is_pyq": true,
       "difficulty": 1
     },
@@ -38,8 +45,11 @@
       "id": "3",
       "subject": "Chemistry",
       "chapter": "Solid State",
-      "topic": "Crystal Latices",
-      "exam_type": ["JEE", "MHT-CET"],
+      "topic": "Crystal Systems",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
       "question": "The number of atoms per unit cell in a Face-Centered Cubic (FCC) crystal is:",
       "options": {
         "A": "1",
@@ -48,6 +58,7 @@
         "D": "8"
       },
       "answer": "C",
+      "explanation": "In FCC: 8 corner atoms × 1/8 + 6 face atoms × 1/2 = 1 + 3 = 4 atoms per unit cell.",
       "is_pyq": true,
       "difficulty": 2
     },
@@ -55,8 +66,10 @@
       "id": "4",
       "subject": "Chemistry",
       "chapter": "Solid State",
-      "topic": "Void Volume",
-      "exam_type": ["MHT-CET"],
+      "topic": "Packing Efficiency",
+      "exam_type": [
+        "MHT-CET"
+      ],
       "question": "The percentage of empty space in a body-centered cubic (BCC) unit cell is:",
       "options": {
         "A": "32%",
@@ -65,16 +78,20 @@
         "D": "74%"
       },
       "answer": "A",
+      "explanation": "BCC packing efficiency is 68%, so empty space = 100% - 68% = 32%.",
       "is_pyq": true,
       "difficulty": 2
     },
     {
       "id": "5",
-      "subject": "Maths",
+      "subject": "Mathematics",
       "chapter": "Integration",
-      "topic": "Definite Integrals",
-      "exam_type": ["JEE", "MHT-CET"],
-      "question": "Find the integral of e^x(f(x) + f'(x)) dx:",
+      "topic": "Indefinite Integrals",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "The integral of e^x(f(x) + f'(x)) dx equals:",
       "options": {
         "A": "e^x f(x) + C",
         "B": "e^x f'(x) + C",
@@ -82,15 +99,19 @@
         "D": "f(x) + C"
       },
       "answer": "A",
+      "explanation": "Using the property: ∫e^x[f(x) + f'(x)]dx = e^x·f(x) + C.",
       "is_pyq": true,
       "difficulty": 3
     },
     {
       "id": "6",
       "subject": "Biology",
-      "chapter": "Genetics",
-      "topic": "Mendelian Inheritance",
-      "exam_type": ["NEET", "MHT-CET"],
+      "chapter": "Principles of Inheritance",
+      "topic": "Mendelian Genetics",
+      "exam_type": [
+        "NEET",
+        "MHT-CET"
+      ],
       "question": "The phenotypic ratio of a dihybrid cross in F2 generation is:",
       "options": {
         "A": "3:1",
@@ -99,25 +120,1122 @@
         "D": "1:1:1:1"
       },
       "answer": "B",
+      "explanation": "In a dihybrid cross (AaBb × AaBb), the F2 phenotypic ratio is 9:3:3:1.",
       "is_pyq": true,
       "difficulty": 2
     },
     {
-       "id": "7",
-       "subject": "Physics",
-       "chapter": "Rotational Dynamics",
-       "topic": "Angular Momentum",
-       "exam_type": ["JEE"],
-       "question": "A solid sphere is rotating about its diameter. If the radius is doubled without changing the mass, the new angular velocity will be:",
-       "options": {
-         "A": "ω/2",
-         "B": "ω/4",
-         "C": "2ω",
-         "D": "4ω"
-       },
-       "answer": "B",
-       "is_pyq": true,
-       "difficulty": 4
+      "id": "7",
+      "subject": "Physics",
+      "chapter": "Rotational Dynamics",
+      "topic": "Angular Momentum",
+      "exam_type": [
+        "JEE"
+      ],
+      "question": "A solid sphere is rotating about its diameter. If the radius is doubled without changing the mass, the new angular velocity will be:",
+      "options": {
+        "A": "ω/2",
+        "B": "ω/4",
+        "C": "2ω",
+        "D": "4ω"
+      },
+      "answer": "B",
+      "explanation": "I = 2/5 MR². If R doubles, I becomes 4 times. By conservation of L = Iω, new ω = ω/4.",
+      "is_pyq": true,
+      "difficulty": 4
+    },
+    {
+      "id": "8",
+      "subject": "Physics",
+      "chapter": "Electrostatics",
+      "topic": "Coulomb's Law",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "Two point charges of +2μC and -2μC are placed 10 cm apart. The electric field at the midpoint is:",
+      "options": {
+        "A": "Zero",
+        "B": "14.4 × 10⁶ N/C",
+        "C": "7.2 × 10⁶ N/C",
+        "D": "28.8 × 10⁶ N/C"
+      },
+      "answer": "B",
+      "explanation": "At midpoint, both fields point in the same direction (from + to -). E = 2 × kq/r² = 2 × 9×10⁹ × 2×10⁻⁶/(0.05)² = 14.4 × 10⁶ N/C.",
+      "is_pyq": true,
+      "difficulty": 3
+    },
+    {
+      "id": "9",
+      "subject": "Physics",
+      "chapter": "Electrostatics",
+      "topic": "Electric Potential",
+      "exam_type": [
+        "MHT-CET"
+      ],
+      "question": "The work done in moving a charge of 5C across two points having a potential difference of 10V is:",
+      "options": {
+        "A": "50 J",
+        "B": "2 J",
+        "C": "0.5 J",
+        "D": "25 J"
+      },
+      "answer": "A",
+      "explanation": "Work done W = qV = 5 × 10 = 50 J.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "10",
+      "subject": "Physics",
+      "chapter": "Current Electricity",
+      "topic": "Ohm's Law",
+      "exam_type": [
+        "MHT-CET",
+        "JEE"
+      ],
+      "question": "A wire of resistance 10Ω is stretched to twice its original length. The new resistance is:",
+      "options": {
+        "A": "20Ω",
+        "B": "40Ω",
+        "C": "5Ω",
+        "D": "10Ω"
+      },
+      "answer": "B",
+      "explanation": "When stretched to double length, area halves. R = ρL/A. New R = ρ(2L)/(A/2) = 4R = 40Ω.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "11",
+      "subject": "Physics",
+      "chapter": "Optics",
+      "topic": "Refraction",
+      "exam_type": [
+        "MHT-CET",
+        "JEE"
+      ],
+      "question": "The critical angle for a medium of refractive index √2 is:",
+      "options": {
+        "A": "30°",
+        "B": "45°",
+        "C": "60°",
+        "D": "90°"
+      },
+      "answer": "B",
+      "explanation": "sin(C) = 1/μ = 1/√2, so C = 45°.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "12",
+      "subject": "Physics",
+      "chapter": "Optics",
+      "topic": "Interference",
+      "exam_type": [
+        "JEE"
+      ],
+      "question": "In Young's double slit experiment, if the distance between the slits is halved, the fringe width:",
+      "options": {
+        "A": "Halves",
+        "B": "Doubles",
+        "C": "Remains same",
+        "D": "Quadruples"
+      },
+      "answer": "B",
+      "explanation": "Fringe width β = λD/d. If d is halved, β doubles.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "13",
+      "subject": "Physics",
+      "chapter": "Thermodynamics",
+      "topic": "Laws of Thermodynamics",
+      "exam_type": [
+        "MHT-CET",
+        "JEE"
+      ],
+      "question": "In an adiabatic process:",
+      "options": {
+        "A": "ΔQ = 0",
+        "B": "ΔW = 0",
+        "C": "ΔU = 0",
+        "D": "ΔT = 0"
+      },
+      "answer": "A",
+      "explanation": "In an adiabatic process, no heat is exchanged with the surroundings, so ΔQ = 0.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "14",
+      "subject": "Physics",
+      "chapter": "Oscillations",
+      "topic": "Simple Harmonic Motion",
+      "exam_type": [
+        "MHT-CET",
+        "JEE"
+      ],
+      "question": "The time period of a simple pendulum is doubled when its length is:",
+      "options": {
+        "A": "Doubled",
+        "B": "Halved",
+        "C": "Quadrupled",
+        "D": "Unchanged"
+      },
+      "answer": "C",
+      "explanation": "T = 2π√(L/g). To double T, L must be quadrupled: 2T = 2π√(4L/g).",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "15",
+      "subject": "Physics",
+      "chapter": "Semiconductors",
+      "topic": "p-n Junction Diode",
+      "exam_type": [
+        "MHT-CET"
+      ],
+      "question": "In forward bias, the width of the depletion region:",
+      "options": {
+        "A": "Increases",
+        "B": "Decreases",
+        "C": "Remains same",
+        "D": "First increases then decreases"
+      },
+      "answer": "B",
+      "explanation": "In forward bias, the external voltage opposes the barrier potential, reducing the depletion region width.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "16",
+      "subject": "Physics",
+      "chapter": "Atoms and Nuclei",
+      "topic": "Radioactivity",
+      "exam_type": [
+        "JEE",
+        "NEET"
+      ],
+      "question": "The half-life of a radioactive substance is 30 minutes. What fraction remains after 2 hours?",
+      "options": {
+        "A": "1/4",
+        "B": "1/8",
+        "C": "1/16",
+        "D": "1/32"
+      },
+      "answer": "C",
+      "explanation": "2 hours = 120 min. Number of half-lives = 120/30 = 4. Fraction remaining = (1/2)⁴ = 1/16.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "17",
+      "subject": "Physics",
+      "chapter": "Wave Motion",
+      "topic": "Doppler Effect",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "A source of sound is moving towards a stationary observer. The apparent frequency will:",
+      "options": {
+        "A": "Increase",
+        "B": "Decrease",
+        "C": "Remain same",
+        "D": "Become zero"
+      },
+      "answer": "A",
+      "explanation": "When source moves towards observer, wavelength decreases and apparent frequency increases.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "18",
+      "subject": "Chemistry",
+      "chapter": "Chemical Kinetics",
+      "topic": "Rate Laws",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "For a first-order reaction, the half-life is:",
+      "options": {
+        "A": "Dependent on initial concentration",
+        "B": "Independent of initial concentration",
+        "C": "Directly proportional to concentration",
+        "D": "Inversely proportional to concentration"
+      },
+      "answer": "B",
+      "explanation": "For first-order reactions, t₁/₂ = 0.693/k, which is independent of initial concentration.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "19",
+      "subject": "Chemistry",
+      "chapter": "Chemical Kinetics",
+      "topic": "Activation Energy",
+      "exam_type": [
+        "JEE"
+      ],
+      "question": "According to Arrhenius equation, the rate constant k is related to temperature as:",
+      "options": {
+        "A": "k = Ae^(-Ea/RT)",
+        "B": "k = Ae^(Ea/RT)",
+        "C": "k = A + Ea/RT",
+        "D": "k = A - Ea/RT"
+      },
+      "answer": "A",
+      "explanation": "The Arrhenius equation is k = Ae^(-Ea/RT), where Ea is activation energy and A is the pre-exponential factor.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "20",
+      "subject": "Chemistry",
+      "chapter": "Solutions",
+      "topic": "Colligative Properties",
+      "exam_type": [
+        "MHT-CET",
+        "JEE"
+      ],
+      "question": "Which of the following is NOT a colligative property?",
+      "options": {
+        "A": "Osmotic pressure",
+        "B": "Boiling point elevation",
+        "C": "Optical activity",
+        "D": "Freezing point depression"
+      },
+      "answer": "C",
+      "explanation": "Optical activity depends on the nature of the solute, not on the number of particles. Colligative properties depend only on the number of solute particles.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "21",
+      "subject": "Chemistry",
+      "chapter": "Electrochemistry",
+      "topic": "Galvanic Cells",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "In a galvanic cell, the cathode is:",
+      "options": {
+        "A": "Negatively charged",
+        "B": "Positively charged",
+        "C": "Neutral",
+        "D": "Either positive or negative"
+      },
+      "answer": "B",
+      "explanation": "In a galvanic cell, cathode is the positive electrode where reduction takes place.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "22",
+      "subject": "Chemistry",
+      "chapter": "p-Block Elements",
+      "topic": "Group 17 Elements",
+      "exam_type": [
+        "MHT-CET"
+      ],
+      "question": "The strongest oxidising agent among the halogens is:",
+      "options": {
+        "A": "Chlorine",
+        "B": "Bromine",
+        "C": "Fluorine",
+        "D": "Iodine"
+      },
+      "answer": "C",
+      "explanation": "Fluorine has the highest electronegativity and the highest reduction potential, making it the strongest oxidising agent.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "23",
+      "subject": "Chemistry",
+      "chapter": "Coordination Compounds",
+      "topic": "Crystal Field Theory",
+      "exam_type": [
+        "JEE"
+      ],
+      "question": "The crystal field splitting energy (Δ₀) for an octahedral complex is:",
+      "options": {
+        "A": "Always greater than Δt",
+        "B": "Always less than Δt",
+        "C": "Equal to Δt",
+        "D": "Not related to Δt"
+      },
+      "answer": "A",
+      "explanation": "Δ₀ = (9/4)Δt. The octahedral splitting is always greater than tetrahedral splitting for the same metal-ligand combination.",
+      "is_pyq": true,
+      "difficulty": 3
+    },
+    {
+      "id": "24",
+      "subject": "Chemistry",
+      "chapter": "Amines",
+      "topic": "Basicity of Amines",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "Among the following, which is the strongest base?",
+      "options": {
+        "A": "Aniline",
+        "B": "Methylamine",
+        "C": "Dimethylamine",
+        "D": "Ammonia"
+      },
+      "answer": "C",
+      "explanation": "In aqueous solution: (CH₃)₂NH > CH₃NH₂ > NH₃ > C₆H₅NH₂. Dimethylamine has two electron-donating methyl groups.",
+      "is_pyq": true,
+      "difficulty": 3
+    },
+    {
+      "id": "25",
+      "subject": "Chemistry",
+      "chapter": "Biomolecules",
+      "topic": "Proteins",
+      "exam_type": [
+        "NEET",
+        "MHT-CET"
+      ],
+      "question": "The bond that links amino acids in a protein is called:",
+      "options": {
+        "A": "Glycosidic bond",
+        "B": "Peptide bond",
+        "C": "Ester bond",
+        "D": "Phosphodiester bond"
+      },
+      "answer": "B",
+      "explanation": "Amino acids are linked by peptide bonds (-CO-NH-) formed between the carboxyl group of one amino acid and the amino group of the next.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "26",
+      "subject": "Chemistry",
+      "chapter": "Polymers",
+      "topic": "Addition Polymers",
+      "exam_type": [
+        "MHT-CET"
+      ],
+      "question": "Teflon is a polymer of:",
+      "options": {
+        "A": "Ethylene",
+        "B": "Tetrafluoroethylene",
+        "C": "Vinyl chloride",
+        "D": "Styrene"
+      },
+      "answer": "B",
+      "explanation": "Teflon (PTFE) is made by polymerisation of tetrafluoroethylene (CF₂=CF₂).",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "27",
+      "subject": "Mathematics",
+      "chapter": "Differentiation",
+      "topic": "Chain Rule",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "The derivative of sin(x²) with respect to x is:",
+      "options": {
+        "A": "cos(x²)",
+        "B": "2x cos(x²)",
+        "C": "x² cos(x²)",
+        "D": "2 sin(x) cos(x)"
+      },
+      "answer": "B",
+      "explanation": "Using chain rule: d/dx[sin(x²)] = cos(x²) · 2x = 2x cos(x²).",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "28",
+      "subject": "Mathematics",
+      "chapter": "Differentiation",
+      "topic": "Logarithmic Differentiation",
+      "exam_type": [
+        "JEE"
+      ],
+      "question": "If y = x^x, then dy/dx equals:",
+      "options": {
+        "A": "x^x(1 + ln x)",
+        "B": "x^(x-1)",
+        "C": "x · x^x",
+        "D": "x^x · ln x"
+      },
+      "answer": "A",
+      "explanation": "Taking log: ln y = x ln x. Differentiating: (1/y)dy/dx = 1 + ln x. So dy/dx = x^x(1 + ln x).",
+      "is_pyq": true,
+      "difficulty": 3
+    },
+    {
+      "id": "29",
+      "subject": "Mathematics",
+      "chapter": "Integration",
+      "topic": "Definite Integrals",
+      "exam_type": [
+        "MHT-CET",
+        "JEE"
+      ],
+      "question": "The value of ∫₀^π sin x dx is:",
+      "options": {
+        "A": "0",
+        "B": "1",
+        "C": "2",
+        "D": "-1"
+      },
+      "answer": "C",
+      "explanation": "∫₀^π sin x dx = [-cos x]₀^π = -cos π + cos 0 = 1 + 1 = 2.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "30",
+      "subject": "Mathematics",
+      "chapter": "Determinants",
+      "topic": "Properties of Determinants",
+      "exam_type": [
+        "MHT-CET"
+      ],
+      "question": "If two rows of a determinant are identical, the value of the determinant is:",
+      "options": {
+        "A": "1",
+        "B": "-1",
+        "C": "0",
+        "D": "2"
+      },
+      "answer": "C",
+      "explanation": "If any two rows (or columns) of a determinant are identical, the determinant equals zero.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "31",
+      "subject": "Mathematics",
+      "chapter": "Vector Algebra",
+      "topic": "Scalar & Vector Products",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "If two vectors are perpendicular, their dot product is:",
+      "options": {
+        "A": "1",
+        "B": "-1",
+        "C": "0",
+        "D": "Undefined"
+      },
+      "answer": "C",
+      "explanation": "A · B = |A||B|cos θ. When θ = 90°, cos 90° = 0, so A · B = 0.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "32",
+      "subject": "Mathematics",
+      "chapter": "Probability",
+      "topic": "Conditional Probability",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "If P(A) = 0.5, P(B) = 0.3, and P(A∩B) = 0.1, then P(A|B) is:",
+      "options": {
+        "A": "1/3",
+        "B": "1/5",
+        "C": "2/3",
+        "D": "3/5"
+      },
+      "answer": "A",
+      "explanation": "P(A|B) = P(A∩B)/P(B) = 0.1/0.3 = 1/3.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "33",
+      "subject": "Mathematics",
+      "chapter": "Probability",
+      "topic": "Bayes' Theorem",
+      "exam_type": [
+        "JEE"
+      ],
+      "question": "Bayes' theorem relates:",
+      "options": {
+        "A": "Prior and posterior probabilities",
+        "B": "Independent events only",
+        "C": "Mutually exclusive events",
+        "D": "Joint and marginal probabilities only"
+      },
+      "answer": "A",
+      "explanation": "Bayes' theorem calculates posterior probability from prior probability and likelihood: P(A|B) = P(B|A)P(A)/P(B).",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "34",
+      "subject": "Mathematics",
+      "chapter": "Applications of Derivatives",
+      "topic": "Maxima and Minima",
+      "exam_type": [
+        "MHT-CET",
+        "JEE"
+      ],
+      "question": "The function f(x) = x³ - 3x + 2 has a local maximum at:",
+      "options": {
+        "A": "x = 1",
+        "B": "x = -1",
+        "C": "x = 0",
+        "D": "x = 2"
+      },
+      "answer": "B",
+      "explanation": "f'(x) = 3x² - 3 = 0 → x = ±1. f''(x) = 6x. At x = -1, f''(-1) = -6 < 0, so local maximum at x = -1.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "35",
+      "subject": "Mathematics",
+      "chapter": "Differential Equations",
+      "topic": "Order and Degree",
+      "exam_type": [
+        "MHT-CET"
+      ],
+      "question": "The order and degree of the differential equation d²y/dx² + (dy/dx)³ = 0 are:",
+      "options": {
+        "A": "2, 1",
+        "B": "2, 3",
+        "C": "1, 3",
+        "D": "3, 2"
+      },
+      "answer": "A",
+      "explanation": "Order = highest derivative = 2 (d²y/dx²). Degree = power of highest order derivative = 1.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "36",
+      "subject": "Mathematics",
+      "chapter": "Three Dimensional Geometry",
+      "topic": "Direction Cosines & Ratios",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "If direction cosines of a line are l, m, n, then l² + m² + n² equals:",
+      "options": {
+        "A": "0",
+        "B": "1",
+        "C": "3",
+        "D": "-1"
+      },
+      "answer": "B",
+      "explanation": "By definition, the sum of squares of direction cosines is always 1: l² + m² + n² = 1.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "37",
+      "subject": "Biology",
+      "chapter": "Human Reproduction",
+      "topic": "Gametogenesis",
+      "exam_type": [
+        "NEET",
+        "MHT-CET"
+      ],
+      "question": "The number of sperms produced from one primary spermatocyte is:",
+      "options": {
+        "A": "1",
+        "B": "2",
+        "C": "4",
+        "D": "8"
+      },
+      "answer": "C",
+      "explanation": "One primary spermatocyte undergoes meiosis I to form 2 secondary spermatocytes, then meiosis II to form 4 spermatids → 4 sperms.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "38",
+      "subject": "Biology",
+      "chapter": "Molecular Basis of Inheritance",
+      "topic": "DNA Structure",
+      "exam_type": [
+        "NEET",
+        "MHT-CET"
+      ],
+      "question": "According to Chargaff's rule, which of the following is correct?",
+      "options": {
+        "A": "A = G",
+        "B": "A = T",
+        "C": "A = C",
+        "D": "G = T"
+      },
+      "answer": "B",
+      "explanation": "Chargaff's rule states that A pairs with T and G pairs with C, so the amount of A equals T, and G equals C.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "39",
+      "subject": "Biology",
+      "chapter": "Molecular Basis of Inheritance",
+      "topic": "DNA Replication",
+      "exam_type": [
+        "NEET"
+      ],
+      "question": "DNA replication is:",
+      "options": {
+        "A": "Conservative",
+        "B": "Semi-conservative",
+        "C": "Dispersive",
+        "D": "Non-conservative"
+      },
+      "answer": "B",
+      "explanation": "DNA replication is semi-conservative as proved by Meselson and Stahl experiment. Each new DNA has one old and one new strand.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "40",
+      "subject": "Biology",
+      "chapter": "Human Health and Disease",
+      "topic": "Immunity",
+      "exam_type": [
+        "NEET",
+        "MHT-CET"
+      ],
+      "question": "Which type of immunity is provided by vaccination?",
+      "options": {
+        "A": "Natural active immunity",
+        "B": "Artificial active immunity",
+        "C": "Natural passive immunity",
+        "D": "Artificial passive immunity"
+      },
+      "answer": "B",
+      "explanation": "Vaccination introduces antigens that stimulate the immune system to produce antibodies, providing artificial active immunity.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "41",
+      "subject": "Biology",
+      "chapter": "Biotechnology - Principles",
+      "topic": "PCR",
+      "exam_type": [
+        "NEET"
+      ],
+      "question": "The enzyme used in PCR (Polymerase Chain Reaction) is:",
+      "options": {
+        "A": "DNA ligase",
+        "B": "Taq polymerase",
+        "C": "Reverse transcriptase",
+        "D": "Restriction endonuclease"
+      },
+      "answer": "B",
+      "explanation": "Taq polymerase (from Thermus aquaticus) is thermostable and used in PCR for DNA amplification at high temperatures.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "42",
+      "subject": "Biology",
+      "chapter": "Ecosystem",
+      "topic": "Energy Flow",
+      "exam_type": [
+        "NEET",
+        "MHT-CET"
+      ],
+      "question": "Only about what percentage of energy is transferred from one trophic level to the next?",
+      "options": {
+        "A": "1%",
+        "B": "10%",
+        "C": "50%",
+        "D": "90%"
+      },
+      "answer": "B",
+      "explanation": "According to the 10% law (Lindeman), only about 10% of energy is transferred from one trophic level to the next.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "43",
+      "subject": "Biology",
+      "chapter": "Evolution",
+      "topic": "Natural Selection",
+      "exam_type": [
+        "NEET"
+      ],
+      "question": "The finches of Galapagos Islands provide evidence for:",
+      "options": {
+        "A": "Convergent evolution",
+        "B": "Adaptive radiation",
+        "C": "Industrial melanism",
+        "D": "Genetic drift"
+      },
+      "answer": "B",
+      "explanation": "Darwin's finches show adaptive radiation - a single ancestral species diversified into many species adapted to different ecological niches.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "44",
+      "subject": "Biology",
+      "chapter": "Reproduction in Organisms",
+      "topic": "Asexual Reproduction",
+      "exam_type": [
+        "NEET",
+        "MHT-CET"
+      ],
+      "question": "Binary fission is seen in:",
+      "options": {
+        "A": "Amoeba",
+        "B": "Yeast",
+        "C": "Hydra",
+        "D": "Planaria"
+      },
+      "answer": "A",
+      "explanation": "Binary fission is a type of asexual reproduction seen in Amoeba. Yeast reproduces by budding, Hydra by budding, and Planaria by regeneration.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "45",
+      "subject": "Physics",
+      "chapter": "Electromagnetic Induction",
+      "topic": "Faraday's Law",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "The induced EMF in a coil is proportional to:",
+      "options": {
+        "A": "Magnetic flux",
+        "B": "Rate of change of magnetic flux",
+        "C": "Square of magnetic flux",
+        "D": "Resistance of coil"
+      },
+      "answer": "B",
+      "explanation": "Faraday's law states that induced EMF = -dΦ/dt, proportional to the rate of change of magnetic flux.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "46",
+      "subject": "Physics",
+      "chapter": "Dual Nature of Radiation",
+      "topic": "Photoelectric Effect",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "The maximum kinetic energy of photoelectrons depends on:",
+      "options": {
+        "A": "Intensity of light",
+        "B": "Frequency of light",
+        "C": "Speed of light",
+        "D": "Wavelength and intensity both"
+      },
+      "answer": "B",
+      "explanation": "KEmax = hν - φ. Maximum KE depends on frequency of incident light, not intensity.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "47",
+      "subject": "Physics",
+      "chapter": "Magnetic Effect of Current",
+      "topic": "Biot-Savart Law",
+      "exam_type": [
+        "JEE"
+      ],
+      "question": "The magnetic field at the center of a circular loop of radius R carrying current I is:",
+      "options": {
+        "A": "μ₀I/2R",
+        "B": "μ₀I/4πR",
+        "C": "μ₀I/R",
+        "D": "μ₀I²/2R"
+      },
+      "answer": "A",
+      "explanation": "Using Biot-Savart law, the magnetic field at the center of a circular loop is B = μ₀I/2R.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "48",
+      "subject": "Chemistry",
+      "chapter": "Surface Chemistry",
+      "topic": "Colloids",
+      "exam_type": [
+        "MHT-CET"
+      ],
+      "question": "Tyndall effect is shown by:",
+      "options": {
+        "A": "True solutions",
+        "B": "Colloids",
+        "C": "Suspensions only",
+        "D": "Pure solvents"
+      },
+      "answer": "B",
+      "explanation": "Colloids show Tyndall effect because their particle size (1-1000 nm) is comparable to the wavelength of light, causing scattering.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "49",
+      "subject": "Chemistry",
+      "chapter": "d and f Block Elements",
+      "topic": "Transition Elements",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "Transition metals exhibit variable oxidation states because:",
+      "options": {
+        "A": "They have large atomic sizes",
+        "B": "Their (n-1)d and ns electrons have similar energies",
+        "C": "They have high ionisation energies",
+        "D": "They are all metals"
+      },
+      "answer": "B",
+      "explanation": "The (n-1)d and ns electrons have similar energies, so both can participate in bonding, leading to variable oxidation states.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "50",
+      "subject": "Chemistry",
+      "chapter": "Aldehydes, Ketones and Carboxylic Acids",
+      "topic": "Nucleophilic Addition",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "Which of the following does NOT give Tollens' test?",
+      "options": {
+        "A": "Formaldehyde",
+        "B": "Acetaldehyde",
+        "C": "Acetone",
+        "D": "Glucose"
+      },
+      "answer": "C",
+      "explanation": "Ketones like acetone do not give Tollens' test (silver mirror test). Only aldehydes and some sugars give positive Tollens' test.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "51",
+      "subject": "Mathematics",
+      "chapter": "Matrices",
+      "topic": "Types of Matrices",
+      "exam_type": [
+        "MHT-CET"
+      ],
+      "question": "A square matrix A is orthogonal if:",
+      "options": {
+        "A": "A² = I",
+        "B": "AAᵀ = I",
+        "C": "A + Aᵀ = 0",
+        "D": "A = Aᵀ"
+      },
+      "answer": "B",
+      "explanation": "A square matrix A is orthogonal if AAᵀ = AᵀA = I, i.e., Aᵀ = A⁻¹.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "52",
+      "subject": "Mathematics",
+      "chapter": "Relations and Functions",
+      "topic": "Composite Functions",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "If f(x) = 2x + 3 and g(x) = x², then f(g(2)) is:",
+      "options": {
+        "A": "11",
+        "B": "49",
+        "C": "7",
+        "D": "14"
+      },
+      "answer": "A",
+      "explanation": "g(2) = 4, f(g(2)) = f(4) = 2(4) + 3 = 11.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "53",
+      "subject": "Mathematics",
+      "chapter": "Linear Programming",
+      "topic": "Graphical Method",
+      "exam_type": [
+        "MHT-CET"
+      ],
+      "question": "In linear programming, the objective function is:",
+      "options": {
+        "A": "A constraint",
+        "B": "The function to be optimised",
+        "C": "A boundary condition",
+        "D": "Always linear"
+      },
+      "answer": "B",
+      "explanation": "The objective function is the function (usually profit or cost) that needs to be maximised or minimised subject to constraints.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "54",
+      "subject": "Biology",
+      "chapter": "Biodiversity",
+      "topic": "Conservation Strategies",
+      "exam_type": [
+        "NEET"
+      ],
+      "question": "An example of ex-situ conservation is:",
+      "options": {
+        "A": "National Park",
+        "B": "Biosphere Reserve",
+        "C": "Botanical Garden",
+        "D": "Sacred Grove"
+      },
+      "answer": "C",
+      "explanation": "Botanical gardens, zoological parks, seed banks are examples of ex-situ conservation (outside natural habitat). National Parks and Biosphere Reserves are in-situ.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "55",
+      "subject": "Biology",
+      "chapter": "Microbes in Human Welfare",
+      "topic": "Fermentation",
+      "exam_type": [
+        "NEET",
+        "MHT-CET"
+      ],
+      "question": "The microorganism used in the production of ethanol is:",
+      "options": {
+        "A": "Lactobacillus",
+        "B": "Saccharomyces cerevisiae",
+        "C": "Acetobacter",
+        "D": "Rhizobium"
+      },
+      "answer": "B",
+      "explanation": "Saccharomyces cerevisiae (brewer's yeast) is used for alcoholic fermentation to produce ethanol.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "56",
+      "subject": "Physics",
+      "chapter": "Motion in a Straight Line",
+      "topic": "Equations of Motion",
+      "exam_type": [
+        "MHT-CET"
+      ],
+      "question": "A body starts from rest and accelerates uniformly at 2 m/s². The distance covered in 5 seconds is:",
+      "options": {
+        "A": "10 m",
+        "B": "25 m",
+        "C": "50 m",
+        "D": "20 m"
+      },
+      "answer": "B",
+      "explanation": "Using s = ut + ½at² = 0 + ½(2)(25) = 25 m.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "57",
+      "subject": "Physics",
+      "chapter": "Laws of Motion",
+      "topic": "Newton's Laws",
+      "exam_type": [
+        "MHT-CET",
+        "JEE"
+      ],
+      "question": "A force of 10 N acts on a body of mass 2 kg. The acceleration produced is:",
+      "options": {
+        "A": "20 m/s²",
+        "B": "5 m/s²",
+        "C": "0.2 m/s²",
+        "D": "12 m/s²"
+      },
+      "answer": "B",
+      "explanation": "By Newton's second law, F = ma → a = F/m = 10/2 = 5 m/s².",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "58",
+      "subject": "Physics",
+      "chapter": "Gravitation",
+      "topic": "Escape Velocity",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "The escape velocity from the Earth's surface is approximately:",
+      "options": {
+        "A": "7.9 km/s",
+        "B": "11.2 km/s",
+        "C": "3.1 km/s",
+        "D": "15.4 km/s"
+      },
+      "answer": "B",
+      "explanation": "Escape velocity ve = √(2gR) ≈ 11.2 km/s for Earth.",
+      "is_pyq": true,
+      "difficulty": 1
+    },
+    {
+      "id": "59",
+      "subject": "Chemistry",
+      "chapter": "Structure of Atom",
+      "topic": "Quantum Numbers",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "The maximum number of electrons in a subshell with l = 2 is:",
+      "options": {
+        "A": "6",
+        "B": "10",
+        "C": "14",
+        "D": "2"
+      },
+      "answer": "B",
+      "explanation": "Maximum electrons = 2(2l+1) = 2(5) = 10. l = 2 corresponds to d-subshell.",
+      "is_pyq": true,
+      "difficulty": 2
+    },
+    {
+      "id": "60",
+      "subject": "Chemistry",
+      "chapter": "Chemical Bonding",
+      "topic": "Hybridisation",
+      "exam_type": [
+        "JEE",
+        "MHT-CET"
+      ],
+      "question": "The hybridisation of carbon in methane (CH₄) is:",
+      "options": {
+        "A": "sp",
+        "B": "sp²",
+        "C": "sp³",
+        "D": "sp³d"
+      },
+      "answer": "C",
+      "explanation": "In CH₄, carbon forms 4 sigma bonds with 4 hydrogen atoms, requiring sp³ hybridisation with tetrahedral geometry.",
+      "is_pyq": true,
+      "difficulty": 1
     }
   ]
 }

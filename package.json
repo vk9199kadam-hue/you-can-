@@ -4,18 +4,25 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "dev": "nx serve you-can --port=4200",
+    "build": "nx build you-can",
+    "lint": "nx lint you-can",
+    "preview": "vite preview",
+    "typecheck": "nx run you-can:typecheck"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.4",
+    "@types/react-router-dom": "^5.3.3",
+    "firebase": "^12.12.1",
     "react": "^19.2.5",
-    "react-dom": "^19.2.5"
+    "react-dom": "^19.2.5",
+    "react-router-dom": "^7.14.2"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@nx/eslint": "^22.7.0",
+    "@nx/js": "^22.7.0",
+    "@nx/vite": "^22.7.0",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
@@ -25,6 +32,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.5.0",
+    "nx": "^22.7.0",
     "postcss": "^8.5.10",
     "tailwindcss": "^4.2.4",
     "typescript": "~6.0.2",

@@ -1,0 +1,2678 @@
+{
+  "version": "6.0",
+  "nxVersion": "22.7.0",
+  "pathMappings": {},
+  "nxJsonPlugins": [
+    {
+      "name": "@nx/vite/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "testTargetName": "test",
+        "serveTargetName": "serve",
+        "previewTargetName": "preview",
+        "serveStaticTargetName": "serve-static",
+        "typecheckTargetName": "typecheck"
+      }
+    }
+  ],
+  "fileMap": {
+    "nonProjectFiles": [],
+    "projectFileMap": {
+      "you-can": [
+        {
+          "file": ".env.example",
+          "hash": "5086019279851060266"
+        },
+        {
+          "file": ".firebaserc",
+          "hash": "8638742495043207364"
+        },
+        {
+          "file": ".gitignore",
+          "hash": "8154146567444094507"
+        },
+        {
+          "file": "README.md",
+          "hash": "12898708426211052224"
+        },
+        {
+          "file": "YOU_CAN_SRS_Document.md",
+          "hash": "2231427981863096644"
+        },
+        {
+          "file": "educational_platform_data.md",
+          "hash": "13532844291705914673"
+        },
+        {
+          "file": "eslint.config.js",
+          "hash": "13391500004468708311",
+          "deps": [
+            "npm:@eslint/js",
+            "npm:globals",
+            "npm:eslint-plugin-react-hooks",
+            "npm:eslint-plugin-react-refresh",
+            "npm:typescript-eslint",
+            "npm:eslint"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/.gitattributes",
+          "hash": "1572551857504561111"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/.gitignore",
+          "hash": "3535345714883499462"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/Dockerfile",
+          "hash": "10529098170837906870"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/README.md",
+          "hash": "15686874146412703077"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/approveSolutionController.js",
+          "hash": "18037162748600201806"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/commentController.js",
+          "hash": "3004905745851688715"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/deleteCommentController.js",
+          "hash": "5877024583908844644"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/deleteQsnController.js",
+          "hash": "15426185908300633285"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/getAuthUserController.js",
+          "hash": "8144919823056301779"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/getNoOfUpvotesController.js",
+          "hash": "8344136160769568619"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/getPost.js",
+          "hash": "15552097194959014400"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/getQsnById.js",
+          "hash": "1210019018596081819"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/getUserById.js",
+          "hash": "11152339914305197995"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/getUserPost.js",
+          "hash": "5525202431602292875"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/logoutController.js",
+          "hash": "1166310940187574142"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/newQsnController.js",
+          "hash": "17760614760232112981"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/postQsn.js",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/postSolutionController.js",
+          "hash": "6863145314767788284"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/signinController.js",
+          "hash": "5242407445098288817"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/signupController.js",
+          "hash": "11304645109085474264"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/controllers/upvoteController.js",
+          "hash": "3345533828953809757"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/db/connectMongoDB.js",
+          "hash": "14205972251340442918"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/middlewares/protectRoute.js",
+          "hash": "18374840652230711016"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/models/qsnModel.js",
+          "hash": "11466461052059875236"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/models/userModel.js",
+          "hash": "3161806208761119342"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/routes/authRoutes.js",
+          "hash": "12726810941981593402"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/routes/qsnRoutes.js",
+          "hash": "10319684345351745112"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/server.js",
+          "hash": "10851682281655702919",
+          "deps": [
+            "npm:dotenv"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/backend/utils/generateToken.js",
+          "hash": "13672588337171856895"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/bun.lock",
+          "hash": "16326834975157549832"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/istockphoto-1357676857-612x612.jpg",
+          "hash": "1881784037546949292"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/package-lock.json",
+          "hash": "3104141332906016012"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/package.json",
+          "hash": "3487675006754539649"
+        },
+        {
+          "file": "external_sources/content/jee-neet/.github/workflows/cleanup-cron.yml",
+          "hash": "10900823160856769023"
+        },
+        {
+          "file": "external_sources/content/jee-neet/.gitignore",
+          "hash": "3225990673875925902"
+        },
+        {
+          "file": "external_sources/content/jee-neet/.txt",
+          "hash": "11126654464181009437"
+        },
+        {
+          "file": "external_sources/content/jee-neet/README.md",
+          "hash": "13356293657406074463"
+        },
+        {
+          "file": "external_sources/content/jee-neet/biome.json",
+          "hash": "15773248522531944336"
+        },
+        {
+          "file": "external_sources/content/jee-neet/components.json",
+          "hash": "16681693832868048624"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/add_teacher_name_column.sql",
+          "hash": "17878211653597253221"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/admin_schema.sql",
+          "hash": "9052559272764236132"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/batch_enrollments_schema.sql",
+          "hash": "13842304671214266335"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/batch_subjects_schema.sql",
+          "hash": "14773146379420162321"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/batches_schema.sql",
+          "hash": "5176338331036501612"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/batches_schema_dev.sql",
+          "hash": "13673212365831736316"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/chapter_pdfs_schema.sql",
+          "hash": "14108978242056270424"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/chapter_videos_schema.sql",
+          "hash": "5862116994029316094"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/email_otps_schema.sql",
+          "hash": "14299140206081767411"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/enhanced_class_organization.sql",
+          "hash": "3372486654325132561"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/fix_batch_enrollments_rls.sql",
+          "hash": "12295532590073878821"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/fix_batch_issues.sql",
+          "hash": "10315980234667925794"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/payment_history_schema.sql",
+          "hash": "8745459791299026242"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/pdf_storage_setup.sql",
+          "hash": "16559677960177381407"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/schema.sql",
+          "hash": "15083409951442093439"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/setup-tables.sql",
+          "hash": "18029008681596779474"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/setup_complete.sql",
+          "hash": "11267742621917911195"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/setup_payment_history.sql",
+          "hash": "8528184087645923185"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/simple_rls_update.sql",
+          "hash": "8382989694210097796"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/student_profiles_schema.sql",
+          "hash": "17743309044525104038"
+        },
+        {
+          "file": "external_sources/content/jee-neet/database/updated_rls_policies.sql",
+          "hash": "6392142102184446115"
+        },
+        {
+          "file": "external_sources/content/jee-neet/next.config.ts",
+          "hash": "5307796689141320326"
+        },
+        {
+          "file": "external_sources/content/jee-neet/package-lock.json",
+          "hash": "14003801827525716954"
+        },
+        {
+          "file": "external_sources/content/jee-neet/package.json",
+          "hash": "15179462187526680029"
+        },
+        {
+          "file": "external_sources/content/jee-neet/postcss.config.mjs",
+          "hash": "512361679910886401"
+        },
+        {
+          "file": "external_sources/content/jee-neet/public/file.svg",
+          "hash": "15617830351863523835"
+        },
+        {
+          "file": "external_sources/content/jee-neet/public/globe.svg",
+          "hash": "9134466864871335697"
+        },
+        {
+          "file": "external_sources/content/jee-neet/public/next.svg",
+          "hash": "8300767200008744458"
+        },
+        {
+          "file": "external_sources/content/jee-neet/public/vercel.svg",
+          "hash": "3007623926711696394"
+        },
+        {
+          "file": "external_sources/content/jee-neet/public/window.svg",
+          "hash": "16677869292061012332"
+        },
+        {
+          "file": "external_sources/content/jee-neet/scripts/create-admin.ts",
+          "hash": "3653421258094730347"
+        },
+        {
+          "file": "external_sources/content/jee-neet/scripts/create-student.ts",
+          "hash": "7014806033831919809"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/admin/batches/[batchId]/subjects/[subjectId]/chapters/[chapterId]/page.tsx",
+          "hash": "9605129523206206928",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/admin/batches/[batchId]/subjects/[subjectId]/page.tsx",
+          "hash": "2541045602616086119",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/admin/batches/create/page.tsx",
+          "hash": "9530699126337070578",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/admin/batches/edit/[id]/page.tsx",
+          "hash": "6963842454907164144",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/admin/batches/page.tsx",
+          "hash": "16753593167552492065",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/admin/batches/view/[id]/page.tsx",
+          "hash": "1241870131349178704",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/admin/dashboard/page.tsx",
+          "hash": "2220122185282390908",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/admin/login/page.tsx",
+          "hash": "16839865312151577954",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/admin/setup-db/page.tsx",
+          "hash": "17466326251196940218",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/admin/create-admin/route.ts",
+          "hash": "17406887573977380241"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/admin/organize/route.ts",
+          "hash": "14736965611221549585"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/app-features/route.ts",
+          "hash": "12240066585276639285"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/auth/check-user-status/route.ts",
+          "hash": "8215210708570515604"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/auth/check-user-type/route.ts",
+          "hash": "9574377795381665160"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/auth/send-otp/route.ts",
+          "hash": "16188527988112034287"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/auth/verify-otp/route.ts",
+          "hash": "6015082426532900949"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/batches/[batchId]/route.ts",
+          "hash": "16120934762666124209"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/batches/[batchId]/subjects/[subjectId]/chapters/[chapterId]/pdfs/[pdfId]/route.ts",
+          "hash": "18206774950209492319"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/batches/[batchId]/subjects/[subjectId]/chapters/[chapterId]/pdfs/route.ts",
+          "hash": "15954888182304801731"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/batches/[batchId]/subjects/[subjectId]/chapters/[chapterId]/route.ts",
+          "hash": "878286489036321370"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/batches/[batchId]/subjects/[subjectId]/chapters/[chapterId]/videos/[videoId]/route.ts",
+          "hash": "6749203446183873394"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/batches/[batchId]/subjects/[subjectId]/chapters/[chapterId]/videos/route.ts",
+          "hash": "11393480005185759733"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/batches/[batchId]/subjects/[subjectId]/chapters/route.ts",
+          "hash": "10205940076663793939"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/batches/[batchId]/subjects/[subjectId]/route.ts",
+          "hash": "17561491119677097254"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/batches/[batchId]/subjects/route.ts",
+          "hash": "11684017484657173303"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/batches/route.ts",
+          "hash": "1445048139013672314"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/categories/route.ts",
+          "hash": "7544492050676387777"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/courses/route.ts",
+          "hash": "13376250307205041787"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/fix-batches/route.ts",
+          "hash": "7080453506331972929"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/payments/create-order/route.ts",
+          "hash": "11187473021210529821"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/payments/debug/route.ts",
+          "hash": "6976063320052992697"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/payments/fix-rls/route.ts",
+          "hash": "11708391967428479614"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/payments/history/route.ts",
+          "hash": "1528558733584430159"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/payments/setup/route.ts",
+          "hash": "8093064668373747668"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/payments/test-enrollment/route.ts",
+          "hash": "5811877256634307736"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/payments/test/route.ts",
+          "hash": "16237975854430549958"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/payments/verify/route.ts",
+          "hash": "17749762250578150088"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/pdf-proxy/route.ts",
+          "hash": "8052776802795183557"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/results/route.ts",
+          "hash": "5666504241335982170"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/setup-chapter-videos/route.ts",
+          "hash": "13620374120622816307"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/setup-db/route.ts",
+          "hash": "17464854773595506868"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/setup-pdfs-table/route.ts",
+          "hash": "3537155564912858888"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/statistics/route.ts",
+          "hash": "6326742582809037395"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/student/enrolled-batches/route.ts",
+          "hash": "11753126941792682627"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/student/enrollment-status/route.ts",
+          "hash": "5635860801360652091"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/student/profile/route.ts",
+          "hash": "10652762972049626204"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/test-db/route.ts",
+          "hash": "4802464719170038456"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/test-subjects/[batchId]/route.ts",
+          "hash": "15986214725581506781"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/test-tables/route.ts",
+          "hash": "8712196210784637091"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/testimonials/route.ts",
+          "hash": "7333253485573123600"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/update-rls/route.ts",
+          "hash": "2322286809475008660"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/upload-pdf/route.ts",
+          "hash": "5010885016767128588"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/api/upload/route.ts",
+          "hash": "8850001867654592886"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/auth-test/page.tsx",
+          "hash": "836947218828552448",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/auth/callback/route.ts",
+          "hash": "11593607648267161187"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/debug-enrollment/page.tsx",
+          "hash": "14797853116214078775",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/debug-user/page.tsx",
+          "hash": "4954041034591603338"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/favicon.ico",
+          "hash": "9157999678830540297"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/globals.css",
+          "hash": "2308704176238115893"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/layout.tsx",
+          "hash": "2904238744080874118"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/page.tsx",
+          "hash": "10671991463501808868"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/student/batches/[id]/page.tsx",
+          "hash": "8861998454212237963",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/student/batches/[id]/subjects/[subjectId]/chapters/[chapterId]/page.tsx",
+          "hash": "4381509167834287082",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/student/batches/[id]/subjects/[subjectId]/page.tsx",
+          "hash": "4680154233317748925",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/student/batches/page.tsx",
+          "hash": "6942959117361852877",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/student/checkout/[batchId]/page.tsx",
+          "hash": "6896768878564915756",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/student/dashboard/page.tsx",
+          "hash": "7582684133675776974",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/student/layout.tsx",
+          "hash": "2163354734619266536",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/student/login/page.tsx",
+          "hash": "5902300439861902657",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/student/profile/page.tsx",
+          "hash": "10792163967918831703",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/student/register/page.tsx",
+          "hash": "1620105170142660449",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/student/study/page.tsx",
+          "hash": "15426729560413456905",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/app/student/verify-email/page.tsx",
+          "hash": "1505165927184642565",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/admin-site-header.tsx",
+          "hash": "8748217253541667102"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/application/app-navigation/base-components/mobile-header.tsx",
+          "hash": "4254091820328923065",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/application/app-navigation/base-components/nav-account-card.tsx",
+          "hash": "4828826786704049456",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/application/app-navigation/base-components/nav-item-button.tsx",
+          "hash": "6644336213092353395",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/application/app-navigation/base-components/nav-item.tsx",
+          "hash": "1742465264220919482",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/application/app-navigation/base-components/nav-list.tsx",
+          "hash": "8306348496698308116",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/application/app-navigation/config.ts",
+          "hash": "9248994475110298636",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/avatar/avatar-label-group.tsx",
+          "hash": "8769708044648811055",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/avatar/avatar.tsx",
+          "hash": "5407078113896406693",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/avatar/base-components/avatar-add-button.tsx",
+          "hash": "14996464057824639354"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/avatar/base-components/avatar-company-icon.tsx",
+          "hash": "14585535089354804025"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/avatar/base-components/avatar-online-indicator.tsx",
+          "hash": "15043580890913216058"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/avatar/base-components/index.tsx",
+          "hash": "6318689340813715781"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/avatar/base-components/verified-tick.tsx",
+          "hash": "15240878822137212823"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/badges/badge-types.ts",
+          "hash": "1027396794753603955"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/badges/badges.tsx",
+          "hash": "1094733706409049994",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/buttons/button.tsx",
+          "hash": "9477049977646714055",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/input/hint-text.tsx",
+          "hash": "11792231714351445435",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/input/input-group.tsx",
+          "hash": "14216660837344967954",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/input/input-payment.tsx",
+          "hash": "3826944908402267246"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/input/input.tsx",
+          "hash": "15923338102576591725",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/input/label.tsx",
+          "hash": "7001671090613784320",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/radio-buttons/radio-buttons.tsx",
+          "hash": "4577026009105500701",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/select/combobox.tsx",
+          "hash": "2951152931503135041",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/select/multi-select.tsx",
+          "hash": "2343735487263621213",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/select/popover.tsx",
+          "hash": "3793836421329141885",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/select/select-item.tsx",
+          "hash": "2908262526172937603",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/select/select-native.tsx",
+          "hash": "8485669964261254713",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/select/select.tsx",
+          "hash": "9583742008108938616",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/tags/base-components/tag-close-x.tsx",
+          "hash": "10921314795434734052",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/base/tooltip/tooltip.tsx",
+          "hash": "8270710636477894358",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/batch-announcements.tsx",
+          "hash": "4225993143542533669",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/batch-preview.tsx",
+          "hash": "10437240614567062185",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/batch-resources.tsx",
+          "hash": "89831759716431919",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/batch-subjects.tsx",
+          "hash": "15070209759242532126",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/chapter-sidebar.tsx",
+          "hash": "17839792315210124476",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/foundations/dot-icon.tsx",
+          "hash": "1717422593740498979",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/foundations/logo/untitledui-logo-minimal.tsx",
+          "hash": "8807391203861318917",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/foundations/logo/untitledui-logo.tsx",
+          "hash": "13135748700932776706",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/foundations/payment-icons/amex-icon.tsx",
+          "hash": "7680804928673138969",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/foundations/payment-icons/apple-pay-icon.tsx",
+          "hash": "8178345595011185471",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/foundations/payment-icons/discover-icon.tsx",
+          "hash": "12726782896276592792",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/foundations/payment-icons/index.tsx",
+          "hash": "13892084273081999005"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/foundations/payment-icons/mastercard-icon.tsx",
+          "hash": "4709630260820847000",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/foundations/payment-icons/paypal-icon.tsx",
+          "hash": "7298051726878923261",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/foundations/payment-icons/stripe-icon.tsx",
+          "hash": "655770539647119997",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/foundations/payment-icons/union-pay-icon.tsx",
+          "hash": "13605520551713233160",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/foundations/payment-icons/visa-icon.tsx",
+          "hash": "13898515012520784883",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/homepage/AppDownloadSection.tsx",
+          "hash": "16761569543874117996"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/homepage/BatchesSection.tsx",
+          "hash": "5353181264129479326"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/homepage/CategoryCarousel.tsx",
+          "hash": "16880626332531366400",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/homepage/CoursesSection.tsx",
+          "hash": "17898856671518805516"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/homepage/FeaturesSection.tsx",
+          "hash": "13085020587219352172"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/homepage/Footer.tsx",
+          "hash": "10448664157416616342"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/homepage/HeroSection.tsx",
+          "hash": "12383307542690998267"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/homepage/Navigation.tsx",
+          "hash": "1753562522366267410",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/homepage/ResultsSection.tsx",
+          "hash": "6770424994356455113",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/homepage/StatisticsSection.tsx",
+          "hash": "4612047579004980504"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/homepage/SuccessStoriesSection.tsx",
+          "hash": "17441423060936770030"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/homepage/TestimonialsSection.tsx",
+          "hash": "8660853385103359692"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/image-upload.tsx",
+          "hash": "16733596812688463065",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/minimal-sidebar.tsx",
+          "hash": "13355384191874989025",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/nav-main.tsx",
+          "hash": "10908263456600093777"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/nav-user.tsx",
+          "hash": "2372653765060384893"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/payment-history.tsx",
+          "hash": "7142611388190388368",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/pdf-edit-dialog.tsx",
+          "hash": "11755794403409300287",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/pdf-full-page-preview.tsx",
+          "hash": "5169353148459015302",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/pdf-list.tsx",
+          "hash": "4770016367711185446",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/pdf-preview-dialog.tsx",
+          "hash": "17195452882739584972"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/pdf-upload-dialog.tsx",
+          "hash": "10017796688359596590",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/pdf-viewer-fallback.tsx",
+          "hash": "7540705157380075518",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/professional-loading-indicator.tsx",
+          "hash": "1121900722689343732"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/student-batch-subjects.tsx",
+          "hash": "11083955339730757695",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/student-chapter-sidebar.tsx",
+          "hash": "573443613912661909",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/student-pdf-list.tsx",
+          "hash": "12534077554232417278",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/student-video-list.tsx",
+          "hash": "12625759754398419714",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/subject-details-view.tsx",
+          "hash": "13261282316945732005",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/theme-provider.tsx",
+          "hash": "16165586643676643083"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/theme-toggle.tsx",
+          "hash": "3528653506661687966",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/alert-dialog.tsx",
+          "hash": "12514993988938774895",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/alert.tsx",
+          "hash": "12053058312868716629",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/animated-theme-toggler.tsx",
+          "hash": "4105598369627396645",
+          "deps": [
+            "npm:react",
+            "npm:react-dom"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/avatar.tsx",
+          "hash": "12979174226257866157",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/badge.tsx",
+          "hash": "4429877634635144311",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/button.tsx",
+          "hash": "7537161150348943277",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/card.tsx",
+          "hash": "1066166560763247819",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/checkbox.tsx",
+          "hash": "11858802833299321807",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/collapsible.tsx",
+          "hash": "6906958869722256181"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/dialog.tsx",
+          "hash": "9418750744707546320",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/dropdown-menu.tsx",
+          "hash": "17493507255942601683",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/form.tsx",
+          "hash": "12488927432171283886",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/input.tsx",
+          "hash": "7559249078053866659",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/label.tsx",
+          "hash": "13820603927334681774",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/progress.tsx",
+          "hash": "16239425311190032641",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/radio-group.tsx",
+          "hash": "9271479836042142932",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/scroll-area.tsx",
+          "hash": "14400165947169583196",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/select.tsx",
+          "hash": "14239235928970389845",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/separator.tsx",
+          "hash": "1612501407499403398",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/sheet.tsx",
+          "hash": "18255670293694039046",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/sidebar.tsx",
+          "hash": "15028918128676035946",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/skeleton.tsx",
+          "hash": "3986341345913740011"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/sonner.tsx",
+          "hash": "4509058719757989741"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/table.tsx",
+          "hash": "3457743304035339138",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/tabs.tsx",
+          "hash": "14992079743428127530",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/textarea.tsx",
+          "hash": "760432194237246985",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/ui/tooltip.tsx",
+          "hash": "9776059541944010608",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/video-edit-dialog.tsx",
+          "hash": "6193478490152238910",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/video-fallback.tsx",
+          "hash": "8563646855274399188"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/video-list.tsx",
+          "hash": "6651120631181318467",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/video-playback-dialog.tsx",
+          "hash": "7346892197043006496",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/video-player-dialog.tsx",
+          "hash": "889078968529133024",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/video-player.tsx",
+          "hash": "5886291176774062266",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/components/video-upload-dialog.tsx",
+          "hash": "9820949681120491694",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/hooks/use-admin-preferences.ts",
+          "hash": "9882554120432815634",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/hooks/use-breakpoint.ts",
+          "hash": "13285140520304040561",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/hooks/use-mobile.ts",
+          "hash": "12313694073241621491",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/hooks/use-resize-observer.ts",
+          "hash": "9556839743667728494",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/lib/auth-provider.tsx",
+          "hash": "11561377784134422939",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/lib/auth-server.ts",
+          "hash": "5505165771973556058"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/lib/cloudinary.ts",
+          "hash": "10775761531883862502"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/lib/email-service.ts",
+          "hash": "2860692490774526840"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/lib/query-provider.tsx",
+          "hash": "7159457475567306272",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/lib/razorpay.ts",
+          "hash": "11521622933019162010"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/lib/supabase-admin.ts",
+          "hash": "16944344499729169918"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/lib/supabase-error-handler.ts",
+          "hash": "6067279088835418888"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/lib/supabase-server.ts",
+          "hash": "8838631696807836682"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/lib/supabase.ts",
+          "hash": "14291256121167"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/lib/utils.ts",
+          "hash": "12218829721157087250"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/middleware.ts",
+          "hash": "11563979052511261728"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/utils/cx.ts",
+          "hash": "1419559374022998490"
+        },
+        {
+          "file": "external_sources/content/jee-neet/src/utils/is-react-component.ts",
+          "hash": "4099702019567218856",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/content/jee-neet/tsconfig.json",
+          "hash": "4899071990355104053"
+        },
+        {
+          "file": "external_sources/content/jee_mains/.github/ISSUE_TEMPLATE/bug_report.md",
+          "hash": "4617489093357040657"
+        },
+        {
+          "file": "external_sources/content/jee_mains/.github/ISSUE_TEMPLATE/feature_request.md",
+          "hash": "7335114847464643603"
+        },
+        {
+          "file": "external_sources/content/jee_mains/.github/workflows/publish.yml",
+          "hash": "9254062685585361487"
+        },
+        {
+          "file": "external_sources/content/jee_mains/.gitignore",
+          "hash": "3404399316792298559"
+        },
+        {
+          "file": "external_sources/content/jee_mains/CONTRIBUTING.md",
+          "hash": "1223092520800315130"
+        },
+        {
+          "file": "external_sources/content/jee_mains/LICENSE",
+          "hash": "16383031153364462658"
+        },
+        {
+          "file": "external_sources/content/jee_mains/README.md",
+          "hash": "6922790135234893705"
+        },
+        {
+          "file": "external_sources/content/jee_mains/SECURITY.md",
+          "hash": "16140285159153003655"
+        },
+        {
+          "file": "external_sources/content/jee_mains/assets/image.png",
+          "hash": "8018960274131300662"
+        },
+        {
+          "file": "external_sources/content/jee_mains/assets/pdf-file.pdf",
+          "hash": "12087158322270703035"
+        },
+        {
+          "file": "external_sources/content/jee_mains/assets/render_to_html_helping_card.png",
+          "hash": "2257303793552800609"
+        },
+        {
+          "file": "external_sources/content/jee_mains/jee_data_base/__init__.py",
+          "hash": "3803485658054986647"
+        },
+        {
+          "file": "external_sources/content/jee_mains/jee_data_base/core/__init__.py",
+          "hash": "1313791097918935678"
+        },
+        {
+          "file": "external_sources/content/jee_mains/jee_data_base/core/cache.py",
+          "hash": "3014753778441249764"
+        },
+        {
+          "file": "external_sources/content/jee_mains/jee_data_base/core/chapter.py",
+          "hash": "8961369453349997717"
+        },
+        {
+          "file": "external_sources/content/jee_mains/jee_data_base/core/data_base.py",
+          "hash": "5703489088677460110"
+        },
+        {
+          "file": "external_sources/content/jee_mains/jee_data_base/core/filter.py",
+          "hash": "1640545176244484337"
+        },
+        {
+          "file": "external_sources/content/jee_mains/jee_data_base/core/html_helper.py",
+          "hash": "13424733169455495742"
+        },
+        {
+          "file": "external_sources/content/jee_mains/jee_data_base/core/pdf_engine.py",
+          "hash": "6012863195654596283"
+        },
+        {
+          "file": "external_sources/content/jee_mains/jee_data_base/core/pdfy.py",
+          "hash": "15432568137875174688"
+        },
+        {
+          "file": "external_sources/content/jee_mains/jee_data_base/core/pdfy_support.py",
+          "hash": "332548232793093641"
+        },
+        {
+          "file": "external_sources/content/jee_mains/jee_data_base/core/question.py",
+          "hash": "6325457356231253586"
+        },
+        {
+          "file": "external_sources/content/jee_mains/jee_data_base/core/styles.py",
+          "hash": "1359181595383352799"
+        },
+        {
+          "file": "external_sources/content/jee_mains/jee_data_base/core/types.py",
+          "hash": "408032965482314798"
+        },
+        {
+          "file": "external_sources/content/jee_mains/jee_data_base/core/ui3.py",
+          "hash": "3116222107817985575"
+        },
+        {
+          "file": "external_sources/content/jee_mains/jee_data_base/core/utils.py",
+          "hash": "743187033532508975"
+        },
+        {
+          "file": "external_sources/content/jee_mains/pyproject.toml",
+          "hash": "4000670665939979817"
+        },
+        {
+          "file": "external_sources/content/jee_mains/requirements.txt",
+          "hash": "3126772862603001149"
+        },
+        {
+          "file": "external_sources/content/jee_mains/setup.py",
+          "hash": "6550077167346378780"
+        },
+        {
+          "file": "external_sources/content/jee_mains/tests/test_basic.py",
+          "hash": "8355461180118443297"
+        },
+        {
+          "file": "external_sources/content/neet_biology/181_m72.rar",
+          "hash": "16663595943018193443"
+        },
+        {
+          "file": "external_sources/content/neet_biology/1_m72.rar",
+          "hash": "8272762432769353231"
+        },
+        {
+          "file": "external_sources/content/neet_biology/271_m72.rar",
+          "hash": "1584157164949166621"
+        },
+        {
+          "file": "external_sources/content/neet_biology/361_m72.rar",
+          "hash": "2421586858288958731"
+        },
+        {
+          "file": "external_sources/content/neet_biology/451_m72.pdf",
+          "hash": "9076379127955785515"
+        },
+        {
+          "file": "external_sources/content/neet_biology/91_m72.rar",
+          "hash": "17466453089329406537"
+        },
+        {
+          "file": "external_sources/content/neet_biology/README.md",
+          "hash": "17582169603484723108"
+        },
+        {
+          "file": "external_sources/content/neet_physics/141_m73.pdf",
+          "hash": "18368266845285737487"
+        },
+        {
+          "file": "external_sources/content/neet_physics/1_m73.pdf",
+          "hash": "2072489519004323703"
+        },
+        {
+          "file": "external_sources/content/neet_physics/211_m73.pdf",
+          "hash": "16838135027807090215"
+        },
+        {
+          "file": "external_sources/content/neet_physics/281_m73.pdf",
+          "hash": "16672506875111093535"
+        },
+        {
+          "file": "external_sources/content/neet_physics/71_m73.pdf",
+          "hash": "9130028914134098574"
+        },
+        {
+          "file": "external_sources/content/neet_physics/README.md",
+          "hash": "15482809911854077902"
+        },
+        {
+          "file": "firebase.json",
+          "hash": "12652518400608410588"
+        },
+        {
+          "file": "firestore.indexes.json",
+          "hash": "3369433432945872555"
+        },
+        {
+          "file": "firestore.rules",
+          "hash": "10330469305781049585"
+        },
+        {
+          "file": "functions/eslint.config.js",
+          "hash": "4662876410461063010",
+          "deps": [
+            "npm:@eslint/js",
+            "npm:globals",
+            "npm:typescript-eslint"
+          ]
+        },
+        {
+          "file": "functions/lib/index.js",
+          "hash": "7412637452358190017"
+        },
+        {
+          "file": "functions/package-lock.json",
+          "hash": "2655289283843595559"
+        },
+        {
+          "file": "functions/package.json",
+          "hash": "15207080848558878508"
+        },
+        {
+          "file": "functions/src/index.ts",
+          "hash": "7963274609753911672"
+        },
+        {
+          "file": "functions/tsconfig.json",
+          "hash": "13325834361369062870"
+        },
+        {
+          "file": "index.html",
+          "hash": "5005068483080317086"
+        },
+        {
+          "file": "ingest_master.py",
+          "hash": "14369313427765959302"
+        },
+        {
+          "file": "local_db.json",
+          "hash": "1004740517450313872"
+        },
+        {
+          "file": "nx.json",
+          "hash": "5872012060183950740"
+        },
+        {
+          "file": "org/.agents/skills/link-workspace-packages/SKILL.md",
+          "hash": "15436383388001770446"
+        },
+        {
+          "file": "org/.agents/skills/monitor-ci/SKILL.md",
+          "hash": "17097519773779096773"
+        },
+        {
+          "file": "org/.agents/skills/monitor-ci/references/fix-flows.md",
+          "hash": "10043923144049437139"
+        },
+        {
+          "file": "org/.agents/skills/monitor-ci/scripts/ci-poll-decide.mjs",
+          "hash": "8571922304515286463"
+        },
+        {
+          "file": "org/.agents/skills/monitor-ci/scripts/ci-state-update.mjs",
+          "hash": "1300418153997961792"
+        },
+        {
+          "file": "org/.agents/skills/nx-generate/SKILL.md",
+          "hash": "9325031674722245942"
+        },
+        {
+          "file": "org/.agents/skills/nx-import/SKILL.md",
+          "hash": "5320545115991037698"
+        },
+        {
+          "file": "org/.agents/skills/nx-import/references/ESLINT.md",
+          "hash": "13530282936503679323"
+        },
+        {
+          "file": "org/.agents/skills/nx-import/references/GRADLE.md",
+          "hash": "3571850575232446918"
+        },
+        {
+          "file": "org/.agents/skills/nx-import/references/JEST.md",
+          "hash": "17388362190464741914"
+        },
+        {
+          "file": "org/.agents/skills/nx-import/references/NEXT.md",
+          "hash": "10590097548337933652"
+        },
+        {
+          "file": "org/.agents/skills/nx-import/references/TURBOREPO.md",
+          "hash": "16683618674426785182"
+        },
+        {
+          "file": "org/.agents/skills/nx-import/references/VITE.md",
+          "hash": "18159188461087437582"
+        },
+        {
+          "file": "org/.agents/skills/nx-plugins/SKILL.md",
+          "hash": "17761452540263218782"
+        },
+        {
+          "file": "org/.agents/skills/nx-run-tasks/SKILL.md",
+          "hash": "6310165843200780094"
+        },
+        {
+          "file": "org/.agents/skills/nx-workspace/SKILL.md",
+          "hash": "12877893594506374684"
+        },
+        {
+          "file": "org/.agents/skills/nx-workspace/references/AFFECTED.md",
+          "hash": "5689225252238354455"
+        },
+        {
+          "file": "org/.claude/settings.json",
+          "hash": "18303455419173892241"
+        },
+        {
+          "file": "org/.codex/config.toml",
+          "hash": "14824829763614501486"
+        },
+        {
+          "file": "org/.cursor/agents/ci-monitor-subagent.md",
+          "hash": "2785423232351903332"
+        },
+        {
+          "file": "org/.cursor/commands/monitor-ci.md",
+          "hash": "3726727520094652647"
+        },
+        {
+          "file": "org/.cursor/skills/link-workspace-packages/SKILL.md",
+          "hash": "15436383388001770446"
+        },
+        {
+          "file": "org/.cursor/skills/monitor-ci/SKILL.md",
+          "hash": "9468003408493328484"
+        },
+        {
+          "file": "org/.cursor/skills/nx-generate/SKILL.md",
+          "hash": "9325031674722245942"
+        },
+        {
+          "file": "org/.cursor/skills/nx-plugins/SKILL.md",
+          "hash": "17761452540263218782"
+        },
+        {
+          "file": "org/.cursor/skills/nx-run-tasks/SKILL.md",
+          "hash": "6310165843200780094"
+        },
+        {
+          "file": "org/.cursor/skills/nx-workspace/SKILL.md",
+          "hash": "15239321302212089310"
+        },
+        {
+          "file": "org/.cursor/skills/nx-workspace/references/AFFECTED.md",
+          "hash": "5689225252238354455"
+        },
+        {
+          "file": "org/.gemini/commands/monitor-ci.toml",
+          "hash": "17605093414307425701"
+        },
+        {
+          "file": "org/.gemini/settings.json",
+          "hash": "10806997076034305161"
+        },
+        {
+          "file": "org/.gemini/skills/link-workspace-packages/skill.md",
+          "hash": "15436383388001770446"
+        },
+        {
+          "file": "org/.gemini/skills/monitor-ci/skill.md",
+          "hash": "9468003408493328484"
+        },
+        {
+          "file": "org/.gemini/skills/nx-generate/skill.md",
+          "hash": "9325031674722245942"
+        },
+        {
+          "file": "org/.gemini/skills/nx-plugins/skill.md",
+          "hash": "17761452540263218782"
+        },
+        {
+          "file": "org/.gemini/skills/nx-run-tasks/skill.md",
+          "hash": "6310165843200780094"
+        },
+        {
+          "file": "org/.gemini/skills/nx-workspace/references/AFFECTED.md",
+          "hash": "5689225252238354455"
+        },
+        {
+          "file": "org/.gemini/skills/nx-workspace/skill.md",
+          "hash": "15239321302212089310"
+        },
+        {
+          "file": "org/.github/agents/ci-monitor-subagent.agent.md",
+          "hash": "9330328125511211617"
+        },
+        {
+          "file": "org/.github/prompts/monitor-ci.prompt.md",
+          "hash": "3375988900519478519"
+        },
+        {
+          "file": "org/.github/skills/link-workspace-packages/SKILL.md",
+          "hash": "15436383388001770446"
+        },
+        {
+          "file": "org/.github/skills/monitor-ci/SKILL.md",
+          "hash": "17097519773779096773"
+        },
+        {
+          "file": "org/.github/skills/monitor-ci/references/fix-flows.md",
+          "hash": "10043923144049437139"
+        },
+        {
+          "file": "org/.github/skills/monitor-ci/scripts/ci-poll-decide.mjs",
+          "hash": "8571922304515286463"
+        },
+        {
+          "file": "org/.github/skills/monitor-ci/scripts/ci-state-update.mjs",
+          "hash": "1300418153997961792"
+        },
+        {
+          "file": "org/.github/skills/nx-generate/SKILL.md",
+          "hash": "9325031674722245942"
+        },
+        {
+          "file": "org/.github/skills/nx-import/SKILL.md",
+          "hash": "5320545115991037698"
+        },
+        {
+          "file": "org/.github/skills/nx-import/references/ESLINT.md",
+          "hash": "13530282936503679323"
+        },
+        {
+          "file": "org/.github/skills/nx-import/references/GRADLE.md",
+          "hash": "3571850575232446918"
+        },
+        {
+          "file": "org/.github/skills/nx-import/references/JEST.md",
+          "hash": "17388362190464741914"
+        },
+        {
+          "file": "org/.github/skills/nx-import/references/NEXT.md",
+          "hash": "10590097548337933652"
+        },
+        {
+          "file": "org/.github/skills/nx-import/references/TURBOREPO.md",
+          "hash": "16683618674426785182"
+        },
+        {
+          "file": "org/.github/skills/nx-import/references/VITE.md",
+          "hash": "18159188461087437582"
+        },
+        {
+          "file": "org/.github/skills/nx-plugins/SKILL.md",
+          "hash": "17761452540263218782"
+        },
+        {
+          "file": "org/.github/skills/nx-run-tasks/SKILL.md",
+          "hash": "6310165843200780094"
+        },
+        {
+          "file": "org/.github/skills/nx-workspace/SKILL.md",
+          "hash": "12877893594506374684"
+        },
+        {
+          "file": "org/.github/skills/nx-workspace/references/AFFECTED.md",
+          "hash": "5689225252238354455"
+        },
+        {
+          "file": "org/.github/workflows/ci.yml",
+          "hash": "12598063760286856263"
+        },
+        {
+          "file": "org/.gitignore",
+          "hash": "2097510501064716462"
+        },
+        {
+          "file": "org/.opencode/agents/ci-monitor-subagent.md",
+          "hash": "15590325861656077491"
+        },
+        {
+          "file": "org/.opencode/commands/monitor-ci.md",
+          "hash": "2255270440807993724"
+        },
+        {
+          "file": "org/.opencode/skills/link-workspace-packages/SKILL.md",
+          "hash": "15436383388001770446"
+        },
+        {
+          "file": "org/.opencode/skills/monitor-ci/SKILL.md",
+          "hash": "17097519773779096773"
+        },
+        {
+          "file": "org/.opencode/skills/monitor-ci/references/fix-flows.md",
+          "hash": "10043923144049437139"
+        },
+        {
+          "file": "org/.opencode/skills/monitor-ci/scripts/ci-poll-decide.mjs",
+          "hash": "8571922304515286463"
+        },
+        {
+          "file": "org/.opencode/skills/monitor-ci/scripts/ci-state-update.mjs",
+          "hash": "1300418153997961792"
+        },
+        {
+          "file": "org/.opencode/skills/nx-generate/SKILL.md",
+          "hash": "9325031674722245942"
+        },
+        {
+          "file": "org/.opencode/skills/nx-import/SKILL.md",
+          "hash": "5320545115991037698"
+        },
+        {
+          "file": "org/.opencode/skills/nx-import/references/ESLINT.md",
+          "hash": "13530282936503679323"
+        },
+        {
+          "file": "org/.opencode/skills/nx-import/references/GRADLE.md",
+          "hash": "3571850575232446918"
+        },
+        {
+          "file": "org/.opencode/skills/nx-import/references/JEST.md",
+          "hash": "17388362190464741914"
+        },
+        {
+          "file": "org/.opencode/skills/nx-import/references/NEXT.md",
+          "hash": "10590097548337933652"
+        },
+        {
+          "file": "org/.opencode/skills/nx-import/references/TURBOREPO.md",
+          "hash": "16683618674426785182"
+        },
+        {
+          "file": "org/.opencode/skills/nx-import/references/VITE.md",
+          "hash": "18159188461087437582"
+        },
+        {
+          "file": "org/.opencode/skills/nx-plugins/SKILL.md",
+          "hash": "17761452540263218782"
+        },
+        {
+          "file": "org/.opencode/skills/nx-run-tasks/SKILL.md",
+          "hash": "6310165843200780094"
+        },
+        {
+          "file": "org/.opencode/skills/nx-workspace/SKILL.md",
+          "hash": "12877893594506374684"
+        },
+        {
+          "file": "org/.opencode/skills/nx-workspace/references/AFFECTED.md",
+          "hash": "5689225252238354455"
+        },
+        {
+          "file": "org/.prettierignore",
+          "hash": "2152627317559153157"
+        },
+        {
+          "file": "org/.prettierrc",
+          "hash": "6820402234827505055"
+        },
+        {
+          "file": "org/.vscode/extensions.json",
+          "hash": "14244474672258854795"
+        },
+        {
+          "file": "org/AGENTS.md",
+          "hash": "5250347750826082732"
+        },
+        {
+          "file": "org/CLAUDE.md",
+          "hash": "5250347750826082732"
+        },
+        {
+          "file": "org/README.md",
+          "hash": "7481071970287848051"
+        },
+        {
+          "file": "org/nx.json",
+          "hash": "2619302510234552301"
+        },
+        {
+          "file": "org/opencode.json",
+          "hash": "8366098242203802032"
+        },
+        {
+          "file": "org/package-lock.json",
+          "hash": "14845388616035596955"
+        },
+        {
+          "file": "org/package.json",
+          "hash": "10129017269100838118"
+        },
+        {
+          "file": "org/packages/.gitkeep",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "org/tsconfig.base.json",
+          "hash": "4315321399922957604"
+        },
+        {
+          "file": "org/tsconfig.json",
+          "hash": "12122149092871080271"
+        },
+        {
+          "file": "package-lock.json",
+          "hash": "11609117841568406198"
+        },
+        {
+          "file": "package.json",
+          "hash": "6120702809462765299"
+        },
+        {
+          "file": "public/favicon.svg",
+          "hash": "9681363740239943431"
+        },
+        {
+          "file": "public/hero.png",
+          "hash": "15236677088445712333"
+        },
+        {
+          "file": "public/icons.svg",
+          "hash": "12690649164411559435"
+        },
+        {
+          "file": "scripts/sync_firebase.mjs",
+          "hash": "12938274897440572030",
+          "deps": [
+            "npm:firebase"
+          ]
+        },
+        {
+          "file": "src/App.css",
+          "hash": "18125914695151215779"
+        },
+        {
+          "file": "src/App.tsx",
+          "hash": "10150549646586517069"
+        },
+        {
+          "file": "src/ai/engine.ts",
+          "hash": "16800698239242529339"
+        },
+        {
+          "file": "src/analytics/dashboard.ts",
+          "hash": "17036761840176379893"
+        },
+        {
+          "file": "src/assets/hero.png",
+          "hash": "8887776959365123467"
+        },
+        {
+          "file": "src/assets/react.svg",
+          "hash": "16069471864800376455"
+        },
+        {
+          "file": "src/assets/vite.svg",
+          "hash": "6723104814466855237"
+        },
+        {
+          "file": "src/components/AcademySelection.tsx",
+          "hash": "17621210684657974842",
+          "deps": [
+            "npm:react",
+            "npm:firebase"
+          ]
+        },
+        {
+          "file": "src/components/AnalyticsDashboard.tsx",
+          "hash": "12868933097684102532",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/DoubtsPage.tsx",
+          "hash": "11710366591244430427",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/LoginPage.tsx",
+          "hash": "13664714568885650283",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/NotificationBell.tsx",
+          "hash": "5022706257043266761",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/SyllabusSelector.tsx",
+          "hash": "12620994307881150433",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/TestResults.tsx",
+          "hash": "15410422369051901210",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/TestRunner.tsx",
+          "hash": "16901747138990596156",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/dashboards/AcademyHeadDashboard.tsx",
+          "hash": "3965148973673210170",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/dashboards/StudentDashboard.tsx",
+          "hash": "2089997803402134509",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/dashboards/SuperAdminDashboard.tsx",
+          "hash": "16913757025308328549",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/components/dashboards/TeacherDashboard.tsx",
+          "hash": "8588710668282646681",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/config/devAuth.ts",
+          "hash": "1446708195045138194"
+        },
+        {
+          "file": "src/contexts/AuthContext.tsx",
+          "hash": "17969757890655018981",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/data/manifest.ts",
+          "hash": "2601383594556205043"
+        },
+        {
+          "file": "src/data/syllabus.ts",
+          "hash": "5516077104963257526"
+        },
+        {
+          "file": "src/firebase/auth.ts",
+          "hash": "5419560593353571882",
+          "deps": [
+            "npm:firebase"
+          ]
+        },
+        {
+          "file": "src/firebase/config.ts",
+          "hash": "1393583051479792658",
+          "deps": [
+            "npm:firebase"
+          ]
+        },
+        {
+          "file": "src/firebase/firestore.ts",
+          "hash": "12451048122578378424",
+          "deps": [
+            "npm:firebase"
+          ]
+        },
+        {
+          "file": "src/firebase/functionsClient.ts",
+          "hash": "9461691869277360939",
+          "deps": [
+            "npm:firebase"
+          ]
+        },
+        {
+          "file": "src/index.css",
+          "hash": "13513185323800314128"
+        },
+        {
+          "file": "src/lib/csvDownload.ts",
+          "hash": "2939112290333512156"
+        },
+        {
+          "file": "src/main.tsx",
+          "hash": "5972554959296887240",
+          "deps": [
+            "npm:react",
+            "npm:react-dom",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "src/services/dataService.ts",
+          "hash": "6099618327396919204"
+        },
+        {
+          "file": "src/test-engine/generator.ts",
+          "hash": "11768520048523711235"
+        },
+        {
+          "file": "src/types/index.ts",
+          "hash": "15627298406483328470"
+        },
+        {
+          "file": "src/ui/cn.ts",
+          "hash": "13035516750711773171"
+        },
+        {
+          "file": "src/ui/components/Badge.tsx",
+          "hash": "13591359738120021423",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/ui/components/Button.tsx",
+          "hash": "5790162243409485440",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/ui/components/Card.tsx",
+          "hash": "8436927937518291574",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/ui/components/Form.tsx",
+          "hash": "3859363259084893473",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "src/ui/layout/AppShell.tsx",
+          "hash": "17396941655068367858",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "tsconfig.app.json",
+          "hash": "8852208770870890895"
+        },
+        {
+          "file": "tsconfig.json",
+          "hash": "2365188958523842680"
+        },
+        {
+          "file": "tsconfig.node.json",
+          "hash": "9524219542961972098"
+        },
+        {
+          "file": "ui-designs/index.html",
+          "hash": "6708710379904592519"
+        },
+        {
+          "file": "vite.config.ts",
+          "hash": "5131373048928131039",
+          "deps": [
+            "npm:vite",
+            "npm:@vitejs/plugin-react",
+            "npm:@tailwindcss/vite"
+          ]
+        },
+        {
+          "file": "workspace.json",
+          "hash": "17934402214464254368"
+        }
+      ],
+      "frontend": [
+        {
+          "file": "external_sources/ai/JeeLore/frontend/.eslintrc.cjs",
+          "hash": "12609400195240748989"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/README.md",
+          "hash": "12590264493580622298"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/bun.lock",
+          "hash": "9216974911087079206"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/context/contex.jsx",
+          "hash": "16163538754448622450",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/finallogo.png",
+          "hash": "2878005234927719514"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/image.png",
+          "hash": "18063547863630286990"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/img2.jpg",
+          "hash": "14129170159122120724"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/index.html",
+          "hash": "15443884099451022674"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/package-lock.json",
+          "hash": "7037764122030836786"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/package.json",
+          "hash": "3533439102341915218",
+          "deps": [
+            "npm:@types/react",
+            "npm:@types/react-dom",
+            "npm:@vitejs/plugin-react",
+            "npm:autoprefixer",
+            "npm:eslint",
+            "npm:eslint-plugin-react-hooks",
+            "npm:eslint-plugin-react-refresh",
+            "npm:postcss",
+            "npm:tailwindcss",
+            "npm:vite",
+            "npm:react",
+            "npm:react-dom",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/postcss.config.js",
+          "hash": "15693758819557691193"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/public/vite.svg",
+          "hash": "16046085400642193116"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/App.jsx",
+          "hash": "13079163860813625751",
+          "deps": [
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/assets/Topic.jsx",
+          "hash": "948374187648991640"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/assets/react.svg",
+          "hash": "16069471864800376455"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/Navbar.jsx",
+          "hash": "9201564945322365935",
+          "deps": [
+            "npm:react-router-dom",
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/Post.jsx",
+          "hash": "6975128760005809981",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/PostCard.jsx",
+          "hash": "16645141602078851981",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/PostComments.jsx",
+          "hash": "15534425487551250236",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/Practice.jsx",
+          "hash": "12337579107058748277",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/PracticeFilters.jsx",
+          "hash": "9492737541959173243",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/PracticePost.jsx",
+          "hash": "17999075691198712406",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/PracticePostSoln.jsx",
+          "hash": "3073563365109614114",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/ProfilePosts.jsx",
+          "hash": "18355949613559163215",
+          "deps": [
+            "npm:react",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/Report.jsx",
+          "hash": "16672965349907859101"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/Setting.jsx",
+          "hash": "14040541789745109414",
+          "deps": [
+            "npm:react",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/SigninForm.jsx",
+          "hash": "3523013629999283226",
+          "deps": [
+            "npm:react",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/SignupForm.jsx",
+          "hash": "17069493353616118395",
+          "deps": [
+            "npm:react",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/Skeleton.jsx",
+          "hash": "7951868880977065895"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/Upload.jsx",
+          "hash": "17529119778164707056",
+          "deps": [
+            "npm:react",
+            "npm:react-router-dom"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/UploadSoluton.jsx",
+          "hash": "13944385906511332198",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/Upvote.jsx",
+          "hash": "7698208935922879718"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/extra",
+          "hash": "10804707182460307740"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/profilePostCard.jsx",
+          "hash": "4973168502301712316"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/components/sideBarFilters.jsx",
+          "hash": "15124757818187913430",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/index.css",
+          "hash": "1235638102102665867"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/main.jsx",
+          "hash": "11887954579741576107",
+          "deps": [
+            "npm:react",
+            "npm:react-dom"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/pages/Home.jsx",
+          "hash": "14936420183450961844",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/pages/Leaderboard.jsx",
+          "hash": "17975689967319892941"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/pages/Practice.jsx",
+          "hash": "13305050916592409167",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/pages/Profile.jsx",
+          "hash": "2535466893334795884"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/pages/Settings.jsx",
+          "hash": "2021093282354726040"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/pages/Signin.jsx",
+          "hash": "7142222964164497315"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/pages/Signup.jsx",
+          "hash": "2663713975838467631"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/src/pages/Upload.jsx",
+          "hash": "4502226887356644494"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/tailwind.config.js",
+          "hash": "16700357186639581334"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/utils/NoOfUpvotes.jsx",
+          "hash": "10524958239134128647"
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/utils/getUserById.jsx",
+          "hash": "3813055789916039419",
+          "deps": [
+            "npm:react"
+          ]
+        },
+        {
+          "file": "external_sources/ai/JeeLore/frontend/vite.config.js",
+          "hash": "18034619954862756779",
+          "deps": [
+            "npm:vite",
+            "npm:@vitejs/plugin-react"
+          ]
+        }
+      ]
+    }
+  },
+  "externalNodesHash": "4752403854615873709"
+}

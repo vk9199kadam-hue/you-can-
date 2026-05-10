@@ -1,0 +1,227 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper: Check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper: Get the user's profile document
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    // Helper: Check if user is super admin
+    function isSuperAdmin() {
+      return getUserData().role == 'super_admin';
+    }
+
+    // Helper: Check if user belongs to the given academy
+    function isInAcademy(academyId) {
+      return getUserData().academyId == academyId;
+    }
+
+    // Helper: Check if user has a specific role
+    function hasRole(role) {
+      return getUserData().role == role;
+    }
+
+    // ---- Academies ----
+    match /academies/{academyId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && isSuperAdmin();
+      allow update: if isAuthenticated() && (isSuperAdmin() || (isInAcademy(academyId) && hasRole('academy_head')));
+      allow delete: if isAuthenticated() && isSuperAdmin();
+    }
+
+    // ---- Users ----
+    match /users/{userId} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == userId ||
+        isSuperAdmin() ||
+        (isInAcademy(resource.data.academyId) && (hasRole('academy_head') || hasRole('teacher')))
+      );
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update: if isAuthenticated() && (
+        request.auth.uid == userId ||
+        isSuperAdmin() ||
+        (isInAcademy(resource.data.academyId) && hasRole('academy_head'))
+      );
+      allow delete: if isAuthenticated() && isSuperAdmin();
+    }
+
+    // ---- Questions (shared platform content) ----
+    match /questions/{questionId} {
+      // Read rules:
+      // - Super admin can read everything
+      // - Everyone can read shared questions (isShared == true)
+      // - Academy members can read their academy's private questions (academyId match)
+      allow read: if isAuthenticated() && (
+        isSuperAdmin() ||
+        resource.data.isShared == true ||
+        (resource.data.academyId != null && isInAcademy(resource.data.academyId))
+      );
+
+      // Write rules:
+      allow create: if isAuthenticated() && (
+        isSuperAdmin() ||
+        (
+          hasRole('teacher') &&
+          request.resource.data.academyId != null &&
+          isInAcademy(request.resource.data.academyId) &&
+          request.resource.data.isShared != true
+        )
+      );
+      allow update, delete: if isAuthenticated() && (
+        isSuperAdmin() ||
+        (
+          hasRole('teacher') &&
+          resource.data.academyId != null &&
+          isInAcademy(resource.data.academyId) &&
+          resource.data.isShared != true
+        )
+      );
+    }
+
+    // ---- Homework Assignments ----
+    match /homework_assignments/{assignmentId} {
+      allow read: if isAuthenticated() && (
+        isSuperAdmin() ||
+        isInAcademy(resource.data.academyId)
+      );
+      allow create: if isAuthenticated() && (
+        isSuperAdmin() ||
+        (hasRole('teacher') && isInAcademy(request.resource.data.academyId))
+      );
+      allow update: if isAuthenticated() && (
+        isSuperAdmin() ||
+        (hasRole('teacher') && resource.data.teacherId == request.auth.uid)
+      );
+      allow delete: if isAuthenticated() && (
+        isSuperAdmin() ||
+        (hasRole('teacher') && resource.data.teacherId == request.auth.uid)
+      );
+    }
+
+    // ---- Homework Submissions ----
+    match /homework_submissions/{submissionId} {
+      allow read: if isAuthenticated() && (
+        isSuperAdmin() ||
+        isInAcademy(resource.data.academyId) && (
+          hasRole('academy_head') ||
+          hasRole('teacher') ||
+          resource.data.studentId == request.auth.uid
+        )
+      );
+      allow create: if isAuthenticated() && (
+        hasRole('student') && request.resource.data.studentId == request.auth.uid
+      );
+      allow update: if isAuthenticated() && (
+        hasRole('teacher') && isInAcademy(resource.data.academyId)
+      );
+    }
+
+    // ---- Test Sessions ----
+    match /test_sessions/{sessionId} {
+      allow read: if isAuthenticated() && (
+        isSuperAdmin() ||
+        resource.data.studentId == request.auth.uid ||
+        (isInAcademy(resource.data.academyId) && (hasRole('teacher') || hasRole('academy_head')))
+      );
+      allow create: if isAuthenticated() && request.resource.data.studentId == request.auth.uid;
+    }
+
+    // ---- Timetables ----
+    match /timetables/{timetableId} {
+      allow read: if isAuthenticated() && (
+        isSuperAdmin() ||
+        isInAcademy(resource.data.academyId)
+      );
+      allow create, update: if isAuthenticated() && (
+        isSuperAdmin() ||
+        (hasRole('teacher') && isInAcademy(request.resource.data.academyId))
+      );
+      allow delete: if isAuthenticated() && (
+        isSuperAdmin() ||
+        (hasRole('teacher') && resource.data.teacherId == request.auth.uid)
+      );
+    }
+
+    // ---- Schedule Entries ----
+    match /schedule_entries/{entryId} {
+      allow read: if isAuthenticated() && (
+        isSuperAdmin() ||
+        isInAcademy(resource.data.academyId)
+      );
+
+      // Teachers can write only for their academy.
+      allow create, update, delete: if isAuthenticated() && (
+        isSuperAdmin() ||
+        (
+          hasRole('teacher') &&
+          isInAcademy(request.resource.data.academyId)
+        )
+      );
+    }
+
+    // ---- Master Content (platform-provided) ----
+    match /master_content/{contentId} {
+      // Read-only for all authenticated users (content itself is platform-wide).
+      // Access control is enforced via academy_content_access collection.
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && isSuperAdmin();
+    }
+
+    // ---- Academy Content Access Flags ----
+    match /academy_content_access/{accessId} {
+      // Each document: { academyId, contentId, enabled, createdAt }
+      allow read: if isAuthenticated() && (
+        isSuperAdmin() ||
+        isInAcademy(resource.data.academyId)
+      );
+      allow create, update, delete: if isAuthenticated() && (
+        isSuperAdmin() ||
+        (hasRole('academy_head') && isInAcademy(request.resource.data.academyId))
+      );
+    }
+
+    // ---- Doubt Sessions ----
+    match /doubt_sessions/{doubtId} {
+      allow read: if isAuthenticated() && (
+        isSuperAdmin() ||
+        isInAcademy(resource.data.academyId)
+      );
+      allow create: if isAuthenticated() && (
+        hasRole('student') && request.resource.data.studentId == request.auth.uid
+      );
+      allow update: if isAuthenticated() && (
+        isSuperAdmin() ||
+        resource.data.studentId == request.auth.uid ||
+        (hasRole('teacher') && isInAcademy(resource.data.academyId))
+      );
+    }
+
+    // ---- Notifications ----
+    match /notifications/{notificationId} {
+      function notificationRecipientMatchesAcademy() {
+        return get(/databases/$(database)/documents/users/$(request.resource.data.userId)).data.academyId
+          == request.resource.data.academyId;
+      }
+      allow read: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated()
+        && request.resource.data.keys().hasAll(['userId', 'academyId', 'title', 'message', 'type', 'read'])
+        && request.resource.data.read == false
+        && (
+          isSuperAdmin() ||
+          (
+            (hasRole('teacher') || hasRole('academy_head')) &&
+            isInAcademy(request.resource.data.academyId) &&
+            notificationRecipientMatchesAcademy()
+          )
+        );
+      allow update: if isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
+  }
+}

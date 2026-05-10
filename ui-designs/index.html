@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YOU CAN - Complete UI Design System (Official)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+<style>
+:root {
+  --primary: #1E40AF;
+  --primary-light: #3B82F6;
+  --primary-dark: #1E3A8A;
+  --primary-50: #EFF6FF;
+  --primary-100: #DBEAFE;
+  --secondary: #10B981;
+  --secondary-light: #6EE7B7;
+  --secondary-50: #ECFDF5;
+  --accent: #F59E0B;
+  --accent-50: #FFFBEB;
+  --error: #EF4444;
+  --error-50: #FEF2F2;
+  --info: #3B82F6;
+  --premium: #8B5CF6;
+  --premium-50: #F5F3FF;
+  --bg: #F9FAFB;
+  --surface: #FFFFFF;
+  --text: #1F2937;
+  --text-secondary: #6B7280;
+  --text-tertiary: #9CA3AF;
+  --border: #E5E7EB;
+  --border-dark: #D1D5DB;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+h1,h2,h3,h4 { font-family: 'Outfit', sans-serif; }
+
+/* Card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+.card:hover { box-shadow: var(--shadow); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px; border-radius: 8px; font-size: 14px;
+  font-weight: 600; cursor: pointer; border: none;
+  font-family: 'Inter', sans-serif; transition: all 0.15s;
+}
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-dark); box-shadow: var(--shadow-md); }
+.btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--bg); border-color: var(--border-dark); }
+.btn-success { background: var(--secondary); color: white; }
+.btn-success:hover { background: #059669; }
+.btn-sm { padding: 6px 14px; font-size: 13px; border-radius: 6px; }
+
+/* Badge */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 100px; font-size: 11px;
+  font-weight: 600; white-space: nowrap;
+}
+.badge-blue { background: var(--primary-50); color: var(--primary); }
+.badge-green { background: var(--secondary-50); color: #059669; }
+.badge-amber { background: var(--accent-50); color: #D97706; }
+.badge-red { background: var(--error-50); color: var(--error); }
+.badge-purple { background: var(--premium-50); color: var(--premium); }
+.badge-gray { background: #F3F4F6; color: var(--text-secondary); }
+
+/* Input */
+.form-label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.form-input {
+  width: 100%; padding: 10px 14px; border: 1px solid var(--border);
+  border-radius: 8px; font-size: 14px; color: var(--text);
+  background: var(--surface); outline: none; font-family: 'Inter', sans-serif;
+  transition: border-color 0.15s;
+}
+.form-input:focus { border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+.form-input::placeholder { color: var(--text-tertiary); }
+select.form-input { cursor: pointer; }
+
+/* Progress bar */
+.progress { width: 100%; height: 8px; background: #F3F4F6; border-radius: 100px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 100px; transition: width 0.8s ease; }
+
+/* Table */
+.table { width: 100%; border-collapse: collapse; }
+.table th { text-align: left; padding: 12px 16px; font-size: 12px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 2px solid var(--border); background: var(--bg); }
+.table td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: middle; }
+.table tbody tr:hover { background: #F9FAFB; }
+
+/* Page nav */
+.page-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 0 24px; height: 56px;
+  display: flex; align-items: center;
+  box-shadow: var(--shadow-sm);
+}
+.page-nav-inner {
+  max-width: 1400px; margin: 0 auto; width: 100%;
+  display: flex; align-items: center; gap: 8px;
+  overflow-x: auto; scrollbar-width: none;
+}
+.page-nav-inner::-webkit-scrollbar { display: none; }
+.nav-btn {
+  background: transparent; border: none;
+  color: var(--text-secondary); padding: 6px 12px; border-radius: 6px;
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  white-space: nowrap; transition: all 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+.nav-btn:hover { background: var(--bg); color: var(--text); }
+.nav-btn.active { background: var(--primary-50); color: var(--primary); }
+.nav-sep { width: 1px; height: 24px; background: var(--border); flex-shrink: 0; margin: 0 4px; }
+.nav-label { font-size: 10px; font-weight: 700; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+
+/* Screen */
+.screen { display: none; padding: 72px 24px 48px; min-height: 100vh; }
+.screen.active { display: block; }
+.screen-inner { max-width: 1200px; margin: 0 auto; }
+.page-title { font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+.page-heading { font-size: 28px; font-weight: 800; color: var(--text); margin-bottom: 4px; line-height: 1.2; }
+.page-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 28px; }
+
+/* Stats grid */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.stat-card { padding: 20px 24px; }
+.stat-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; font-size: 20px; }
+.stat-value { font-size: 28px; font-weight: 800; font-family: 'Outfit', sans-serif; line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+
+/* Sidebar layout */
+.layout-sidebar { display: grid; grid-template-columns: 240px 1fr; min-height: calc(100vh - 56px); }
+.sidebar { background: var(--surface); border-right: 1px solid var(--border); padding: 20px 12px; position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; }
+.sidebar-brand { display: flex; align-items: center; gap: 10px; padding: 4px 12px 20px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+.sidebar-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--text-secondary); cursor: pointer; transition: all 0.15s; margin-bottom: 2px; }
+.sidebar-item:hover { background: var(--bg); color: var(--text); }
+.sidebar-item.active { background: var(--primary-50); color: var(--primary); font-weight: 600; }
+.sidebar-section { font-size: 11px; font-weight: 700; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; padding: 16px 12px 8px; }
+.main-content { padding: 28px 32px; }
+
+/* Grid layouts */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+
+/* Avatar */
+.avatar { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+.avatar-round { border-radius: 50%; }
+
+/* Chat */
+.chat-msg { max-width: 72%; padding: 14px 18px; border-radius: 12px; font-size: 14px; line-height: 1.65; }
+.chat-user { background: var(--primary); color: white; margin-left: auto; border-bottom-right-radius: 4px; }
+.chat-ai { background: var(--bg); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
+
+/* Calendar */
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.cal-head { text-align: center; font-size: 12px; font-weight: 600; color: var(--text-secondary); padding: 8px; }
+.cal-cell { min-height: 80px; border: 1px solid var(--border); border-radius: 8px; padding: 6px; font-size: 13px; cursor: pointer; transition: all 0.15s; background: var(--surface); }
+.cal-cell:hover { border-color: var(--primary-light); box-shadow: 0 0 0 2px rgba(59,130,246,0.08); }
+.cal-num { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.cal-tag { font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 2px; line-height: 1.4; }
+
+/* Animations */
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.fade-in { animation: fadeIn 0.35s ease forwards; }
+
+/* Alert */
+.alert { padding: 14px 18px; border-radius: 10px; border-left: 4px solid; font-size: 14px; display: flex; align-items: flex-start; gap: 12px; }
+.alert-amber { background: var(--accent-50); border-color: var(--accent); }
+.alert-red { background: var(--error-50); border-color: var(--error); }
+.alert-blue { background: var(--primary-50); border-color: var(--primary-light); }
+.alert-green { background: var(--secondary-50); border-color: var(--secondary); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .layout-sidebar { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .page-heading { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAVIGATION -->
+<div class="page-nav">
+  <div class="page-nav-inner">
+    <div style="display:flex;align-items:center;gap:8px;padding-right:16px;border-right:1px solid var(--border);margin-right:8px;flex-shrink:0;">
+      <div style="width:28px;height:28px;border-radius:6px;background:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:white;">Y</div>
+      <span style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;color:var(--text);">YOU CAN</span>
+    </div>
+    <button class="nav-btn active" onclick="showScreen('login')">Login</button>
+    <div class="nav-sep"></div>
+    <span class="nav-label">Super Admin</span>
+    <button class="nav-btn" onclick="showScreen('sa-dash')">Dashboard</button>
+    <button class="nav-btn" onclick="showScreen('sa-acad')">Academies</button>
+    <button class="nav-btn" onclick="showScreen('sa-onboard')">Onboarding</button>
+    <button class="nav-btn" onclick="showScreen('sa-content')">Content</button>
+    <div class="nav-sep"></div>
+    <span class="nav-label">Academy Head</span>
+    <button class="nav-btn" onclick="showScreen('ah-dash')">Dashboard</button>
+    <button class="nav-btn" onclick="showScreen('ah-teachers')">Teachers</button>
+    <button class="nav-btn" onclick="showScreen('ah-reports')">Reports</button>
+    <div class="nav-sep"></div>
+    <span class="nav-label">Teacher</span>
+    <button class="nav-btn" onclick="showScreen('t-dash')">Dashboard</button>
+    <button class="nav-btn" onclick="showScreen('t-hw')">Assign HW</button>
+    <button class="nav-btn" onclick="showScreen('t-cal')">Timetable</button>
+    <button class="nav-btn" onclick="showScreen('t-review')">Review</button>
+    <button class="nav-btn" onclick="showScreen('t-doubt')">Doubts</button>
+    <div class="nav-sep"></div>
+    <span class="nav-label">Student</span>
+    <button class="nav-btn" onclick="showScreen('s-dash')">Dashboard</button>
+    <button class="nav-btn" onclick="showScreen('s-hw')">Homework</button>
+    <button class="nav-btn" onclick="showScreen('s-test')">Test</button>
+    <button class="nav-btn" onclick="showScreen('s-result')">Results</button>
+    <button class="nav-btn" onclick="showScreen('s-doubt')">Doubts</button>
+    <button class="nav-btn" onclick="showScreen('s-progress')">Progress</button>
+  </div>
+</div>
+
+<!-- ====== LOGIN ====== -->
+<div class="screen active" id="screen-login">
+  <div style="display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 72px);">
+    <div style="width:100%;max-width:420px;" class="fade-in">
+      <div style="text-align:center;margin-bottom:32px;">
+        <div style="width:48px;height:48px;border-radius:12px;background:var(--primary);display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;color:white;margin-bottom:16px;">Y</div>
+        <h2 style="font-size:24px;font-weight:800;margin-bottom:6px;">Welcome to YOU CAN</h2>
+        <p style="color:var(--text-secondary);font-size:14px;">Sign in to your academy dashboard</p>
+      </div>
+      <div class="card" style="padding:32px;">
+        <div style="margin-bottom:18px;">
+          <label class="form-label">Academy</label>
+          <select class="form-input"><option>Vidya Academy, Pune</option><option>Excel Classes, Mumbai</option><option>Target IIT Academy, Nagpur</option></select>
+        </div>
+        <div style="margin-bottom:18px;">
+          <label class="form-label">I am a</label>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+            <div class="card" style="padding:14px;text-align:center;cursor:pointer;border:2px solid var(--primary);background:var(--primary-50);">
+              <span class="material-icons-outlined" style="font-size:22px;color:var(--primary);display:block;margin-bottom:4px;">school</span>
+              <span style="font-size:12px;font-weight:600;color:var(--primary);">Student</span>
+            </div>
+            <div class="card" style="padding:14px;text-align:center;cursor:pointer;">
+              <span class="material-icons-outlined" style="font-size:22px;color:var(--text-secondary);display:block;margin-bottom:4px;">person</span>
+              <span style="font-size:12px;font-weight:600;color:var(--text-secondary);">Teacher</span>
+            </div>
+            <div class="card" style="padding:14px;text-align:center;cursor:pointer;">
+              <span class="material-icons-outlined" style="font-size:22px;color:var(--text-secondary);display:block;margin-bottom:4px;">domain</span>
+              <span style="font-size:12px;font-weight:600;color:var(--text-secondary);">Head</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin-bottom:18px;">
+          <label class="form-label">User ID</label>
+          <input class="form-input" placeholder="e.g. STU-ACAD01-0042">
+        </div>
+        <div style="margin-bottom:24px;">
+          <label class="form-label">Password</label>
+          <input class="form-input" type="password" placeholder="Enter your password">
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;padding:12px;font-size:15px;">Sign In</button>
+        <div style="text-align:center;margin-top:14px;">
+          <a href="#" style="color:var(--primary-light);font-size:13px;font-weight:500;text-decoration:none;">Forgot password? Reset via OTP</a>
+        </div>
+      </div>
+      <p style="text-align:center;margin-top:16px;font-size:13px;color:var(--text-secondary);">Platform admin? <a href="#" style="color:var(--primary);font-weight:600;text-decoration:none;">Super Admin Login</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ====== SUPER ADMIN DASHBOARD ====== -->
+<div class="screen" id="screen-sa-dash">
+  <div class="layout-sidebar">
+    <div class="sidebar">
+      <div class="sidebar-brand">
+        <div style="width:32px;height:32px;border-radius:8px;background:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:white;">Y</div>
+        <div><div style="font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;">YOU CAN</div><div style="font-size:11px;color:var(--text-secondary);">Super Admin</div></div>
+      </div>
+      <div class="sidebar-item active"><span class="material-icons-outlined" style="font-size:20px;">dashboard</span> Dashboard</div>
+      <div class="sidebar-item"><span class="material-icons-outlined" style="font-size:20px;">domain</span> Academies</div>
+      <div class="sidebar-item"><span class="material-icons-outlined" style="font-size:20px;">people</span> All Users</div>
+      <div class="sidebar-item"><span class="material-icons-outlined" style="font-size:20px;">library_books</span> Content Manager</div>
+      <div class="sidebar-section">System</div>
+      <div class="sidebar-item"><span class="material-icons-outlined" style="font-size:20px;">credit_card</span> Subscriptions</div>
+      <div class="sidebar-item"><span class="material-icons-outlined" style="font-size:20px;">analytics</span> Platform Analytics</div>
+      <div class="sidebar-item"><span class="material-icons-outlined" style="font-size:20px;">monitor_heart</span> System Health</div>
+      <div class="sidebar-item"><span class="material-icons-outlined" style="font-size:20px;">history</span> Audit Logs</div>
+      <div class="sidebar-item"><span class="material-icons-outlined" style="font-size:20px;">settings</span> Settings</div>
+    </div>
+    <div class="main-content fade-in">
+      <p class="page-title">Super Admin</p>
+      <h1 class="page-heading">Platform Overview</h1>
+      <p class="page-desc">Monitoring all academies across Maharashtra</p>
+
+      <div class="stats-grid">
+        <div class="card stat-card"><div class="stat-icon" style="background:var(--primary-50);color:var(--primary);">🏫</div><div class="stat-value" style="color:var(--primary);">12</div><div class="stat-label">Academies</div></div>
+        <div class="card stat-card"><div class="stat-icon" style="background:var(--secondary-50);color:var(--secondary);">👨‍🎓</div><div class="stat-value" style="color:var(--secondary);">1,850</div><div class="stat-label">Total Students</div></div>
+        <div class="card stat-card"><div class="stat-icon" style="background:var(--premium-50);color:var(--premium);">👨‍🏫</div><div class="stat-value" style="color:var(--premium);">85</div><div class="stat-label">Teachers</div></div>
+        <div class="card stat-card"><div class="stat-icon" style="background:var(--accent-50);color:var(--accent);">📚</div><div class="stat-value" style="color:var(--accent);">60,240</div><div class="stat-label">Questions</div></div>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:20px;">
+        <div class="card" style="padding:24px;">
+          <h3 style="font-size:16px;font-weight:700;margin-bottom:18px;">Academy Performance</h3>
+          <div style="margin-bottom:14px;"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:14px;font-weight:500;">Vidya Academy, Pune</span><span style="font-size:13px;font-weight:600;color:var(--secondary);">92%</span></div><div class="progress"><div class="progress-fill" style="width:92%;background:var(--secondary);"></div></div></div>
+          <div style="margin-bottom:14px;"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:14px;font-weight:500;">Excel Classes, Mumbai</span><span style="font-size:13px;font-weight:600;color:var(--secondary);">85%</span></div><div class="progress"><div class="progress-fill" style="width:85%;background:var(--secondary);"></div></div></div>
+          <div style="margin-bottom:14px;"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:14px;font-weight:500;">Target IIT, Nagpur</span><span style="font-size:13px;font-weight:600;color:var(--accent);">68%</span></div><div class="progress"><div class="progress-fill" style="width:68%;background:var(--accent);"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:14px;font-weight:500;">Bright Future, Nashik</span><span style="font-size:13px;font-weight:600;color:var(--error);">54%</span></div><div class="progress"><div class="progress-fill" style="width:54%;background:var(--error);"></div></div></div>
+        </div>
+        <div class="card" style="padding:24px;">
+          <h3 style="font-size:16px;font-weight:700;margin-bottom:18px;">Platform Health</h3>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:14px;">API Response Time</span><span class="badge badge-green">45ms</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:14px;">Database Storage</span><span style="font-size:14px;color:var(--text-secondary);">12.5 GB / 50 GB</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:14px;">Active Users (Now)</span><span class="badge badge-blue">342 online</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:14px;">Uptime (30 days)</span><span class="badge badge-green">99.97%</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:14px;">Last Backup</span><span style="font-size:14px;color:var(--text-secondary);">2 hours ago</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:24px;">
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">Recent Activity</h3>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;align-items:center;gap:14px;padding:10px;border-radius:8px;background:var(--bg);"><div class="avatar" style="background:var(--secondary-50);color:var(--secondary);">🏫</div><div style="flex:1;"><div style="font-size:14px;font-weight:500;">New academy onboarded: <strong>Shree Academy, Kolhapur</strong></div><div style="font-size:12px;color:var(--text-secondary);">2 hours ago</div></div></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:10px;border-radius:8px;background:var(--bg);"><div class="avatar" style="background:var(--primary-50);color:var(--primary);">📚</div><div style="flex:1;"><div style="font-size:14px;font-weight:500;">5,000 new JEE PYQs synced to question bank</div><div style="font-size:12px;color:var(--text-secondary);">5 hours ago</div></div></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:10px;border-radius:8px;background:var(--bg);"><div class="avatar" style="background:var(--accent-50);color:var(--accent);">⚠️</div><div style="flex:1;"><div style="font-size:14px;font-weight:500;">Bright Future Academy engagement dropped below 60%</div><div style="font-size:12px;color:var(--text-secondary);">1 day ago</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== SUPER ADMIN - ACADEMIES ====== -->
+<div class="screen" id="screen-sa-acad">
+  <div class="screen-inner fade-in">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+      <p class="page-title">Super Admin</p>
+      <button class="btn btn-primary"><span class="material-icons-outlined" style="font-size:18px;">add</span> Add New Academy</button>
+    </div>
+    <h1 class="page-heading">All Academies</h1>
+    <p class="page-desc">12 academies registered across Maharashtra</p>
+    <div class="card" style="overflow:hidden;">
+      <table class="table">
+        <thead><tr><th>Academy</th><th>City</th><th>Streams</th><th>Students</th><th>Teachers</th><th>Plan</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          <tr><td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:var(--primary-50);color:var(--primary);">V</div><div><div style="font-weight:600;">Vidya Academy</div><div style="font-size:12px;color:var(--text-secondary);">vidya@academy.com</div></div></div></td><td>Pune</td><td><span class="badge badge-blue">PCM + PCB</span></td><td>120</td><td>5</td><td><span class="badge badge-green">Premium</span></td><td><span style="display:flex;align-items:center;gap:4px;font-size:13px;color:var(--secondary);"><span style="width:6px;height:6px;border-radius:50%;background:var(--secondary);"></span> Active</span></td><td><button class="btn btn-secondary btn-sm">Edit</button></td></tr>
+          <tr><td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:var(--secondary-50);color:var(--secondary);">E</div><div><div style="font-weight:600;">Excel Classes</div><div style="font-size:12px;color:var(--text-secondary);">excel@classes.com</div></div></div></td><td>Mumbai</td><td><span class="badge badge-blue">PCM</span></td><td>200</td><td>8</td><td><span class="badge badge-blue">Basic</span></td><td><span style="display:flex;align-items:center;gap:4px;font-size:13px;color:var(--secondary);"><span style="width:6px;height:6px;border-radius:50%;background:var(--secondary);"></span> Active</span></td><td><button class="btn btn-secondary btn-sm">Edit</button></td></tr>
+          <tr><td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:var(--accent-50);color:#D97706;">T</div><div><div style="font-weight:600;">Target IIT Academy</div><div style="font-size:12px;color:var(--text-secondary);">target@iit.com</div></div></div></td><td>Nagpur</td><td><span class="badge badge-blue">PCM</span></td><td>80</td><td>3</td><td><span class="badge badge-amber">Free</span></td><td><span style="display:flex;align-items:center;gap:4px;font-size:13px;color:var(--secondary);"><span style="width:6px;height:6px;border-radius:50%;background:var(--secondary);"></span> Active</span></td><td><button class="btn btn-secondary btn-sm">Edit</button></td></tr>
+          <tr><td><div style="display:flex;align-items:center;gap:12px;"><div class="avatar" style="background:var(--error-50);color:var(--error);">B</div><div><div style="font-weight:600;">Bright Future</div><div style="font-size:12px;color:var(--text-secondary);">bright@future.com</div></div></div></td><td>Nashik</td><td><span class="badge badge-blue">PCB</span></td><td>95</td><td>4</td><td><span class="badge badge-green">Premium</span></td><td><span style="display:flex;align-items:center;gap:4px;font-size:13px;color:var(--accent);"><span style="width:6px;height:6px;border-radius:50%;background:var(--accent);"></span> Low Activity</span></td><td><button class="btn btn-secondary btn-sm">Edit</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ====== SUPER ADMIN - ONBOARDING ====== -->
+<div class="screen" id="screen-sa-onboard">
+  <div class="screen-inner fade-in">
+    <p class="page-title">Super Admin</p>
+    <h1 class="page-heading">Academy Onboarding</h1>
+    <p class="page-desc">Step-by-step wizard to register a new academy</p>
+    <div style="display:flex;gap:8px;margin-bottom:28px;">
+      <div class="card" style="flex:1;padding:14px;text-align:center;border:2px solid var(--primary);background:var(--primary-50);"><div style="font-size:11px;font-weight:700;color:var(--primary);">Step 1</div><div style="font-size:13px;font-weight:600;">Academy Details</div></div>
+      <div class="card" style="flex:1;padding:14px;text-align:center;"><div style="font-size:11px;font-weight:700;color:var(--text-tertiary);">Step 2</div><div style="font-size:13px;font-weight:500;color:var(--text-secondary);">Add Head</div></div>
+      <div class="card" style="flex:1;padding:14px;text-align:center;"><div style="font-size:11px;font-weight:700;color:var(--text-tertiary);">Step 3</div><div style="font-size:13px;font-weight:500;color:var(--text-secondary);">Upload Teachers</div></div>
+      <div class="card" style="flex:1;padding:14px;text-align:center;"><div style="font-size:11px;font-weight:700;color:var(--text-tertiary);">Step 4</div><div style="font-size:13px;font-weight:500;color:var(--text-secondary);">Upload Students</div></div>
+      <div class="card" style="flex:1;padding:14px;text-align:center;"><div style="font-size:11px;font-weight:700;color:var(--text-tertiary);">Step 5</div><div style="font-size:13px;font-weight:500;color:var(--text-secondary);">Go Live</div></div>
+    </div>
+    <div class="card" style="padding:32px;">
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:24px;">Academy Information</h3>
+      <div class="grid-2" style="gap:18px;margin-bottom:24px;">
+        <div><label class="form-label">Academy Name</label><input class="form-input" placeholder="e.g. Vidya Academy"></div>
+        <div><label class="form-label">City</label><input class="form-input" placeholder="e.g. Pune"></div>
+        <div><label class="form-label">Full Address</label><input class="form-input" placeholder="Street, Area, PIN code"></div>
+        <div><label class="form-label">Contact Phone</label><input class="form-input" placeholder="+91 98765 43210"></div>
+        <div><label class="form-label">Email Address</label><input class="form-input" placeholder="admin@academy.com"></div>
+        <div><label class="form-label">Subscription Plan</label><select class="form-input"><option>Free (up to 100 students)</option><option>Basic (up to 300 students)</option><option>Premium (unlimited)</option></select></div>
+        <div><label class="form-label">Streams Offered</label><div style="display:flex;gap:8px;margin-top:2px;"><div class="card" style="padding:10px 20px;cursor:pointer;border:2px solid var(--primary);background:var(--primary-50);font-size:13px;font-weight:600;color:var(--primary);">PCM</div><div class="card" style="padding:10px 20px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text-secondary);">PCB</div><div class="card" style="padding:10px 20px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text-secondary);">PCMB</div></div></div>
+        <div><label class="form-label">Classes</label><div style="display:flex;gap:8px;margin-top:2px;"><div class="card" style="padding:10px 20px;cursor:pointer;border:2px solid var(--primary);background:var(--primary-50);font-size:13px;font-weight:600;color:var(--primary);">Class 11</div><div class="card" style="padding:10px 20px;cursor:pointer;border:2px solid var(--primary);background:var(--primary-50);font-size:13px;font-weight:600;color:var(--primary);">Class 12</div></div></div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;">
+        <button class="btn btn-secondary">Cancel</button>
+        <button class="btn btn-primary">Next: Add Academy Head &rarr;</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== SUPER ADMIN - CONTENT ====== -->
+<div class="screen" id="screen-sa-content">
+  <div class="screen-inner fade-in">
+    <p class="page-title">Super Admin</p>
+    <h1 class="page-heading">Content Manager</h1>
+    <p class="page-desc">Manage platform-wide question bank, study materials, and PYQs</p>
+    <div class="stats-grid">
+      <div class="card stat-card"><div class="stat-icon" style="background:var(--primary-50);color:var(--primary);">📝</div><div class="stat-value" style="color:var(--primary);">60,240</div><div class="stat-label">Total Questions</div></div>
+      <div class="card stat-card"><div class="stat-icon" style="background:var(--secondary-50);color:var(--secondary);">📄</div><div class="stat-value" style="color:var(--secondary);">342</div><div class="stat-label">Study Materials</div></div>
+      <div class="card stat-card"><div class="stat-icon" style="background:var(--premium-50);color:var(--premium);">📋</div><div class="stat-value" style="color:var(--premium);">14,500</div><div class="stat-label">PYQs</div></div>
+      <div class="card stat-card"><div class="stat-icon" style="background:var(--accent-50);color:var(--accent);">🔗</div><div class="stat-value" style="color:var(--accent);">4</div><div class="stat-label">Data Sources</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="card" style="padding:24px;">
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:18px;">Questions by Subject</h3>
+        <div style="margin-bottom:14px;"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:14px;font-weight:500;">Physics</span><span style="font-size:13px;color:var(--text-secondary);">18,450</span></div><div class="progress"><div class="progress-fill" style="width:75%;background:var(--primary);"></div></div></div>
+        <div style="margin-bottom:14px;"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:14px;font-weight:500;">Chemistry</span><span style="font-size:13px;color:var(--text-secondary);">16,200</span></div><div class="progress"><div class="progress-fill" style="width:65%;background:var(--secondary);"></div></div></div>
+        <div style="margin-bottom:14px;"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:14px;font-weight:500;">Mathematics</span><span style="font-size:13px;color:var(--text-secondary);">15,890</span></div><div class="progress"><div class="progress-fill" style="width:63%;background:var(--accent);"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:14px;font-weight:500;">Biology</span><span style="font-size:13px;color:var(--text-secondary);">9,700</span></div><div class="progress"><div class="progress-fill" style="width:40%;background:var(--premium);"></div></div></div>
+      </div>
+      <div class="card" style="padding:24px;">
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:18px;">Quick Actions</h3>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="card" style="padding:14px;display:flex;align-items:center;gap:14px;cursor:pointer;"><span class="material-icons-outlined" style="font-size:24px;color:var(--primary);">upload_file</span><div><div style="font-weight:600;font-size:14px;">Bulk Import Questions</div><div style="font-size:12px;color:var(--text-secondary);">Upload JSON or CSV file</div></div></div>
+          <div class="card" style="padding:14px;display:flex;align-items:center;gap:14px;cursor:pointer;"><span class="material-icons-outlined" style="font-size:24px;color:var(--secondary);">note_add</span><div><div style="font-weight:600;font-size:14px;">Upload Study Material</div><div style="font-size:12px;color:var(--text-secondary);">PDF, Notes, Formula Sheets</div></div></div>
+          <div class="card" style="padding:14px;display:flex;align-items:center;gap:14px;cursor:pointer;"><span class="material-icons-outlined" style="font-size:24px;color:var(--accent);">sync</span><div><div style="font-weight:600;font-size:14px;">Sync External Sources</div><div style="font-size:12px;color:var(--text-secondary);">JEE/NEET/CET datasets</div></div></div>
+          <div class="card" style="padding:14px;display:flex;align-items:center;gap:14px;cursor:pointer;"><span class="material-icons-outlined" style="font-size:24px;color:var(--premium);">campaign</span><div><div style="font-weight:600;font-size:14px;">Push to All Academies</div><div style="font-size:12px;color:var(--text-secondary);">Sync content platform-wide</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== ACADEMY HEAD DASHBOARD ====== -->
+<div class="screen" id="screen-ah-dash">
+  <div class="screen-inner fade-in">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;"><p class="page-title">Academy Head</p><span class="badge badge-blue">Vidya Academy, Pune</span></div>
+    <h1 class="page-heading">Academy Overview</h1>
+    <p class="page-desc">Welcome back, Mrs. Kulkarni</p>
+    <div class="stats-grid">
+      <div class="card stat-card"><div class="stat-icon" style="background:var(--primary-50);color:var(--primary);">👨‍🎓</div><div class="stat-value" style="color:var(--primary);">120</div><div class="stat-label">Total Students</div></div>
+      <div class="card stat-card"><div class="stat-icon" style="background:var(--secondary-50);color:var(--secondary);">🎯</div><div class="stat-value" style="color:var(--secondary);">82%</div><div class="stat-label">Avg Accuracy</div></div>
+      <div class="card stat-card"><div class="stat-icon" style="background:var(--accent-50);color:var(--accent);">📝</div><div class="stat-value" style="color:var(--accent);">78%</div><div class="stat-label">HW Completion</div></div>
+      <div class="card stat-card"><div class="stat-icon" style="background:var(--premium-50);color:var(--premium);">👨‍🏫</div><div class="stat-value" style="color:var(--premium);">5/5</div><div class="stat-label">Teachers Active</div></div>
+    </div>
+    <div class="card" style="padding:24px;margin-bottom:20px;">
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:18px;">Batch Comparison</h3>
+      <div style="margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span style="font-weight:600;">Morning JEE Batch (Class 12)</span><span class="badge badge-green">88%</span></div><div class="progress" style="height:10px;"><div class="progress-fill" style="width:88%;background:var(--secondary);"></div></div></div>
+      <div style="margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span style="font-weight:600;">Evening CET Batch (Class 12)</span><span class="badge badge-amber">72%</span></div><div class="progress" style="height:10px;"><div class="progress-fill" style="width:72%;background:var(--accent);"></div></div></div>
+      <div style="margin-bottom:14px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span style="font-weight:600;">Weekend NEET Batch (Class 12)</span><span class="badge badge-green">80%</span></div><div class="progress" style="height:10px;"><div class="progress-fill" style="width:80%;background:var(--secondary);"></div></div></div>
+      <div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span style="font-weight:600;">Class 11 Foundation</span><span class="badge badge-red">55%</span></div><div class="progress" style="height:10px;"><div class="progress-fill" style="width:55%;background:var(--error);"></div></div></div>
+    </div>
+    <div class="alert alert-amber" style="flex-direction:column;gap:10px;">
+      <h4 style="font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;"><span class="material-icons-outlined" style="font-size:20px;color:var(--accent);">warning</span> Alerts</h4>
+      <div style="font-size:14px;">Teacher Dr. Joshi has <strong>12 unreviewed</strong> homework submissions</div>
+      <div style="font-size:14px;">Class 11 Foundation batch completion rate <strong>dropped below 60%</strong></div>
+      <div style="font-size:14px;">5 new students registered this week — <strong>pending batch assignment</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== ACADEMY HEAD - TEACHERS ====== -->
+<div class="screen" id="screen-ah-teachers">
+  <div class="screen-inner fade-in">
+    <p class="page-title">Academy Head &mdash; Vidya Academy</p>
+    <h1 class="page-heading">Teacher Management</h1>
+    <p class="page-desc">Monitor and manage all faculty members</p>
+    <div class="card" style="overflow:hidden;">
+      <table class="table"><thead><tr><th>Teacher</th><th>Subject</th><th>Batches</th><th>HW Assigned</th><th>HW Reviewed</th><th>Response Time</th><th>Rating</th></tr></thead>
+      <tbody>
+        <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-round" style="background:var(--primary-50);color:var(--primary);">DP</div><div><div style="font-weight:600;">Dr. Patil</div><div style="font-size:12px;color:var(--text-secondary);">TCH-ACAD01-001</div></div></div></td><td>Physics</td><td>3</td><td>24</td><td>22</td><td><span class="badge badge-green">2.1 hrs</span></td><td>4.8 / 5</td></tr>
+        <tr><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-round" style="background:var(--secondary-50);color:var(--secondary);">SK</div><div><div style="font-weight:600;">Mrs. Sharma</div><div style="font-size:12px;color:var(--text-secondary);">TCH-ACAD01-002</div></div></div></td><td>Chemistry</td><td>2</td><td>18</td><td>18</td><td><span class="badge badge-green">1.5 hrs</span></td><td>4.9 / 5</td></tr>
+        <tr style="background:var(--accent-50);"><td><div style="display:flex;align-items:center;gap:10px;"><div class="avatar avatar-round" style="background:var(--accent-50);color:#D97706;">DJ</div><div><div style="font-weight:600;">Dr. Joshi</div><div style="font-size:12px;color:var(--text-secondary);">TCH-ACAD01-003</div></div></div></td><td>Mathematics</td><td>3</td><td>20</td><td style="color:var(--error);font-weight:600;">8</td><td><span class="badge badge-red">18 hrs</span></td><td>3.2 / 5</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- ====== ACADEMY HEAD - REPORTS ====== -->
+<div class="screen" id="screen-ah-reports">
+  <div class="screen-inner fade-in">
+    <p class="page-title">Academy Head &mdash; Vidya Academy</p>
+    <h1 class="page-heading">Reports & Export</h1>
+    <p class="page-desc">Generate downloadable reports for parents, board compliance, and internal reviews</p>
+    <div class="cards-grid">
+      <div class="card" style="padding:24px;"><span class="material-icons-outlined" style="font-size:36px;color:var(--primary);display:block;margin-bottom:12px;">bar_chart</span><h3 style="font-size:16px;font-weight:700;margin-bottom:6px;">Monthly Progress Report</h3><p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Student-wise accuracy, homework completion, and test scores</p><button class="btn btn-primary btn-sm">Generate PDF</button></div>
+      <div class="card" style="padding:24px;"><span class="material-icons-outlined" style="font-size:36px;color:var(--secondary);display:block;margin-bottom:12px;">compare_arrows</span><h3 style="font-size:16px;font-weight:700;margin-bottom:6px;">Batch Comparison</h3><p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Side-by-side performance tracking across batches</p><button class="btn btn-primary btn-sm">Generate Excel</button></div>
+      <div class="card" style="padding:24px;"><span class="material-icons-outlined" style="font-size:36px;color:var(--accent);display:block;margin-bottom:12px;">family_restroom</span><h3 style="font-size:16px;font-weight:700;margin-bottom:6px;">Parent Report Card</h3><p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Individual student report with teacher remarks</p><button class="btn btn-primary btn-sm">Generate PDF</button></div>
+      <div class="card" style="padding:24px;"><span class="material-icons-outlined" style="font-size:36px;color:var(--premium);display:block;margin-bottom:12px;">verified</span><h3 style="font-size:16px;font-weight:700;margin-bottom:6px;">Board Compliance Audit</h3><p style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;">Syllabus coverage, timetable adherence, and attendance</p><button class="btn btn-primary btn-sm">Generate PDF</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== TEACHER DASHBOARD ====== -->
+<div class="screen" id="screen-t-dash">
+  <div class="screen-inner fade-in">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;"><p class="page-title">Teacher Panel</p><span class="badge badge-blue">Dr. Patil &mdash; Physics</span></div>
+    <h1 class="page-heading">Good Morning, Dr. Patil</h1>
+    <p class="page-desc">Vidya Academy | Physics | 3 Batches | 95 Students</p>
+    <div class="stats-grid">
+      <div class="card stat-card" style="border-left:4px solid var(--primary);"><div class="stat-value" style="color:var(--primary);">3</div><div class="stat-label">Active Batches</div></div>
+      <div class="card stat-card" style="border-left:4px solid var(--secondary);"><div class="stat-value" style="color:var(--secondary);">78/95</div><div class="stat-label">Submitted HW</div></div>
+      <div class="card stat-card" style="border-left:4px solid var(--error);"><div class="stat-value" style="color:var(--error);">8</div><div class="stat-label">Pending Reviews</div></div>
+      <div class="card stat-card" style="border-left:4px solid var(--accent);"><div class="stat-value" style="color:var(--accent);">87%</div><div class="stat-label">Avg Score</div></div>
+    </div>
+    <div class="grid-2" style="margin-bottom:20px;">
+      <div class="card" style="padding:24px;">
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;">Today's Tasks</h3>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <label style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:var(--bg);cursor:pointer;font-size:14px;"><input type="checkbox" style="width:18px;height:18px;accent-color:var(--primary);flex-shrink:0;"> <span>Review Morning Batch HW (12 pending)</span><span class="badge badge-red" style="margin-left:auto;">Urgent</span></label>
+          <label style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:var(--bg);cursor:pointer;font-size:14px;"><input type="checkbox" style="width:18px;height:18px;accent-color:var(--primary);flex-shrink:0;"> Create Chapter 5 test for Evening Batch</label>
+          <label style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:var(--bg);cursor:pointer;font-size:14px;"><input type="checkbox" style="width:18px;height:18px;accent-color:var(--primary);flex-shrink:0;"> Update May timetable</label>
+          <label style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;background:var(--bg);cursor:pointer;font-size:14px;color:var(--text-secondary);text-decoration:line-through;"><input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--primary);flex-shrink:0;"> Upload Electrostatics notes</label>
+        </div>
+      </div>
+      <div class="card" style="padding:24px;">
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;">Student Activity</h3>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--secondary);flex-shrink:0;"></span> 12 students active now</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--primary-light);flex-shrink:0;"></span> 3 new doubt requests</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;"></span> 45 tests completed today</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:14px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--error);flex-shrink:0;"></span> 5 students missed deadline</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;"><button class="btn btn-primary"><span class="material-icons-outlined" style="font-size:18px;">add</span> Assign Homework</button><button class="btn btn-secondary">Create Test</button><button class="btn btn-secondary">View Timetable</button><button class="btn btn-secondary">Export Reports</button></div>
+  </div>
+</div>
+
+<!-- ====== TEACHER - ASSIGN HW ====== -->
+<div class="screen" id="screen-t-hw">
+  <div class="screen-inner fade-in">
+    <p class="page-title">Teacher Panel</p>
+    <h1 class="page-heading">Assign Homework</h1>
+    <p class="page-desc">Create and assign homework to your batch</p>
+    <div class="card" style="padding:32px;">
+      <div class="grid-2" style="gap:18px;margin-bottom:24px;">
+        <div><label class="form-label">Select Batch</label><select class="form-input"><option>Class 12 - Morning JEE Batch (35 students)</option><option>Class 12 - Evening CET Batch (30 students)</option></select></div>
+        <div><label class="form-label">Subject</label><select class="form-input"><option>Physics</option></select></div>
+        <div><label class="form-label">Chapter</label><select class="form-input"><option>Select Chapter...</option><option>Electrostatics</option><option>Current Electricity</option></select></div>
+        <div><label class="form-label">Topic (Optional)</label><select class="form-input"><option>All Topics</option><option>Coulomb's Law</option><option>Electric Field</option></select></div>
+      </div>
+      <h4 style="font-size:14px;font-weight:700;margin-bottom:12px;">Select Questions</h4>
+      <div style="display:flex;gap:8px;margin-bottom:16px;"><button class="btn btn-primary btn-sm">From Platform Bank</button><button class="btn btn-secondary btn-sm">Upload Custom PDF</button><button class="btn btn-secondary btn-sm">Create Custom</button></div>
+      <div class="card" style="padding:16px;background:var(--bg);margin-bottom:24px;border-color:var(--border);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><span style="font-size:14px;font-weight:600;">Selected: <span style="color:var(--primary);">10 questions</span></span><div style="display:flex;gap:6px;"><span class="badge badge-green">4 Easy</span><span class="badge badge-amber">4 Medium</span><span class="badge badge-red">2 Hard</span></div></div>
+      </div>
+      <div class="grid-3" style="gap:18px;margin-bottom:24px;">
+        <div><label class="form-label">Deadline</label><input class="form-input" type="datetime-local"></div>
+        <div><label class="form-label">Time Limit</label><select class="form-input"><option>No Limit</option><option>30 Minutes</option><option>45 Minutes</option><option>60 Minutes</option></select></div>
+        <div><label class="form-label">Options</label><div style="display:flex;flex-direction:column;gap:6px;margin-top:2px;"><label style="font-size:13px;display:flex;align-items:center;gap:6px;"><input type="checkbox" checked style="accent-color:var(--primary);"> Show solutions after deadline</label><label style="font-size:13px;display:flex;align-items:center;gap:6px;"><input type="checkbox" style="accent-color:var(--primary);"> Allow late submission</label></div></div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px;"><button class="btn btn-secondary">Save Draft</button><button class="btn btn-primary">Publish & Notify Students</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== TEACHER - TIMETABLE ====== -->
+<div class="screen" id="screen-t-cal">
+  <div class="screen-inner fade-in">
+    <p class="page-title">Teacher Panel</p>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+      <h1 class="page-heading">Monthly Timetable</h1>
+      <div style="display:flex;align-items:center;gap:8px;"><button class="btn btn-secondary btn-sm">&larr;</button><span style="font-weight:700;font-size:15px;padding:0 8px;">May 2026</span><button class="btn btn-secondary btn-sm">&rarr;</button></div>
+    </div>
+    <p class="page-desc">Class 12 Morning JEE Batch | Physics | Drag topics to dates</p>
+    <div style="display:flex;gap:8px;margin-bottom:18px;"><span class="badge badge-red">Essential</span><span class="badge badge-amber">Recommended</span><span class="badge badge-green">Optional</span></div>
+    <div class="card" style="padding:20px;">
+      <div class="cal-grid">
+        <div class="cal-head">Mon</div><div class="cal-head">Tue</div><div class="cal-head">Wed</div><div class="cal-head">Thu</div><div class="cal-head">Fri</div><div class="cal-head">Sat</div><div class="cal-head">Sun</div>
+        <div class="cal-cell" style="opacity:0.4;"><div class="cal-num">28</div></div>
+        <div class="cal-cell" style="opacity:0.4;"><div class="cal-num">29</div></div>
+        <div class="cal-cell" style="opacity:0.4;"><div class="cal-num">30</div></div>
+        <div class="cal-cell"><div class="cal-num">1</div><div class="cal-tag" style="background:var(--error-50);color:var(--error);">Electrostatics</div></div>
+        <div class="cal-cell"><div class="cal-num">2</div><div class="cal-tag" style="background:var(--error-50);color:var(--error);">Coulomb's Law</div></div>
+        <div class="cal-cell"><div class="cal-num">3</div><div class="cal-tag" style="background:var(--accent-50);color:#D97706;">Practice Set</div></div>
+        <div class="cal-cell" style="background:#F9FAFB;"><div class="cal-num" style="color:var(--text-tertiary);">4</div></div>
+        <div class="cal-cell"><div class="cal-num">5</div><div class="cal-tag" style="background:var(--error-50);color:var(--error);">Electric Field</div></div>
+        <div class="cal-cell"><div class="cal-num">6</div><div class="cal-tag" style="background:var(--error-50);color:var(--error);">Gauss's Law</div></div>
+        <div class="cal-cell"><div class="cal-num">7</div><div class="cal-tag" style="background:var(--accent-50);color:#D97706;">Potential</div></div>
+        <div class="cal-cell"><div class="cal-num">8</div><div class="cal-tag" style="background:var(--secondary-50);color:#059669;">Capacitance</div></div>
+        <div class="cal-cell" style="border:2px solid var(--primary);"><div class="cal-num" style="color:var(--primary);">9</div><div class="cal-tag" style="background:var(--primary-50);color:var(--primary);">CHAPTER TEST</div></div>
+        <div class="cal-cell"><div class="cal-num">10</div><div class="cal-tag" style="background:var(--secondary-50);color:#059669;">Revision</div></div>
+        <div class="cal-cell" style="background:#F9FAFB;"><div class="cal-num" style="color:var(--text-tertiary);">11</div></div>
+        <div class="cal-cell"><div class="cal-num">12</div><div class="cal-tag" style="background:var(--error-50);color:var(--error);">Current Elec.</div></div>
+        <div class="cal-cell"><div class="cal-num">13</div><div class="cal-tag" style="background:var(--error-50);color:var(--error);">Ohm's Law</div></div>
+        <div class="cal-cell"><div class="cal-num">14</div></div>
+        <div class="cal-cell"><div class="cal-num">15</div></div>
+        <div class="cal-cell"><div class="cal-num">16</div></div>
+        <div class="cal-cell"><div class="cal-num">17</div></div>
+        <div class="cal-cell" style="background:#F9FAFB;"><div class="cal-num" style="color:var(--text-tertiary);">18</div></div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:16px;"><button class="btn btn-secondary">Save Draft</button><button class="btn btn-primary">Publish Timetable</button></div>
+  </div>
+</div>
+
+<!-- ====== TEACHER - REVIEW ====== -->
+<div class="screen" id="screen-t-review">
+  <div class="screen-inner fade-in">
+    <p class="page-title">Teacher Panel</p>
+    <h1 class="page-heading">Review Submissions</h1>
+    <p class="page-desc">Electrostatics HW &mdash; Morning JEE Batch | Deadline: Apr 28, 2026</p>
+    <div class="stats-grid" style="grid-template-columns:repeat(5,1fr);">
+      <div class="card stat-card"><div class="stat-value" style="color:var(--secondary);">28</div><div class="stat-label">Submitted</div></div>
+      <div class="card stat-card"><div class="stat-value" style="color:var(--accent);">5</div><div class="stat-label">Pending</div></div>
+      <div class="card stat-card"><div class="stat-value" style="color:var(--error);">2</div><div class="stat-label">Late</div></div>
+      <div class="card stat-card"><div class="stat-value" style="color:var(--primary);">76%</div><div class="stat-label">Avg Score</div></div>
+      <div class="card stat-card"><div class="stat-value" style="color:var(--text-secondary);">22m</div><div class="stat-label">Avg Time</div></div>
+    </div>
+    <div class="card" style="overflow:hidden;">
+      <table class="table"><thead><tr><th>Student</th><th>Score</th><th>Time</th><th>Weak Areas</th><th>Status</th><th></th></tr></thead><tbody>
+        <tr><td style="font-weight:600;">Rahul Patil</td><td><span style="color:var(--secondary);font-weight:600;">9/10 (90%)</span></td><td>18 min</td><td>&mdash;</td><td><span class="badge badge-green">Reviewed</span></td><td><button class="btn btn-secondary btn-sm">View</button></td></tr>
+        <tr><td style="font-weight:600;">Priya Deshmukh</td><td><span style="color:var(--secondary);font-weight:600;">8/10 (80%)</span></td><td>25 min</td><td style="color:var(--error);font-size:13px;">Gauss's Law</td><td><span class="badge badge-green">Reviewed</span></td><td><button class="btn btn-secondary btn-sm">View</button></td></tr>
+        <tr style="background:var(--accent-50);"><td style="font-weight:600;">Amit Kulkarni</td><td><span style="color:var(--error);font-weight:600;">4/10 (40%)</span></td><td>35 min</td><td style="color:var(--error);font-size:13px;">Electric Field, Potential</td><td><span class="badge badge-amber">Needs Review</span></td><td><button class="btn btn-primary btn-sm">Review</button></td></tr>
+        <tr><td style="font-weight:600;">Sneha Joshi</td><td><span style="color:var(--accent);font-weight:600;">6/10 (60%)</span></td><td>28 min</td><td style="color:var(--error);font-size:13px;">Coulomb's Law</td><td><span class="badge badge-amber">Needs Review</span></td><td><button class="btn btn-primary btn-sm">Review</button></td></tr>
+        <tr style="opacity:0.5;"><td style="font-weight:600;">Vikram More</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td><span class="badge badge-red">Not Submitted</span></td><td><button class="btn btn-secondary btn-sm">Remind</button></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- ====== TEACHER - DOUBT ROOM ====== -->
+<div class="screen" id="screen-t-doubt">
+  <div class="screen-inner fade-in">
+    <p class="page-title">Teacher Panel</p>
+    <h1 class="page-heading">Doubt Room</h1>
+    <p class="page-desc">3 open doubts from your students</p>
+    <div style="display:grid;grid-template-columns:280px 1fr;gap:16px;">
+      <div class="card" style="overflow:hidden;">
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border);font-size:12px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.05em;">Open Doubts</div>
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border);background:var(--primary-50);cursor:pointer;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-weight:600;font-size:14px;">Amit Kulkarni</span><span class="badge badge-red">Urgent</span></div><div style="font-size:12px;color:var(--text-secondary);">Gauss's Law - Can't understand flux...</div></div>
+        <div style="padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-weight:600;font-size:14px;">Priya Deshmukh</span><span class="badge badge-amber">Normal</span></div><div style="font-size:12px;color:var(--text-secondary);">Electric field direction doubt...</div></div>
+        <div style="padding:14px 16px;cursor:pointer;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-weight:600;font-size:14px;">Sneha Joshi</span><span class="badge badge-green">AI Resolved</span></div><div style="font-size:12px;color:var(--text-secondary);">Coulomb's Law numerical help...</div></div>
+      </div>
+      <div class="card" style="padding:24px;display:flex;flex-direction:column;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--border);margin-bottom:16px;"><div><div style="font-weight:700;">Amit Kulkarni</div><div style="font-size:12px;color:var(--text-secondary);">Physics > Electrostatics > Gauss's Law</div></div><span class="badge badge-red">From Essential Topic</span></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:12px;margin-bottom:16px;">
+          <div class="chat-msg chat-user">Sir, I can't understand how to apply Gauss's Law when the charge is not at the center of the Gaussian surface.</div>
+          <div class="chat-msg chat-ai"><div style="font-size:11px;color:var(--primary);font-weight:700;margin-bottom:8px;">AI SUGGESTION</div>Gauss's Law states that the total electric flux through a closed surface equals the charge enclosed divided by epsilon. The position of the charge inside doesn't matter...</div>
+          <div style="font-size:12px;color:var(--text-secondary);text-align:center;">Student marked AI response as "Not fully clear" &mdash; waiting for teacher</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:end;"><textarea class="form-input" rows="2" placeholder="Type your explanation..." style="flex:1;resize:none;"></textarea><button class="btn btn-primary">Send Reply</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== STUDENT DASHBOARD ====== -->
+<div class="screen" id="screen-s-dash">
+  <div class="screen-inner fade-in">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;"><p class="page-title">Student Dashboard</p><span class="badge badge-blue">Vidya Academy</span></div>
+    <h1 class="page-heading">Hello, Rahul!</h1>
+    <p class="page-desc">Class 12 PCM | Morning JEE Batch | STU-ACAD01-0042</p>
+    <div class="stats-grid">
+      <div class="card stat-card" style="border-left:4px solid var(--primary);"><div class="stat-value" style="color:var(--primary);">85.5%</div><div class="stat-label">Accuracy</div></div>
+      <div class="card stat-card" style="border-left:4px solid var(--secondary);"><div class="stat-value" style="color:var(--secondary);">1,450</div><div class="stat-label">Qs Solved</div></div>
+      <div class="card stat-card" style="border-left:4px solid var(--error);"><div class="stat-value" style="color:var(--error);">3</div><div class="stat-label">Pending HW</div></div>
+      <div class="card stat-card" style="border-left:4px solid var(--accent);"><div class="stat-value" style="color:var(--accent);">12</div><div class="stat-label">Chapters Done</div></div>
+    </div>
+    <div class="grid-2" style="margin-bottom:20px;">
+      <div class="card" style="padding:24px;">
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;">Upcoming Deadlines</h3>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="card" style="padding:14px;border-left:4px solid var(--error);display:flex;justify-content:space-between;align-items:center;"><div><div style="font-weight:600;">Electrostatics HW</div><div style="font-size:12px;color:var(--text-secondary);">10 Qs | Physics | Dr. Patil</div></div><div style="text-align:right;"><div style="font-size:13px;font-weight:600;color:var(--error);">Due Tomorrow</div></div></div>
+          <div class="card" style="padding:14px;border-left:4px solid var(--accent);display:flex;justify-content:space-between;align-items:center;"><div><div style="font-weight:600;">Chemical Kinetics Test</div><div style="font-size:12px;color:var(--text-secondary);">15 Qs | Chemistry | Mrs. Sharma</div></div><div style="text-align:right;"><div style="font-size:13px;font-weight:600;color:var(--accent);">3 days left</div></div></div>
+          <div class="card" style="padding:14px;border-left:4px solid var(--secondary);display:flex;justify-content:space-between;align-items:center;"><div><div style="font-weight:600;">Integration Practice Set</div><div style="font-size:12px;color:var(--text-secondary);">20 Qs | Mathematics | Optional</div></div><div style="text-align:right;"><div style="font-size:13px;font-weight:600;color:var(--secondary);">Self-paced</div></div></div>
+        </div>
+      </div>
+      <div class="card" style="padding:24px;">
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;">This Week's Timetable</h3>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;"><span style="width:36px;font-size:13px;font-weight:600;color:var(--text-secondary);">Mon</span><span class="badge badge-red">Essential</span><span style="font-size:14px;">Rotational Dynamics</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span style="width:36px;font-size:13px;font-weight:600;color:var(--text-secondary);">Tue</span><span class="badge badge-red">Essential</span><span style="font-size:14px;">Chemical Kinetics</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span style="width:36px;font-size:13px;font-weight:600;color:var(--text-secondary);">Wed</span><span class="badge badge-amber">Recommend</span><span style="font-size:14px;">Integration</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span style="width:36px;font-size:13px;font-weight:600;color:var(--text-secondary);">Thu</span><span class="badge badge-red">Essential</span><span style="font-size:14px;">Genetics</span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span style="width:36px;font-size:13px;font-weight:600;color:var(--text-secondary);">Fri</span><span class="badge badge-blue">Test</span><span style="font-size:14px;">Weekly Revision Test</span></div>
+        </div>
+        <div class="alert alert-amber" style="margin-top:14px;font-size:13px;"><span class="material-icons-outlined" style="font-size:18px;">lightbulb</span> <div><strong>AI Alert:</strong> Weak area detected in <strong>Rotational Dynamics</strong> — practice recommended before Friday test</div></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;"><button class="btn btn-primary"><span class="material-icons-outlined" style="font-size:18px;">play_arrow</span> Start Practice</button><button class="btn btn-secondary">View All Homework</button><button class="btn btn-secondary">Ask a Doubt</button><button class="btn btn-secondary">Study Materials</button></div>
+  </div>
+</div>
+
+<!-- ====== STUDENT - HOMEWORK ====== -->
+<div class="screen" id="screen-s-hw">
+  <div class="screen-inner fade-in">
+    <p class="page-title">Student</p>
+    <h1 class="page-heading">Homework: Electrostatics</h1>
+    <p class="page-desc">Assigned by Dr. Patil | 10 Questions | Deadline: Tomorrow 11:59 PM</p>
+    <div style="display:grid;grid-template-columns:1fr 300px;gap:20px;">
+      <div class="card" style="padding:28px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;"><span class="badge badge-blue">Question 3 of 10</span><span style="font-size:13px;color:var(--text-secondary);">Electrostatics > Coulomb's Law</span></div>
+        <p style="font-size:17px;font-weight:500;line-height:1.7;margin-bottom:28px;border-left:4px solid var(--primary);padding-left:20px;">Two point charges q1 = 2C and q2 = -3C are placed 20 cm apart in vacuum. Find the magnitude and direction of the force on q1 due to q2.</p>
+        <div class="grid-2" style="gap:10px;margin-bottom:28px;">
+          <div class="card" style="padding:14px;cursor:pointer;display:flex;align-items:center;gap:10px;"><span style="width:32px;height:32px;border-radius:8px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--primary);">A</span><span style="font-size:14px;">1.35 N, attractive</span></div>
+          <div class="card" style="padding:14px;cursor:pointer;display:flex;align-items:center;gap:10px;border:2px solid var(--primary);background:var(--primary-50);"><span style="width:32px;height:32px;border-radius:8px;background:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:white;">B</span><span style="font-size:14px;font-weight:600;">1.35 N, repulsive</span></div>
+          <div class="card" style="padding:14px;cursor:pointer;display:flex;align-items:center;gap:10px;"><span style="width:32px;height:32px;border-radius:8px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--primary);">C</span><span style="font-size:14px;">2.70 N, attractive</span></div>
+          <div class="card" style="padding:14px;cursor:pointer;display:flex;align-items:center;gap:10px;"><span style="width:32px;height:32px;border-radius:8px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--primary);">D</span><span style="font-size:14px;">0.675 N, repulsive</span></div>
+        </div>
+        <div style="display:flex;gap:10px;padding-top:16px;border-top:1px solid var(--border);"><button class="btn btn-secondary" style="flex:1;">Previous</button><button class="btn btn-secondary" style="color:var(--accent);border-color:var(--accent);">Clear</button><button class="btn btn-primary" style="flex:1;">Save & Next</button></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="card" style="padding:18px;">
+          <div style="font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:12px;">QUESTION NAVIGATOR</div>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;">
+            <div style="width:38px;height:38px;border-radius:8px;background:var(--secondary-50);border:2px solid var(--secondary);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--secondary);cursor:pointer;">1</div>
+            <div style="width:38px;height:38px;border-radius:8px;background:var(--secondary-50);border:2px solid var(--secondary);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--secondary);cursor:pointer;">2</div>
+            <div style="width:38px;height:38px;border-radius:8px;border:2px solid var(--primary);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--primary);cursor:pointer;box-shadow:0 0 0 3px rgba(30,64,175,0.1);">3</div>
+            <div style="width:38px;height:38px;border-radius:8px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;color:var(--text-secondary);cursor:pointer;">4</div>
+            <div style="width:38px;height:38px;border-radius:8px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;color:var(--text-secondary);cursor:pointer;">5</div>
+            <div style="width:38px;height:38px;border-radius:8px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;color:var(--text-secondary);cursor:pointer;">6</div>
+            <div style="width:38px;height:38px;border-radius:8px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;color:var(--text-secondary);cursor:pointer;">7</div>
+            <div style="width:38px;height:38px;border-radius:8px;background:var(--error-50);border:2px solid var(--error);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--error);cursor:pointer;">8</div>
+            <div style="width:38px;height:38px;border-radius:8px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;color:var(--text-secondary);cursor:pointer;">9</div>
+            <div style="width:38px;height:38px;border-radius:8px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;color:var(--text-secondary);cursor:pointer;">10</div>
+          </div>
+        </div>
+        <div class="card" style="padding:18px;background:var(--secondary-50);border-color:var(--secondary-light);">
+          <div style="font-size:12px;font-weight:700;color:#059669;margin-bottom:4px;">PROGRESS</div>
+          <div style="font-size:24px;font-weight:800;font-family:'Outfit',sans-serif;">2 / 10</div>
+          <div class="progress" style="margin-top:8px;"><div class="progress-fill" style="width:20%;background:var(--secondary);"></div></div>
+        </div>
+        <button class="btn btn-primary" style="justify-content:center;padding:14px;">Submit Homework</button>
+        <div class="card" style="padding:12px;text-align:center;cursor:pointer;font-size:13px;color:var(--primary-light);font-weight:600;">Have a doubt? Ask AI</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== STUDENT - TEST ====== -->
+<div class="screen" id="screen-s-test">
+  <div class="screen-inner fade-in">
+    <p class="page-title">Student</p>
+    <h1 class="page-heading">Practice Test</h1>
+    <p class="page-desc">Select your subject and chapter to start a practice test</p>
+    <div class="card" style="padding:32px;max-width:700px;margin:0 auto;">
+      <div class="grid-2" style="gap:18px;margin-bottom:24px;">
+        <div><label class="form-label">Class</label><select class="form-input"><option>Class 12 (2025-26)</option><option>Class 11</option></select></div>
+        <div><label class="form-label">Subject</label><select class="form-input"><option>Select Subject...</option><option>Physics</option><option>Chemistry</option><option>Mathematics</option><option>Biology</option></select></div>
+        <div><label class="form-label">Chapter</label><select class="form-input"><option>Select Chapter...</option></select></div>
+        <div><label class="form-label">Exam Mode</label><div style="display:flex;gap:6px;margin-top:2px;"><div class="card" style="padding:8px 16px;cursor:pointer;border:2px solid var(--primary);background:var(--primary-50);font-size:13px;font-weight:600;color:var(--primary);">MHT-CET</div><div class="card" style="padding:8px 16px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text-secondary);">JEE</div><div class="card" style="padding:8px 16px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text-secondary);">NEET</div></div></div>
+        <div><label class="form-label">Number of Questions</label><select class="form-input"><option>10 Questions</option><option>20</option><option>30</option></select></div>
+        <div><label class="form-label">Difficulty Mix</label><select class="form-input"><option>Balanced (40/40/20)</option><option>Easy Focus</option><option>Hard Focus</option></select></div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;padding:14px;font-size:15px;">Start Practice Test &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== STUDENT - RESULTS ====== -->
+<div class="screen" id="screen-s-result">
+  <div class="screen-inner fade-in">
+    <p class="page-title">Student</p>
+    <h1 class="page-heading">Test Results</h1>
+    <p class="page-desc">Electrostatics Practice Test | MHT-CET Mode</p>
+    <div class="stats-grid">
+      <div class="card stat-card"><div class="stat-value" style="color:var(--primary);">80%</div><div class="stat-label">Accuracy</div></div>
+      <div class="card stat-card" style="background:var(--secondary-50);border-color:var(--secondary-light);"><div class="stat-value" style="color:var(--secondary);">8</div><div class="stat-label">Correct</div></div>
+      <div class="card stat-card" style="background:var(--error-50);border-color:#FCA5A5;"><div class="stat-value" style="color:var(--error);">1</div><div class="stat-label">Wrong</div></div>
+      <div class="card stat-card" style="background:var(--accent-50);border-color:#FCD34D;"><div class="stat-value" style="color:var(--accent);">1</div><div class="stat-label">Skipped</div></div>
+    </div>
+    <div class="card" style="padding:24px;margin-bottom:20px;">
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;">Question 3 &mdash; <span style="color:var(--error);">Wrong</span></h3>
+      <p style="font-size:15px;line-height:1.65;margin-bottom:18px;border-left:4px solid var(--error);padding-left:18px;">What is the electric flux through a closed surface enclosing a charge of 5 microcoulombs?</p>
+      <div class="grid-2" style="gap:8px;margin-bottom:18px;">
+        <div class="card" style="padding:12px;display:flex;align-items:center;gap:10px;"><span style="width:28px;height:28px;border-radius:6px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">A</span><span style="font-size:14px;">5.65 x 10^5 Nm^2/C</span></div>
+        <div class="card" style="padding:12px;display:flex;align-items:center;gap:10px;border:2px solid var(--error);background:var(--error-50);"><span style="width:28px;height:28px;border-radius:6px;background:var(--error);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">B</span><span style="font-size:14px;">2.82 x 10^5</span><span class="badge badge-red" style="margin-left:auto;">Your Answer</span></div>
+        <div class="card" style="padding:12px;display:flex;align-items:center;gap:10px;border:2px solid var(--secondary);background:var(--secondary-50);"><span style="width:28px;height:28px;border-radius:6px;background:var(--secondary);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">C</span><span style="font-size:14px;">5.65 x 10^4</span><span class="badge badge-green" style="margin-left:auto;">Correct</span></div>
+        <div class="card" style="padding:12px;display:flex;align-items:center;gap:10px;"><span style="width:28px;height:28px;border-radius:6px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">D</span><span style="font-size:14px;">1.13 x 10^5</span></div>
+      </div>
+      <div class="alert alert-blue"><span class="material-icons-outlined" style="font-size:20px;">info</span><div><strong>Explanation:</strong> Using Gauss's Law: Flux = Q/epsilon_0 = (5 x 10^-6) / (8.85 x 10^-12) = 5.65 x 10^5 Nm^2/C.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== STUDENT - DOUBTS ====== -->
+<div class="screen" id="screen-s-doubt">
+  <div class="screen-inner fade-in">
+    <p class="page-title">Student</p>
+    <h1 class="page-heading">AI Doubt Solver</h1>
+    <p class="page-desc">Ask any question from your Maharashtra Board syllabus</p>
+    <div class="card" style="padding:24px;min-height:380px;display:flex;flex-direction:column;gap:14px;margin-bottom:14px;">
+      <div class="chat-msg chat-user">Can you explain Gauss's Law with a simple example? I'm confused about when to use it vs Coulomb's Law.</div>
+      <div class="chat-msg chat-ai">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;"><div style="width:22px;height:22px;border-radius:6px;background:var(--secondary);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;">AI</div><span style="font-size:11px;color:var(--text-secondary);font-weight:700;text-transform:uppercase;">AI Tutor &mdash; Physics</span></div>
+        <p style="margin-bottom:14px;">Gauss's Law states that the total electric flux through any closed surface equals the enclosed charge divided by permittivity. Use it when charge distribution has symmetry (spherical, cylindrical, or planar). Use Coulomb's Law for point charges without symmetry.</p>
+        <div style="padding:10px 14px;background:var(--primary-50);border-radius:8px;border:1px solid var(--primary-100);margin-bottom:8px;">
+          <div style="font-size:10px;font-weight:700;color:var(--primary);margin-bottom:6px;">RELATED PYQs</div>
+          <div style="display:flex;gap:6px;"><span class="badge badge-blue">JEE 2023 Q12</span><span class="badge badge-blue">MHT-CET 2022 Q45</span></div>
+        </div>
+        <div style="font-size:12px;color:var(--text-secondary);">Reference: Section 4.5, eBalbharati Physics (Class 12)</div>
+      </div>
+    </div>
+    <div class="card" style="padding:14px;display:flex;gap:10px;align-items:end;">
+      <select class="form-input" style="width:130px;"><option>Physics</option><option>Chemistry</option><option>Maths</option><option>Biology</option></select>
+      <textarea class="form-input" rows="2" placeholder="Type your doubt here..." style="flex:1;resize:none;"></textarea>
+      <button class="btn btn-primary">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- ====== STUDENT - PROGRESS ====== -->
+<div class="screen" id="screen-s-progress">
+  <div class="screen-inner fade-in">
+    <p class="page-title">Student</p>
+    <h1 class="page-heading">Your Progress</h1>
+    <p class="page-desc">Track your preparation journey</p>
+    <div class="stats-grid">
+      <div class="card stat-card"><div class="stat-value" style="color:var(--primary);">85.5%</div><div class="stat-label">Overall Accuracy</div></div>
+      <div class="card stat-card"><div class="stat-value" style="color:var(--secondary);">45</div><div class="stat-label">Tests Taken</div></div>
+      <div class="card stat-card"><div class="stat-value" style="color:var(--primary-light);">1,450</div><div class="stat-label">Questions Solved</div></div>
+      <div class="card stat-card"><div class="stat-value" style="color:var(--accent);">7</div><div class="stat-label">Day Streak</div></div>
+    </div>
+    <div class="grid-2" style="margin-bottom:20px;">
+      <div class="card" style="padding:24px;">
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:18px;">Subject-wise Accuracy</h3>
+        <div style="margin-bottom:14px;"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-weight:500;">Physics</span><span style="font-weight:600;color:var(--secondary);">88%</span></div><div class="progress"><div class="progress-fill" style="width:88%;background:var(--secondary);"></div></div></div>
+        <div style="margin-bottom:14px;"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-weight:500;">Chemistry</span><span style="font-weight:600;color:var(--secondary);">82%</span></div><div class="progress"><div class="progress-fill" style="width:82%;background:var(--secondary);"></div></div></div>
+        <div style="margin-bottom:14px;"><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-weight:500;">Mathematics</span><span style="font-weight:600;color:var(--accent);">75%</span></div><div class="progress"><div class="progress-fill" style="width:75%;background:var(--accent);"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-weight:500;">Biology</span><span style="font-weight:600;color:var(--secondary);">90%</span></div><div class="progress"><div class="progress-fill" style="width:90%;background:var(--secondary);"></div></div></div>
+      </div>
+      <div class="card" style="padding:24px;">
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:18px;">Weak Topics (AI Detected)</h3>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="card" style="padding:14px;border-left:4px solid var(--error);display:flex;align-items:center;justify-content:space-between;"><div><div style="font-weight:600;">Rotational Dynamics</div><div style="font-size:12px;color:var(--text-secondary);">Physics | 45% accuracy</div></div><button class="btn btn-primary btn-sm">Practice</button></div>
+          <div class="card" style="padding:14px;border-left:4px solid var(--accent);display:flex;align-items:center;justify-content:space-between;"><div><div style="font-weight:600;">Organic Chemistry</div><div style="font-size:12px;color:var(--text-secondary);">Chemistry | 52% accuracy</div></div><button class="btn btn-primary btn-sm">Practice</button></div>
+          <div class="card" style="padding:14px;border-left:4px solid var(--accent);display:flex;align-items:center;justify-content:space-between;"><div><div style="font-weight:600;">Differential Equations</div><div style="font-size:12px;color:var(--text-secondary);">Mathematics | 58% accuracy</div></div><button class="btn btn-primary btn-sm">Practice</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="padding:24px;">
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:14px;">Recent Test History</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;gap:14px;padding:14px;border-radius:10px;background:var(--bg);">
+          <div style="width:48px;height:48px;border-radius:10px;background:var(--secondary-50);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:var(--secondary);">88%</div>
+          <div style="flex:1;"><div style="font-weight:600;">Electrostatics Practice</div><div style="font-size:12px;color:var(--text-secondary);">Physics | 8/10 correct | Apr 27</div></div>
+          <span style="font-size:13px;color:var(--text-secondary);">18 min</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:14px;border-radius:10px;background:var(--bg);">
+          <div style="width:48px;height:48px;border-radius:10px;background:var(--accent-50);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#D97706;">65%</div>
+          <div style="flex:1;"><div style="font-weight:600;">Chemical Kinetics Mock</div><div style="font-size:12px;color:var(--text-secondary);">Chemistry | 13/20 correct | Apr 25</div></div>
+          <span style="font-size:13px;color:var(--text-secondary);">32 min</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:14px;border-radius:10px;background:var(--bg);">
+          <div style="width:48px;height:48px;border-radius:10px;background:var(--secondary-50);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:var(--secondary);">92%</div>
+          <div style="flex:1;"><div style="font-weight:600;">Integration Chapter Test</div><div style="font-size:12px;color:var(--text-secondary);">Mathematics | 23/25 correct | Apr 23</div></div>
+          <span style="font-size:13px;color:var(--text-secondary);">45 min</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>
