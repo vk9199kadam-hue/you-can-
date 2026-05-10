@@ -2,13 +2,16 @@ import { onCall, HttpsError } from "firebase-functions/v2/https";
 import { defineString } from "firebase-functions/params";
 import { initializeApp } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
-import { getFirestore, FieldValue } from "firebase-admin/firestore";
+import { getFirestore, FieldValue, type Firestore } from "firebase-admin/firestore";
 
 initializeApp();
 
 const openAiKey = defineString("OPENAI_API_KEY", { default: "" });
+const cfApiToken = defineString("CLOUDFLARE_API_TOKEN", { default: "" });
+const cfAccountId = defineString("CLOUDFLARE_ACCOUNT_ID", { default: "" });
 
 type Role = "super_admin" | "academy_head" | "teacher" | "student";
+
 
 function requireAuth(request: { auth?: { uid: string } }) {
   if (!request.auth?.uid) throw new HttpsError("unauthenticated", "Login required.");
@@ -27,6 +30,73 @@ async function requireStudent(uid: string) {
   const snap = await db.collection("users").doc(uid).get();
   const role = snap.data()?.role as Role | undefined;
   if (role !== "student") throw new HttpsError("permission-denied", "Students only.");
+}
+
+function tokenizeForMatch(s: string): string[] {
+  return s
+    .toLowerCase()
+    .replace(/[^a-z0-9\u0900-\u097F]+/g, " ")
+    .split(/\s+/)
+    .filter((w) => w.length > 2);
+}
+
+function scoreQueryAgainstText(queryText: string, corpus: string): number {
+  const qt = new Set(tokenizeForMatch(queryText));
+  if (qt.size === 0) return 0;
+  let sc = 0;
+  for (const w of tokenizeForMatch(corpus)) {
+    if (qt.has(w)) sc++;
+  }
+  return sc;
+}
+
+type BankQuestion = {
+  subject?: string;
+  question?: string;
+  topic?: string;
+  chapter?: string;
+  isPYQ?: boolean;
+  isShared?: boolean;
+  academyId?: string | null;
+};
+
+async function fetchRankedQuestionSnippets(
+  db: Firestore,
+  academyId: string | undefined,
+  subject: string,
+  queryText: string,
+  max: number,
+): Promise<Array<{ id: string; preview: string; snippet: string }>> {
+  const subj = subject?.trim() || "Physics";
+  const snap = await db.collection("questions").where("subject", "==", subj).limit(100).get();
+  const rows: Array<{ id: string; data: BankQuestion }> = [];
+  snap.forEach((d) => rows.push({ id: d.id, data: d.data() as BankQuestion }));
+  const filtered = rows.filter((r) => {
+    if (r.data.isShared === true) return true;
+    if (academyId && r.data.academyId === academyId) return true;
+    return false;
+  });
+  const pool = filtered.length > 0 ? filtered : rows;
+  const scored = pool
+    .map((r) => {
+      const text = `${r.data.question ?? ""} ${r.data.topic ?? ""} ${r.data.chapter ?? ""}`;
+      return {
+        id: r.id,
+        data: r.data,
+        sc: scoreQueryAgainstText(queryText, text) + (r.data.isPYQ ? 0.5 : 0),
+      };
+    })
+    .sort((a, b) => b.sc - a.sc);
+  const hasSignal = scored.some((x) => x.sc > 0);
+  const pick = (hasSignal ? scored : scored).slice(0, max);
+  return pick.map((r) => {
+    const q = r.data.question ?? "";
+    return {
+      id: r.id,
+      preview: q.length > 140 ? `${q.slice(0, 137)}…` : q,
+      snippet: q.length > 450 ? `${q.slice(0, 447)}…` : q,
+    };
+  });
 }
 
 function normalizeCode(raw: string) {
@@ -177,59 +247,33 @@ export const resolveDoubt = onCall(async (request) => {
   const uid = requireAuth(request);
   await requireStudent(uid);
 
-  const { subject, query } = request.data as { subject?: string; query?: string };
+  const { subject, query, language } = request.data as {
+    subject?: string;
+    query?: string;
+    language?: "en" | "mr";
+  };
   if (!query || !String(query).trim()) {
     throw new HttpsError("invalid-argument", "query is required");
   }
 
-  const apiKey = openAiKey.value();
-  if (!apiKey) {
-    return {
-      explanation:
-        "AI is not configured yet. Set the OPENAI_API_KEY Firebase parameter for this function (see Firebase docs: environment parameters). Until then, use your class notes and textbook, or ask your teacher in the Doubts tab.",
-      relatedPyqs: [] as string[],
-      boardReference: "Maharashtra State Board / NCERT",
-      stub: true,
-    };
-  }
+  const db = getFirestore();
+  const userSnap = await db.collection("users").doc(uid).get();
+  const academyId = userSnap.data()?.academyId as string | undefined;
 
-  const res = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: "gpt-4o-mini",
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are a concise tutor for Indian students preparing for MHT-CET, JEE Main, and NEET. Answer in clear steps. About 200–350 words. Reference board/syllabus context briefly when useful.",
-        },
-        {
-          role: "user",
-          content: `Subject: ${subject || "General"}\n\nStudent question:\n${query}`,
-        },
-      ],
-      max_tokens: 700,
-      temperature: 0.35,
-    }),
-  });
+  const qText = String(query).trim();
+  const subj = subject?.trim() || "Physics";
+  const lang: "en" | "mr" = language === "mr" ? "mr" : "en";
 
-  if (!res.ok) {
-    const errText = await res.text();
-    console.error("OpenAI HTTP error", res.status, errText);
-    throw new HttpsError("internal", "AI service returned an error");
-  }
-
-  const json = (await res.json()) as { choices?: Array<{ message?: { content?: string } }> };
-  const explanation = json.choices?.[0]?.message?.content?.trim() || "No explanation returned.";
+  const related = await fetchRankedQuestionSnippets(db, academyId, subj, qText, 6);
   return {
-    explanation,
-    relatedPyqs: [] as string[],
-    boardReference: "Verify key facts with NCERT / eBalbharati for your class.",
-    stub: false,
+    explanation:
+      lang === "mr"
+        ? "सध्या Live AI tutor बंद आहे. खाली तुमच्या प्रश्नाशी जुळणारे प्रश्न-bank snippets दिले आहेत. यावर आधारित पाठ्यपुस्तक (NCERT / eBalbharati) मधील संकल्पना वाचा आणि शिक्षकांना विचारून पूर्ण solution तपासा."
+        : "Live AI tutor is currently disabled. Below are related question-bank snippets matched to your query. Use NCERT / eBalbharati to revise the concept and ask your teacher for a full worked solution.",
+    relatedPyqs: related.map((r) => ({ id: r.id, preview: r.preview })),
+    boardReference: "NCERT / eBalbharati (Maharashtra State Board)",
+    stub: true,
   };
 });
+
 

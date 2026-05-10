@@ -8,6 +8,8 @@ const auth_1 = require("firebase-admin/auth");
 const firestore_1 = require("firebase-admin/firestore");
 (0, app_1.initializeApp)();
 const openAiKey = (0, params_1.defineString)("OPENAI_API_KEY", { default: "" });
+const cfApiToken = (0, params_1.defineString)("CLOUDFLARE_API_TOKEN", { default: "" });
+const cfAccountId = (0, params_1.defineString)("CLOUDFLARE_ACCOUNT_ID", { default: "" });
 function requireAuth(request) {
     if (!request.auth?.uid)
         throw new https_1.HttpsError("unauthenticated", "Login required.");
@@ -26,6 +28,58 @@ async function requireStudent(uid) {
     const role = snap.data()?.role;
     if (role !== "student")
         throw new https_1.HttpsError("permission-denied", "Students only.");
+}
+function tokenizeForMatch(s) {
+    return s
+        .toLowerCase()
+        .replace(/[^a-z0-9\u0900-\u097F]+/g, " ")
+        .split(/\s+/)
+        .filter((w) => w.length > 2);
+}
+function scoreQueryAgainstText(queryText, corpus) {
+    const qt = new Set(tokenizeForMatch(queryText));
+    if (qt.size === 0)
+        return 0;
+    let sc = 0;
+    for (const w of tokenizeForMatch(corpus)) {
+        if (qt.has(w))
+            sc++;
+    }
+    return sc;
+}
+async function fetchRankedQuestionSnippets(db, academyId, subject, queryText, max) {
+    const subj = subject?.trim() || "Physics";
+    const snap = await db.collection("questions").where("subject", "==", subj).limit(100).get();
+    const rows = [];
+    snap.forEach((d) => rows.push({ id: d.id, data: d.data() }));
+    const filtered = rows.filter((r) => {
+        if (r.data.isShared === true)
+            return true;
+        if (academyId && r.data.academyId === academyId)
+            return true;
+        return false;
+    });
+    const pool = filtered.length > 0 ? filtered : rows;
+    const scored = pool
+        .map((r) => {
+        const text = `${r.data.question ?? ""} ${r.data.topic ?? ""} ${r.data.chapter ?? ""}`;
+        return {
+            id: r.id,
+            data: r.data,
+            sc: scoreQueryAgainstText(queryText, text) + (r.data.isPYQ ? 0.5 : 0),
+        };
+    })
+        .sort((a, b) => b.sc - a.sc);
+    const hasSignal = scored.some((x) => x.sc > 0);
+    const pick = (hasSignal ? scored : scored).slice(0, max);
+    return pick.map((r) => {
+        const q = r.data.question ?? "";
+        return {
+            id: r.id,
+            preview: q.length > 140 ? `${q.slice(0, 137)}…` : q,
+            snippet: q.length > 450 ? `${q.slice(0, 447)}…` : q,
+        };
+    });
 }
 function normalizeCode(raw) {
     return raw.trim().toUpperCase().replace(/\s+/g, "");
@@ -127,52 +181,23 @@ exports.bulkCreateUsers = (0, https_1.onCall)(async (request) => {
 exports.resolveDoubt = (0, https_1.onCall)(async (request) => {
     const uid = requireAuth(request);
     await requireStudent(uid);
-    const { subject, query } = request.data;
+    const { subject, query, language } = request.data;
     if (!query || !String(query).trim()) {
         throw new https_1.HttpsError("invalid-argument", "query is required");
     }
-    const apiKey = openAiKey.value();
-    if (!apiKey) {
-        return {
-            explanation: "AI is not configured yet. Set the OPENAI_API_KEY Firebase parameter for this function (see Firebase docs: environment parameters). Until then, use your class notes and textbook, or ask your teacher in the Doubts tab.",
-            relatedPyqs: [],
-            boardReference: "Maharashtra State Board / NCERT",
-            stub: true,
-        };
-    }
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-            Authorization: `Bearer ${apiKey}`,
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            model: "gpt-4o-mini",
-            messages: [
-                {
-                    role: "system",
-                    content: "You are a concise tutor for Indian students preparing for MHT-CET, JEE Main, and NEET. Answer in clear steps. About 200–350 words. Reference board/syllabus context briefly when useful.",
-                },
-                {
-                    role: "user",
-                    content: `Subject: ${subject || "General"}\n\nStudent question:\n${query}`,
-                },
-            ],
-            max_tokens: 700,
-            temperature: 0.35,
-        }),
-    });
-    if (!res.ok) {
-        const errText = await res.text();
-        console.error("OpenAI HTTP error", res.status, errText);
-        throw new https_1.HttpsError("internal", "AI service returned an error");
-    }
-    const json = (await res.json());
-    const explanation = json.choices?.[0]?.message?.content?.trim() || "No explanation returned.";
+    const db = (0, firestore_1.getFirestore)();
+    const userSnap = await db.collection("users").doc(uid).get();
+    const academyId = userSnap.data()?.academyId;
+    const qText = String(query).trim();
+    const subj = subject?.trim() || "Physics";
+    const lang = language === "mr" ? "mr" : "en";
+    const related = await fetchRankedQuestionSnippets(db, academyId, subj, qText, 6);
     return {
-        explanation,
-        relatedPyqs: [],
-        boardReference: "Verify key facts with NCERT / eBalbharati for your class.",
-        stub: false,
+        explanation: lang === "mr"
+            ? "सध्या Live AI tutor बंद आहे. खाली तुमच्या प्रश्नाशी जुळणारे प्रश्न-bank snippets दिले आहेत. यावर आधारित पाठ्यपुस्तक (NCERT / eBalbharati) मधील संकल्पना वाचा आणि शिक्षकांना विचारून पूर्ण solution तपासा."
+            : "Live AI tutor is currently disabled. Below are related question-bank snippets matched to your query. Use NCERT / eBalbharati to revise the concept and ask your teacher for a full worked solution.",
+        relatedPyqs: related.map((r) => ({ id: r.id, preview: r.preview })),
+        boardReference: "NCERT / eBalbharati (Maharashtra State Board)",
+        stub: true,
     };
 });

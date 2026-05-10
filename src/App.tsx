@@ -1,6 +1,7 @@
 import { useAuth } from "./contexts/AuthContext";
 import { IS_AUTH_BYPASS } from "./config/devAuth";
 import LoginPage from "./components/LoginPage";
+import FirstLoginReset from "./components/FirstLoginReset";
 import SuperAdminDashboard from "./components/dashboards/SuperAdminDashboard";
 import AcademyHeadDashboard from "./components/dashboards/AcademyHeadDashboard";
 import TeacherDashboard from "./components/dashboards/TeacherDashboard";
@@ -26,6 +27,10 @@ function App() {
 
   if (!user) {
     return <LoginPage />;
+  }
+
+  if (user.tempPassword) {
+    return <FirstLoginReset />;
   }
 
   switch (user.role) {
